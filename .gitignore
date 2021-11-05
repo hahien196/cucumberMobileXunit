@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/SpiritDigital.CliniTouchVie.Application.Testing/v16
+/.vs
+/CTV.Application.SpecFlowAppiumTests/.vs/CTV.Application.SpecFlowAppiumTests/v16
+/CTV.Application.SpecFlowAppiumTests/obj
