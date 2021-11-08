@@ -6,3 +6,4 @@
 /.vs
 /CTV.Application.SpecFlowAppiumTests/.vs/CTV.Application.SpecFlowAppiumTests/v16
 /CTV.Application.SpecFlowAppiumTests/obj
+/CTV.Application.SpecFlowAppiumTests/bin/Debug/net5.0

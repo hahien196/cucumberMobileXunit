@@ -12,12 +12,13 @@ namespace CTV.Application.SpecFlowAppiumTests.Drivers
         public AndroidDriver<AppiumWebElement> InitAndroidDriver()
         {
 
-            var apk = @"C:/TestAPK/app-debug.apk";
+            var apk = @"C:\TestAPK\CTV\app-debug.apk";
             var driverOptions = new AppiumOptions();
             driverOptions.AddAdditionalCapability(MobileCapabilityType.PlatformName, "Android");
             driverOptions.AddAdditionalCapability("appium:avd", "AndroidTest001");
             driverOptions.AddAdditionalCapability("appium:automationName", "uiautomator2");
             driverOptions.AddAdditionalCapability("appium:app", apk);
+            driverOptions.AddAdditionalCapability("appium:newCommandTimeout", 120);
 
             return new AndroidDriver<AppiumWebElement>(new Uri("http://localhost:4723/"), driverOptions);
         }
