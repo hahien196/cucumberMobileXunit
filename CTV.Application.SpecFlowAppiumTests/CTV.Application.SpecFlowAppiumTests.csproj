@@ -5,14 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TestResults\**" />
+    <EmbeddedResource Remove="TestResults\**" />
+    <None Remove="TestResults\**" />
+    <SpecFlowFeatureFiles Remove="TestResults\**" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="TestResults\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Appium.WebDriver" Version="4.3.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
-    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
-
-    
-
-    
-    <PackageReference Include="SpecFlow.xUnit" Version="3.9.22" />
+    <PackageReference Include="SpecRun.SpecFlow" Version="3.9.7" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
@@ -27,6 +30,12 @@
     
     <PackageReference Include="FluentAssertions" Version="6.2.0" />
     
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ReportingTemplate\CucumberJson.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

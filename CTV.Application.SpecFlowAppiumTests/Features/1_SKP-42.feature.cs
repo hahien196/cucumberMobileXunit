@@ -19,32 +19,27 @@ namespace CTV.Application.SpecFlowAppiumTests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class ActivationElementsAreVisibleFeature : object, Xunit.IClassFixture<ActivationElementsAreVisibleFeature.FixtureData>, System.IDisposable
+    [TechTalk.SpecRun.FeatureAttribute("Activation elements are visible", SourceFile="Features\\1_SKP-42.feature", SourceLine=0)]
+    public partial class ActivationElementsAreVisibleFeature
     {
         
-        private static TechTalk.SpecFlow.ITestRunner testRunner;
+        private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-        private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
-        
-#line 1 "SKP-T1 Activation elements are visible.feature"
+#line 1 "1_SKP-42.feature"
 #line hidden
         
-        public ActivationElementsAreVisibleFeature(ActivationElementsAreVisibleFeature.FixtureData fixtureData, CTV_Application_SpecFlowAppiumTests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
-        {
-            this._testOutputHelper = testOutputHelper;
-            this.TestInitialize();
-        }
-        
-        public static void FeatureSetup()
+        [TechTalk.SpecRun.FeatureInitialize()]
+        public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Activation elements are visible", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
-        public static void FeatureTearDown()
+        [TechTalk.SpecRun.FeatureCleanup()]
+        public virtual void FeatureTearDown()
         {
             testRunner.OnFeatureEnd();
             testRunner = null;
@@ -54,6 +49,7 @@ namespace CTV.Application.SpecFlowAppiumTests.Features
         {
         }
         
+        [TechTalk.SpecRun.ScenarioCleanup()]
         public virtual void TestTearDown()
         {
             testRunner.OnScenarioEnd();
@@ -62,7 +58,6 @@ namespace CTV.Application.SpecFlowAppiumTests.Features
         public virtual void ScenarioInitialize(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioInitialize(scenarioInfo);
-            testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);
         }
         
         public virtual void ScenarioStart()
@@ -75,25 +70,22 @@ namespace CTV.Application.SpecFlowAppiumTests.Features
             testRunner.CollectScenarioErrors();
         }
         
-        void System.IDisposable.Dispose()
+        public virtual void ActivationElementsAreVisible(string title, string view, string element, string[] exampleTags)
         {
-            this.TestTearDown();
-        }
-        
-        [Xunit.SkippableTheoryAttribute(DisplayName="Activation elements are visible")]
-        [Xunit.TraitAttribute("FeatureTitle", "Activation elements are visible")]
-        [Xunit.TraitAttribute("Description", "Activation elements are visible")]
-        [Xunit.InlineDataAttribute("Activation", "SpiritLogo", new string[0])]
-        [Xunit.InlineDataAttribute("Activation2", "ActivationTitle", new string[0])]
-        public virtual void ActivationElementsAreVisible(string view, string element, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
+            string[] @__tags = new string[] {
+                    "TEST_SKP-42"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("title", title);
             argumentsOfScenario.Add("view", view);
             argumentsOfScenario.Add("element", element);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Activation elements are visible", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 3
-    this.ScenarioInitialize(scenarioInfo);
+#line 9
+ this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -112,33 +104,62 @@ namespace CTV.Application.SpecFlowAppiumTests.Features
             else
             {
                 this.ScenarioStart();
-#line 4
-        testRunner.Given("the app is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 10
+  testRunner.Given("the app is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 5
-        testRunner.When(string.Format("the user is on the {0} screen", view), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 11
+  testRunner.When(string.Format("the user is on the {0} screen", view), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 6
-        testRunner.Then(string.Format("they are able to see the expected element {0}", element), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 12
+  testRunner.Then(string.Format("they are able to see the expected element {0}", element), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
-        [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-        public class FixtureData : System.IDisposable
+        [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, SpiritLogo", new string[] {
+                "TEST_SKP-42"}, SourceLine=15)]
+        public virtual void ActivationElementsAreVisible_SpiritLogo()
         {
-            
-            public FixtureData()
-            {
-                ActivationElementsAreVisibleFeature.FeatureSetup();
-            }
-            
-            void System.IDisposable.Dispose()
-            {
-                ActivationElementsAreVisibleFeature.FeatureTearDown();
-            }
+#line 9
+ this.ActivationElementsAreVisible("SpiritLogo", "Activation", "SpiritLogo", ((string[])(null)));
+#line hidden
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, ActivationTitle", new string[] {
+                "TEST_SKP-42"}, SourceLine=15)]
+        public virtual void ActivationElementsAreVisible_ActivationTitle()
+        {
+#line 9
+ this.ActivationElementsAreVisible("ActivationTitle", "Activation", "ActivationTitle", ((string[])(null)));
+#line hidden
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, ActivationDesc", new string[] {
+                "TEST_SKP-42"}, SourceLine=15)]
+        public virtual void ActivationElementsAreVisible_ActivationDesc()
+        {
+#line 9
+ this.ActivationElementsAreVisible("ActivationDesc", "Activation", "ActivationDesc", ((string[])(null)));
+#line hidden
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, CodeField", new string[] {
+                "TEST_SKP-42"}, SourceLine=15)]
+        public virtual void ActivationElementsAreVisible_CodeField()
+        {
+#line 9
+ this.ActivationElementsAreVisible("CodeField", "Activation", "CodeField", ((string[])(null)));
+#line hidden
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, ActivationButton", new string[] {
+                "TEST_SKP-42"}, SourceLine=15)]
+        public virtual void ActivationElementsAreVisible_ActivationButton()
+        {
+#line 9
+ this.ActivationElementsAreVisible("ActivationButton", "Activation", "ActivationButton", ((string[])(null)));
+#line hidden
         }
     }
 }
