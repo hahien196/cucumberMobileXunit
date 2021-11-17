@@ -2,4 +2,3 @@ job:
   tags:
     - appium 
   script: dotnet build CTV.Application.SpecFlowAppiumTests.csproj
-  script: dotnet test
