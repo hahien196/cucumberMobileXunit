@@ -3,7 +3,6 @@ job:
     - appium 
 
   script: 
-    - git config core.longpaths true
     - |
-      cd C:\gitlab-runner\builds\gkfSkrp7\0\spirit-digital\SpiritDigital.CliniTouchVie.Application.Testing\CTV.Application.SpecFlowAppiumTests
-    - dotnet test CTV.Application.SpecFlowAppiumTests.csproj
+      cd $CI_BUILDS_DIR
+    - echo $CI_BUILDS_DIR
