@@ -1,9 +1,12 @@
 variables:
   GIT_CLONE_PATH: /CTVAndroid/
 
+before_script:
+  - |
+    cd C:/gitlab-runner/${GIT_CLONE_PATH}
+
 job:
   tags:
     - appium 
-    - |
-      cd C:/gitlab-runner/${GIT_CLONE_PATH}
+
   script: dotnet build CTV.Application.SpecFlowAppiumTests.csproj
