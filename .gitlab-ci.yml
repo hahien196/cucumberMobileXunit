@@ -1,3 +1,6 @@
+before_script:
+  - git config core.longpaths true
+
 job:
   tags:
     - appium 
