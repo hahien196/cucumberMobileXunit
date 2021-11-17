@@ -7,3 +7,4 @@ job:
     - |
       cd C:\gitlab-runner\builds\gkfSkrp7\0\spirit-digital\SpiritDigital.CliniTouchVie.Application.Testing\CTV.Application.SpecFlowAppiumTests
     - dotnet build CTV.Application.SpecFlowAppiumTests.csproj
+    - dotnet test
