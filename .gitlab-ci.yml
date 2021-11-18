@@ -1,3 +1,6 @@
+variables:
+    GIT_CLONE_PATH: '$CI_BUILDS_DIR/$CI_PROJECT_NAME'
+
 job:
   tags:
     - appium 
@@ -7,4 +10,4 @@ job:
       cd $CI_BUILDS_DIR
     - powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
     - echo $CI_BUILDS_DIR
-    - echo $GIT_CLONE_DIR
+    - echo $GIT_CLONE_PATH
