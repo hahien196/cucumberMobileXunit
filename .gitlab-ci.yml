@@ -7,4 +7,4 @@ job:
       cd $CI_BUILDS_DIR
     - powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
     - echo $CI_BUILDS_DIR
-    - echo $PWD
+    - echo $GIT_CLONE_DIR
