@@ -7,7 +7,6 @@ job:
 
   script: 
     - |
-      cd $CI_BUILDS_DIR
+      cd $GIT_CLONE_PATH
     - powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
-    - echo $CI_BUILDS_DIR
-    - echo $GIT_CLONE_PATH
+    - dotnet test CTV.Application.SpecFlowAppiumTests\CTV.Application.SpecFlowAppiumTests.csproj
