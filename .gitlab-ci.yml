@@ -5,5 +5,5 @@ job:
   script: 
     - |
       cd $CI_BUILDS_DIR
-    - powershell -Command Set-ExecutionPolicy Unrestricted
+    - powershell -Command Set-Executionpolicy -ExecutionPolicy Unsigned -Scope Process
     - echo $CI_BUILDS_DIR
