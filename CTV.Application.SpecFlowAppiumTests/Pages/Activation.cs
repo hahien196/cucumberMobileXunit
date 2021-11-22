@@ -1,32 +1,38 @@
 ﻿using OpenQA.Selenium.Appium;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CTV.Application.SpecFlowAppiumTests.Helpers;
 
 namespace CTV.Application.SpecFlowAppiumTests.Pages
 {
     public class Activation : IPageManager
     {
-        private static AppiumDriver<AppiumWebElement> _driver;
-        private static string xpathToLogo = @"/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.View/android.view.View/android.view.View/android.view.View[1]/android.widget.ImageView";
+        private static AppiumDriver _driver;
+        AppiumElement spiritLogo;
+        //private static string xpathToLogo = @;
 
-        public Activation(AppiumDriver<AppiumWebElement> appiumDriver)
+        public Activation(AppiumDriver appiumDriver)
         {
             _driver = appiumDriver;
-            
         }
-                 
-        AppiumWebElement spiritLogo => _driver.FindElementByXPath(xpathToLogo);
+
+        AppiumElement companyLogo => _driver.FindElement(MobileBy.AccessibilityId("companyLogoImage"));
+        AppiumElement pageTitle => _driver.FindElement(MobileBy.AccessibilityId("activationTitle"));
+        AppiumElement pageDescription => _driver.FindElement(MobileBy.AccessibilityId("activationDesc"));
+        AppiumElement codeInput => _driver.FindElement(MobileBy.AccessibilityId("activationCodeInput"));
+        AppiumElement tandc => _driver.FindElement(MobileBy.AccessibilityId("termsAgreedInput"));
+        AppiumElement continueInput => _driver.FindElement(MobileBy.AccessibilityId("activationContinueInput"));
+
 
         public bool ValidateElements(string elementName)
         {
-            AppiumWebElement[] appiumWebElements = { spiritLogo };
+            AppiumElement[] appiumWebElements = { companyLogo, pageTitle, pageDescription, codeInput, tandc, continueInput };
 
-             foreach (AppiumWebElement element in appiumWebElements)
+            string locator = Globals.GetLocator();
+
+             foreach (AppiumElement element in appiumWebElements)
              {
-                 if (element != null)
+
+                 if (element.GetAttribute(locator) == elementName)
                  {
                      try
                      {

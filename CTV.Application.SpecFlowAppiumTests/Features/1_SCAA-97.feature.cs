@@ -73,7 +73,7 @@ namespace CTV.Application.SpecFlowAppiumTests.Features
         public virtual void ActivationElementsAreVisible(string title, string view, string element, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "TEST_SKP-42"};
+                    "TEST_SCAA-97"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
@@ -117,48 +117,57 @@ namespace CTV.Application.SpecFlowAppiumTests.Features
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, SpiritLogo", new string[] {
-                "TEST_SKP-42"}, SourceLine=15)]
-        public virtual void ActivationElementsAreVisible_SpiritLogo()
+        [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, CompanyLogo", new string[] {
+                "TEST_SCAA-97"}, SourceLine=15)]
+        public virtual void ActivationElementsAreVisible_CompanyLogo()
         {
 #line 9
- this.ActivationElementsAreVisible("SpiritLogo", "Activation", "SpiritLogo", ((string[])(null)));
+ this.ActivationElementsAreVisible("CompanyLogo", "Activation", "companyLogoImage", ((string[])(null)));
 #line hidden
         }
         
         [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, ActivationTitle", new string[] {
-                "TEST_SKP-42"}, SourceLine=15)]
+                "TEST_SCAA-97"}, SourceLine=15)]
         public virtual void ActivationElementsAreVisible_ActivationTitle()
         {
 #line 9
- this.ActivationElementsAreVisible("ActivationTitle", "Activation", "ActivationTitle", ((string[])(null)));
+ this.ActivationElementsAreVisible("ActivationTitle", "Activation", "activationTitle", ((string[])(null)));
 #line hidden
         }
         
         [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, ActivationDesc", new string[] {
-                "TEST_SKP-42"}, SourceLine=15)]
+                "TEST_SCAA-97"}, SourceLine=15)]
         public virtual void ActivationElementsAreVisible_ActivationDesc()
         {
 #line 9
- this.ActivationElementsAreVisible("ActivationDesc", "Activation", "ActivationDesc", ((string[])(null)));
+ this.ActivationElementsAreVisible("ActivationDesc", "Activation", "activationDesc", ((string[])(null)));
 #line hidden
         }
         
         [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, CodeField", new string[] {
-                "TEST_SKP-42"}, SourceLine=15)]
+                "TEST_SCAA-97"}, SourceLine=15)]
         public virtual void ActivationElementsAreVisible_CodeField()
         {
 #line 9
- this.ActivationElementsAreVisible("CodeField", "Activation", "CodeField", ((string[])(null)));
+ this.ActivationElementsAreVisible("CodeField", "Activation", "activationCodeInput", ((string[])(null)));
 #line hidden
         }
         
         [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, ActivationButton", new string[] {
-                "TEST_SKP-42"}, SourceLine=15)]
+                "TEST_SCAA-97"}, SourceLine=15)]
         public virtual void ActivationElementsAreVisible_ActivationButton()
         {
 #line 9
- this.ActivationElementsAreVisible("ActivationButton", "Activation", "ActivationButton", ((string[])(null)));
+ this.ActivationElementsAreVisible("ActivationButton", "Activation", "activationContinueInput", ((string[])(null)));
+#line hidden
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, T and C\'s", new string[] {
+                "TEST_SCAA-97"}, SourceLine=15)]
+        public virtual void ActivationElementsAreVisible_TAndCs()
+        {
+#line 9
+ this.ActivationElementsAreVisible("T and C\'s", "Activation", "termsAgreedInput", ((string[])(null)));
 #line hidden
         }
     }

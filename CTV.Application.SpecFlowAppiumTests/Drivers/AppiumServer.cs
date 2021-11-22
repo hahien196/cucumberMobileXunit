@@ -1,10 +1,13 @@
-﻿using System.Diagnostics;
+﻿using Renci.SshNet;
+using System;
+using System.Diagnostics;
 
 
 namespace CTV.Application.SpecFlowAppiumTests.Drivers
 {
     public class AppiumServer
     {
+
         public ProcessStartInfo WindowsAppiumServer()
         {
             ProcessStartInfo startInfo = new("cmd.exe")
@@ -15,5 +18,6 @@ namespace CTV.Application.SpecFlowAppiumTests.Drivers
 
             return startInfo;
         }
+
     }
 }

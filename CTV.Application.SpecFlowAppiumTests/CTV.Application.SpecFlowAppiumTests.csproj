@@ -13,9 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Appium.WebDriver" Version="4.3.1" />
+    <PackageReference Include="Appium.WebDriver" Version="5.0.0-beta01" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="SpecRun.SpecFlow" Version="3.9.7" />
+    <PackageReference Include="SSH.NET" Version="2020.0.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>

@@ -13,13 +13,13 @@ namespace CTV.Application.SpecFlowAppiumTests.Steps
     [Binding]
     public class ActivationElementsAreVisibleSteps
     {
-        private readonly AppiumDriver<AppiumWebElement> _driver;
+        private readonly AppiumDriver _driver;
         PageObjectManager pom;
         private string _view;
 
         public ActivationElementsAreVisibleSteps(FeatureContext featureContext)
         {
-            _driver = ((AppiumDriver<AppiumWebElement>)featureContext["DRIVER"]);
+            _driver = ((AppiumDriver)featureContext["DRIVER"]);
         }
 
         [Given(@"the app is running")]

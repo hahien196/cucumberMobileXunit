@@ -10,11 +10,10 @@ namespace CTV.Application.SpecFlowAppiumTests.Helpers
 {
     public class PageObjectManager
     {
-        private AppiumDriver<AppiumWebElement> pomdriver;
+        private AppiumDriver pomdriver;
         private Activation activationPage;
-        private Activation2 act2;
 
-        public PageObjectManager(AppiumDriver<AppiumWebElement> _driver)
+        public PageObjectManager(AppiumDriver _driver)
         {
             pomdriver = _driver;
         }
@@ -26,10 +25,6 @@ namespace CTV.Application.SpecFlowAppiumTests.Helpers
                 case "Activation":
                     {
                         return activationPage ??= new Activation(pomdriver);
-                    }
-                case "Activation2":
-                    {
-                        return act2 ??= new Activation2(pomdriver);
                     }
                 default:
                     {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using TechTalk.SpecFlow;
+using Xunit;
 
 namespace CTV.Application.SpecFlowAppiumTests.Hooks
 {
@@ -13,8 +14,8 @@ namespace CTV.Application.SpecFlowAppiumTests.Hooks
     {
         private static FeatureContext _featureContext;
         private static Process server;
-        private static AppiumDriver<AppiumWebElement> appiumClient;
-
+        private static AppiumDriver _appiumClient;
+        
         public TestHooks(FeatureContext featureContext)
         {
             _featureContext = featureContext;
@@ -23,18 +24,22 @@ namespace CTV.Application.SpecFlowAppiumTests.Hooks
         [BeforeFeature]
         public static void Initialise()
         {
-            AppiumDriver appiumDriver = new AppiumDriver();
+            //local use only
+            Environment.SetEnvironmentVariable("PLATFORM", "Android");
+            //
+
+            Driver appiumDriver = new Driver();
             AppiumServer appiumServer = new AppiumServer();
-            if (OperatingSystem.IsMacOS())
+            if ((Environment.GetEnvironmentVariable("PLATFORM", EnvironmentVariableTarget.Process)) == "iOS")
             {
-                appiumClient = appiumDriver.InitIOSDriver();
+                _appiumClient = appiumDriver.InitIOSDriver();
             }
-            else if (OperatingSystem.IsWindows())
+            else if ((Environment.GetEnvironmentVariable("PLATFORM", EnvironmentVariableTarget.Process)) == "Android")
             {
                 Thread.Sleep(2000);
                 server = Process.Start(appiumServer.WindowsAppiumServer());
                 Thread.Sleep(5000);
-                appiumClient = appiumDriver.InitAndroidDriver();
+                _appiumClient = appiumDriver.InitAndroidDriver();
 
             }
 
@@ -43,13 +48,14 @@ namespace CTV.Application.SpecFlowAppiumTests.Hooks
         [BeforeScenario]
         public void SaveContext()
         {
+
             if (!_featureContext.ContainsKey("SERVER"))
             {
                 _featureContext.Add("SERVER", server);
             }
             if (!_featureContext.ContainsKey("DRIVER"))
             {
-                _featureContext.Add("DRIVER", appiumClient);
+                _featureContext.Add("DRIVER", _appiumClient);
             }
             
         }
@@ -57,11 +63,15 @@ namespace CTV.Application.SpecFlowAppiumTests.Hooks
         [AfterFeature]
         public static void ShutDown(FeatureContext context)
         {
-            var driver = ((AppiumDriver<AppiumWebElement>)context["DRIVER"]);
+            var driver = ((AppiumDriver)context["DRIVER"]);
             driver.Quit();
             var server = ((Process)context["SERVER"]);
-            server.CloseMainWindow();
-            server.Close();
+            if (server != null)
+            {
+                server.CloseMainWindow();
+                server.Close();
+            }
+            
         }
 
     }

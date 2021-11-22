@@ -1,0 +1,45 @@
+﻿using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.Android;
+using OpenQA.Selenium.Appium.Enums;
+using OpenQA.Selenium.Appium.iOS;
+using System;
+
+namespace CTV.Application.SpecFlowAppiumTests.Drivers
+{
+    public class Driver
+    {
+
+        public AndroidDriver InitAndroidDriver()
+        {
+
+            var apk = @"C:\TestAPK\CTV\app-debug.apk";
+            var driverOptions = new AppiumOptions();
+            driverOptions.PlatformName = "Android";
+            driverOptions.AddAdditionalAppiumOption("appium:avd", "AndroidTest001");
+            driverOptions.AutomationName = AutomationName.AndroidUIAutomator2;
+            driverOptions.App = apk;
+            driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 0);
+            driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.FullReset, true);
+
+            return new AndroidDriver(new Uri("http://localhost:4723/"), driverOptions);
+        }
+
+        public IOSDriver InitIOSDriver()
+        {
+            //local mac 
+            //var ipa = @"/Users/dev/Documents/CliniTouchVie.zip";
+            //mac mini
+            var ipa = @"/Users/spiritdigital/Documents/CliniTouchVie.app";
+            var driverOptions = new AppiumOptions();
+            driverOptions.PlatformName = "iOS";
+            driverOptions.DeviceName =  "iPhone 11";
+            driverOptions.AutomationName = "XCUITest";
+            driverOptions.PlatformVersion = "15.0";
+            driverOptions.App =  ipa;
+            driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 0);
+            driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.FullReset, true);
+
+            return new IOSDriver(new Uri("http://185.200.102.183:4723/"), driverOptions);
+        }
+    }
+}

@@ -10,3 +10,5 @@
 /CTV.Application.SpecFlowAppiumTests/.vs/CTV.Application.SpecFlowAppiumTests/DesignTimeBuild
 /CTV.Application.SpecFlowAppiumTests/TestResults
 /CTV.Application.SpecFlowAppiumTests/.vs/CTV.Application.SpecFlowAppiumTests/config
+/CTV.Application.SpecFlowAppiumTests/bin/Android/Debug/net5.0
+/CTV.Application.SpecFlowAppiumTests/.editorconfig
