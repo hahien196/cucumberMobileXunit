@@ -11,13 +11,14 @@ using CTV.Application.SpecFlowAppiumTests.Pages;
 namespace CTV.Application.SpecFlowAppiumTests.Steps
 {
     [Binding]
-    public class ActivationElementsAreVisibleSteps
+    public class ElementsAreVisibleSteps
     {
         private readonly AppiumDriver _driver;
         PageObjectManager pom;
+        NavigationManager nav;
         private string _view;
 
-        public ActivationElementsAreVisibleSteps(FeatureContext featureContext)
+        public ElementsAreVisibleSteps(FeatureContext featureContext)
         {
             _driver = ((AppiumDriver)featureContext["DRIVER"]);
         }
@@ -29,10 +30,18 @@ namespace CTV.Application.SpecFlowAppiumTests.Steps
             Thread.Sleep(5000);
         }
 
+        [Given(@"the user has navigated to the ""(.*)"" screen")]
+        public void GivenTheUserHasNavigatedToTheScreen(string p0)
+        {
+            nav = new(_driver);
+            INavigationManager navigate = nav.NavigationSwitch(p0);
+            navigate.NavigateTo();
+        }
+
         [When(@"the user is on the (.*) screen")]
         public void WhenTheUserIsOnTheScreen(string p0)
         { 
-            for (int i = 0; !_driver.PageSource.Contains("Activation"); i++)
+            for (int i = 0; !_driver.PageSource.Contains(p0); i++)
             {
                 Thread.Sleep(500);
                 if (i == 10)
@@ -41,7 +50,7 @@ namespace CTV.Application.SpecFlowAppiumTests.Steps
                 }
             }
 
-            bool correctView = _driver.PageSource.Contains("Activation");
+            bool correctView = _driver.PageSource.Contains(p0);
             Assert.True(correctView);
             _view = p0;
            

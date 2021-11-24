@@ -10,21 +10,26 @@ namespace CTV.Application.SpecFlowAppiumTests.Helpers
 {
     public class PageObjectManager
     {
-        private AppiumDriver pomdriver;
-        private Activation activationPage;
+        private AppiumDriver _pomdriver;
+        private Activation _activationPage;
+        private Consent _consent;
 
         public PageObjectManager(AppiumDriver _driver)
         {
-            pomdriver = _driver;
+            _pomdriver = _driver;
         }
 
         public IPageManager ViewSwitcher(string screen)
         {
-            switch(screen)
+            switch (screen)
             {
                 case "Activation":
                     {
-                        return activationPage ??= new Activation(pomdriver);
+                        return _activationPage ??= new Activation(_pomdriver);
+                    }
+                case "Consent":
+                    {
+                        return _consent ??= new Consent(_pomdriver);
                     }
                 default:
                     {

@@ -19,22 +19,22 @@ namespace CTV.Application.SpecFlowAppiumTests.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [TechTalk.SpecRun.FeatureAttribute("Activation elements are visible", SourceFile="Features\\1_SCAA-97.feature", SourceLine=0)]
-    public partial class ActivationElementsAreVisibleFeature
+    [TechTalk.SpecRun.FeatureAttribute("Consent elements are visible", SourceFile="Features\\1_SCAA-98.feature", SourceLine=0)]
+    public partial class ConsentElementsAreVisibleFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "1_SCAA-97.feature"
+#line 1 "1_SCAA-98.feature"
 #line hidden
         
         [TechTalk.SpecRun.FeatureInitialize()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Activation elements are visible", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Consent elements are visible", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -70,10 +70,10 @@ namespace CTV.Application.SpecFlowAppiumTests.Features
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void ActivationElementsAreVisible(string title, string view, string element, string[] exampleTags)
+        public virtual void ConsentElementsAreVisible(string title, string view, string element, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "TEST_SCAA-97"};
+                    "TEST_SCAA-98"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
@@ -83,7 +83,7 @@ namespace CTV.Application.SpecFlowAppiumTests.Features
             argumentsOfScenario.Add("title", title);
             argumentsOfScenario.Add("view", view);
             argumentsOfScenario.Add("element", element);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Activation elements are visible", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Consent elements are visible", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 9
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -108,66 +108,69 @@ namespace CTV.Application.SpecFlowAppiumTests.Features
   testRunner.Given("the app is running", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 11
-  testRunner.When(string.Format("the user is on the {0} screen", view), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.And("the user has navigated to the \"Consent\" screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 12
+  testRunner.When(string.Format("the user is on the {0} screen", view), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 13
   testRunner.Then(string.Format("they are able to see the expected element {0}", element), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, CompanyLogo", new string[] {
-                "TEST_SCAA-97"}, SourceLine=15)]
-        public virtual void ActivationElementsAreVisible_CompanyLogo()
+        [TechTalk.SpecRun.ScenarioAttribute("Consent elements are visible, CompanyLogo", new string[] {
+                "TEST_SCAA-98"}, SourceLine=16)]
+        public virtual void ConsentElementsAreVisible_CompanyLogo()
         {
 #line 9
- this.ActivationElementsAreVisible("CompanyLogo", "Activation", "companyLogoImage", ((string[])(null)));
+ this.ConsentElementsAreVisible("CompanyLogo", "Consent", "companyLogoImage", ((string[])(null)));
 #line hidden
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, ActivationTitle", new string[] {
-                "TEST_SCAA-97"}, SourceLine=15)]
-        public virtual void ActivationElementsAreVisible_ActivationTitle()
+        [TechTalk.SpecRun.ScenarioAttribute("Consent elements are visible, ConsentTitle", new string[] {
+                "TEST_SCAA-98"}, SourceLine=16)]
+        public virtual void ConsentElementsAreVisible_ConsentTitle()
         {
 #line 9
- this.ActivationElementsAreVisible("ActivationTitle", "Activation", "activationTitle", ((string[])(null)));
+ this.ConsentElementsAreVisible("ConsentTitle", "Consent", "consentTitle", ((string[])(null)));
 #line hidden
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, ActivationDesc", new string[] {
-                "TEST_SCAA-97"}, SourceLine=15)]
-        public virtual void ActivationElementsAreVisible_ActivationDesc()
+        [TechTalk.SpecRun.ScenarioAttribute("Consent elements are visible, ConsentDesc", new string[] {
+                "TEST_SCAA-98"}, SourceLine=16)]
+        public virtual void ConsentElementsAreVisible_ConsentDesc()
         {
 #line 9
- this.ActivationElementsAreVisible("ActivationDesc", "Activation", "activationDesc", ((string[])(null)));
+ this.ConsentElementsAreVisible("ConsentDesc", "Consent", "consentDesc", ((string[])(null)));
 #line hidden
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, CodeField", new string[] {
-                "TEST_SCAA-97"}, SourceLine=15)]
-        public virtual void ActivationElementsAreVisible_CodeField()
+        [TechTalk.SpecRun.ScenarioAttribute("Consent elements are visible, ConsentContent", new string[] {
+                "TEST_SCAA-98"}, SourceLine=16)]
+        public virtual void ConsentElementsAreVisible_ConsentContent()
         {
 #line 9
- this.ActivationElementsAreVisible("CodeField", "Activation", "activationCodeInput", ((string[])(null)));
+ this.ConsentElementsAreVisible("ConsentContent", "Consent", "consentContent", ((string[])(null)));
 #line hidden
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, ActivationButton", new string[] {
-                "TEST_SCAA-97"}, SourceLine=15)]
-        public virtual void ActivationElementsAreVisible_ActivationButton()
+        [TechTalk.SpecRun.ScenarioAttribute("Consent elements are visible, AcceptButton", new string[] {
+                "TEST_SCAA-98"}, SourceLine=16)]
+        public virtual void ConsentElementsAreVisible_AcceptButton()
         {
 #line 9
- this.ActivationElementsAreVisible("ActivationButton", "Activation", "activationContinueInput", ((string[])(null)));
+ this.ConsentElementsAreVisible("AcceptButton", "Consent", "acceptInput", ((string[])(null)));
 #line hidden
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Activation elements are visible, T and C\'s", new string[] {
-                "TEST_SCAA-97"}, SourceLine=15)]
-        public virtual void ActivationElementsAreVisible_TAndCs()
+        [TechTalk.SpecRun.ScenarioAttribute("Consent elements are visible, RejectButton", new string[] {
+                "TEST_SCAA-98"}, SourceLine=16)]
+        public virtual void ConsentElementsAreVisible_RejectButton()
         {
 #line 9
- this.ActivationElementsAreVisible("T and C\'s", "Activation", "termsAgreedInput", ((string[])(null)));
+ this.ConsentElementsAreVisible("RejectButton", "Consent", "rejectInput", ((string[])(null)));
 #line hidden
         }
     }

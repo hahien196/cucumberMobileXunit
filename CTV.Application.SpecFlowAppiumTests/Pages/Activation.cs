@@ -1,14 +1,13 @@
 ﻿using OpenQA.Selenium.Appium;
 using System;
 using CTV.Application.SpecFlowAppiumTests.Helpers;
+using System.Threading;
 
 namespace CTV.Application.SpecFlowAppiumTests.Pages
 {
     public class Activation : IPageManager
     {
         private static AppiumDriver _driver;
-        AppiumElement spiritLogo;
-        //private static string xpathToLogo = @;
 
         public Activation(AppiumDriver appiumDriver)
         {
@@ -46,6 +45,25 @@ namespace CTV.Application.SpecFlowAppiumTests.Pages
              }
 
             return false;
+        }
+
+        public void SendCodeThenContinue()
+        {
+            AppiumElement parent;
+            if(Globals.IsAndroid())
+            { 
+                parent = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='activationCodeInput']/.."));
+                parent.SendKeys("123456");
+            }
+            else if (Globals.IsIOS())
+            {
+                codeInput.SendKeys("123456");
+            }
+            
+            Thread.Sleep(500);
+            tandc.Click();
+            Thread.Sleep(2000);
+            continueInput.Click();
         }
     }
 }
