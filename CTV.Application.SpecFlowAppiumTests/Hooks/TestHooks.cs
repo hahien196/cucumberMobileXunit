@@ -1,7 +1,6 @@
 ﻿using CTV.Application.SpecFlowAppiumTests.Drivers;
 using OpenQA.Selenium.Appium;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using TechTalk.SpecFlow;

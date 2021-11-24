@@ -3,9 +3,6 @@ using System.Threading;
 using TechTalk.SpecFlow;
 using Xunit;
 using CTV.Application.SpecFlowAppiumTests.Helpers;
-using System;
-using System.Reflection;
-using System.Linq;
 using CTV.Application.SpecFlowAppiumTests.Pages;
 
 namespace CTV.Application.SpecFlowAppiumTests.Steps

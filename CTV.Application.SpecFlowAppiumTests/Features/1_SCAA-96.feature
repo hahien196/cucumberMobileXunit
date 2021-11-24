@@ -16,4 +16,4 @@ Feature: Welcome elements are visible
 		| title              | view    | element            |
 		| CompanyLogo        | Welcome | companyLogoImage   |
 		| WelcomeTitle       | Welcome | welcomeTitle       |
-		| WelcomePatient     | Welcome | welcomePatient     |
+		| WelcomePatient     | Welcome | patientName        |

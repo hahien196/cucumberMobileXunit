@@ -16,7 +16,6 @@ Feature: Consent elements are visible
 		| title          | view    | element          |
 		| CompanyLogo    | Consent | companyLogoImage |
 		| ConsentTitle   | Consent | consentTitle     |
-		| ConsentDesc    | Consent | consentDesc      |
 		| ConsentContent | Consent | consentContent   |
 		| AcceptButton   | Consent | acceptInput      |
 		| RejectButton   | Consent | rejectInput      |

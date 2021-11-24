@@ -1,10 +1,5 @@
 ﻿using CTV.Application.SpecFlowAppiumTests.Pages;
 using OpenQA.Selenium.Appium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CTV.Application.SpecFlowAppiumTests.Helpers
 {
@@ -13,6 +8,7 @@ namespace CTV.Application.SpecFlowAppiumTests.Helpers
         private AppiumDriver _pomdriver;
         private Activation _activationPage;
         private Consent _consent;
+        private Welcome _welcome;
 
         public PageObjectManager(AppiumDriver _driver)
         {
@@ -30,6 +26,10 @@ namespace CTV.Application.SpecFlowAppiumTests.Helpers
                 case "Consent":
                     {
                         return _consent ??= new Consent(_pomdriver);
+                    }
+                case "Welcome":
+                    {
+                        return _welcome ??= new Welcome(_pomdriver);
                     }
                 default:
                     {

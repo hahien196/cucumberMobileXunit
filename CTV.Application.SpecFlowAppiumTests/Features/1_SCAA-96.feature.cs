@@ -143,7 +143,7 @@ namespace CTV.Application.SpecFlowAppiumTests.Features
         public virtual void WelcomeElementsAreVisible_WelcomePatient()
         {
 #line 9
- this.WelcomeElementsAreVisible("WelcomePatient", "Welcome", "welcomePatient", ((string[])(null)));
+ this.WelcomeElementsAreVisible("WelcomePatient", "Welcome", "patientName", ((string[])(null)));
 #line hidden
         }
     }

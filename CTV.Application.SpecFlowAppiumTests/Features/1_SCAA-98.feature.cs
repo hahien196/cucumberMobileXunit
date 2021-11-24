@@ -138,15 +138,6 @@ namespace CTV.Application.SpecFlowAppiumTests.Features
 #line hidden
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Consent elements are visible, ConsentDesc", new string[] {
-                "TEST_SCAA-98"}, SourceLine=16)]
-        public virtual void ConsentElementsAreVisible_ConsentDesc()
-        {
-#line 9
- this.ConsentElementsAreVisible("ConsentDesc", "Consent", "consentDesc", ((string[])(null)));
-#line hidden
-        }
-        
         [TechTalk.SpecRun.ScenarioAttribute("Consent elements are visible, ConsentContent", new string[] {
                 "TEST_SCAA-98"}, SourceLine=16)]
         public virtual void ConsentElementsAreVisible_ConsentContent()
