@@ -24,30 +24,27 @@ namespace CTV.Application.SpecFlowAppiumTests.Hooks
         public static void Initialise()
         {
             //local use only
-            Environment.SetEnvironmentVariable("PLATFORM", "Android");
+            Environment.SetEnvironmentVariable("PLATFORM", "iOS");
             //
-
-            Driver appiumDriver = new Driver();
             AppiumServer appiumServer = new AppiumServer();
+            Driver appiumDriver = new Driver();
             if ((Environment.GetEnvironmentVariable("PLATFORM", EnvironmentVariableTarget.Process)) == "iOS")
             {
                 _appiumClient = appiumDriver.InitIOSDriver();
             }
             else if ((Environment.GetEnvironmentVariable("PLATFORM", EnvironmentVariableTarget.Process)) == "Android")
             {
-                Thread.Sleep(2000);
                 server = Process.Start(appiumServer.WindowsAppiumServer());
-                Thread.Sleep(5000);
+                Thread.Sleep(2000);
                 _appiumClient = appiumDriver.InitAndroidDriver();
 
-            }
 
+            }
         }
 
         [BeforeScenario]
         public void SaveContext()
         {
-
             if (!_featureContext.ContainsKey("SERVER"))
             {
                 _featureContext.Add("SERVER", server);
@@ -55,8 +52,15 @@ namespace CTV.Application.SpecFlowAppiumTests.Hooks
             if (!_featureContext.ContainsKey("DRIVER"))
             {
                 _featureContext.Add("DRIVER", _appiumClient);
-            }
-            
+            }          
+        }
+
+        [AfterScenario]
+        public static void CleanScenario(FeatureContext context)
+        {
+            var driver = ((AppiumDriver)context["DRIVER"]);
+            driver.ResetApp();
+            Thread.Sleep(2000);
         }
 
         [AfterFeature]

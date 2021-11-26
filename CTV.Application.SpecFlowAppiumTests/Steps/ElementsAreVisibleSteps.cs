@@ -23,7 +23,7 @@ namespace CTV.Application.SpecFlowAppiumTests.Steps
         [Given(@"the app is running")]
         public void GivenTheAppIsRunning()
         {
-            _driver.LaunchApp();
+            //_driver.LaunchApp();
             Thread.Sleep(5000);
         }
 
@@ -37,20 +37,22 @@ namespace CTV.Application.SpecFlowAppiumTests.Steps
 
         [When(@"the user is on the (.*) screen")]
         public void WhenTheUserIsOnTheScreen(string p0)
-        { 
-            for (int i = 0; !_driver.PageSource.Contains(p0); i++)
+        {
+            Thread.Sleep(3000);
+            /*for (int i = 0; !_driver.PageSource.Contains(p0); i++)
             {
                 Thread.Sleep(500);
                 if (i == 10)
                 {
                     break;
                 }
+            }*/
+            if(Globals.IsAndroid())
+            {
+                bool correctView = _driver.PageSource.Contains(p0);
+                Assert.True(correctView);
             }
-
-            bool correctView = _driver.PageSource.Contains(p0);
-            Assert.True(correctView);
             _view = p0;
-           
         }
 
         [Then(@"they are able to see the expected element (.*)")]

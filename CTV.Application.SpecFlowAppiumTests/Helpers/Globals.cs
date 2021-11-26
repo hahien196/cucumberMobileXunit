@@ -38,7 +38,7 @@ namespace CTV.Application.SpecFlowAppiumTests.Helpers
         {
             if (IsIOS())
             {
-                return "accessibility id";
+                return "name";
             }
             return null;
         }
