@@ -24,6 +24,6 @@ test:
     - dotnet test CTV.Application.SpecFlowAppiumTests\CTV.Application.SpecFlowAppiumTests.csproj --results-directory "$GIT_CLONE_PATH"
     - mv data.json "C:\Temp\"
     - echo "Uploading results to JIRA"
-    - |
-      curl.exe -H "Content-Type: application/json" -H "Authorization: Bearer ${token}"  --data-binary "C:\Temp\data.json" -i -X POST "https://xray.cloud.getxray.app/api/v2/import/execution/cucumber"
+    # - |
+    #  curl.exe -H "Content-Type: application/json" -H "Authorization: Bearer ${token}"  --data-binary "@C:\Temp\data.json" -i -X POST "https://xray.cloud.getxray.app/api/v2/import/execution/cucumber"
 
