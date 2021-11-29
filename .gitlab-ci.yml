@@ -3,9 +3,15 @@ variables:
     FF_ENABLE_JOB_CLEANUP: 1
 
 stages: 
-  - test
+  - debug
+  # - test
 
-
+debug:
+  tags: 
+    - appium
+  script:
+    - echo $GIT_CLONE_PATH\CTV.Application.SpecFlowAppiumTests\Features\
+    
 test:
   tags:
     - appium
