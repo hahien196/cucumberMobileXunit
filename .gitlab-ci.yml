@@ -15,7 +15,7 @@ test:
     - powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
     - echo "Authenticate with Xray"
     - |
-      $token= curl.exe -H "Content-Type: application/json" -X POST --data "{"client_id": "ADE543CB4F3642259C5E5AA30FD472E7", "client_secret": "18e85b583cf919eddcd28c45e9bf1e71463158c6c01d39316a7da73046559ec7"}" https://xray.cloud.getxray.app/api/v2/authenticate
+      $token= curl.exe -H "Content-Type: application/json" -X POST --data '{"client_id":"ADE543CB4F3642259C5E5AA30FD472E7","client_secret": "18e85b583cf919eddcd28c45e9bf1e71463158c6c01d39316a7da73046559ec7"}' https://xray.cloud.getxray.app/api/v2/authenticate
     - echo $token 
     - echo "Fetching feature files from JIRA"
     - |
