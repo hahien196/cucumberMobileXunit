@@ -13,4 +13,3 @@ test:
     - echo "Fetching feature files from JIRA"
     - 'curl.exe -H "Content-Type: application/json" -H "Authorization: Bearer ${token}" -X GET https://xray.cloud.getxray.app/api/v2/export/cucumber?filter=10124 -o features.zip'
     - Expand-Archive -Path features.zip -DestinationPath $GIT_CLONE_PATH\CTV.Application.SpecFlowAppiumTests\Features -Force
-    - dotnet test CTV.Application.SpecFlowAppiumTests\CTV.Application.SpecFlowAppiumTests.csproj --results-directory "$GIT_CLONE_PATH"
