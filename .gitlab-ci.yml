@@ -7,7 +7,7 @@ debug:
   tags: 
     - appium
   script:
-    - echo $GIT_CLONE_PATH\CTV.Application.SpecFlowAppiumTests\Features\
+    - echo ${GIT_CLONE_PATH}\CTV.Application.SpecFlowAppiumTests\Features\
     
 # test:
 # tags:
