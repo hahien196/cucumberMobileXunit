@@ -9,4 +9,4 @@ test:
     - cd $GIT_CLONE_PATH
     - powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
     - echo "Authenticate with Xray"
-    - 'token=curl.exe -H "Content-Type: application/json" -X POST https://xray.cloud.getxray.app/api/v2/authenticate'
+    - 'token= curl.exe -H "Content-Type: application/json" -X POST https://xray.cloud.getxray.app/api/v2/authenticate'
