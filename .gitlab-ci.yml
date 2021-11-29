@@ -14,4 +14,5 @@ test:
       cd $GIT_CLONE_PATH
     - powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
     - dotnet test CTV.Application.SpecFlowAppiumTests\CTV.Application.SpecFlowAppiumTests.csproj --results-directory "$GIT_CLONE_PATH"
+    - mv data.json "C:\Temp\"
 
