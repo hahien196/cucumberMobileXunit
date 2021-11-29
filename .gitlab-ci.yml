@@ -15,7 +15,7 @@ test:
     - powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
     - echo "Authenticate with Xray"
     - |
-        export token=$(curl -H "Content-Type: application/json" -X POST --data "{\"client_id\": \"ADE543CB4F3642259C5E5AA30FD472E7\", \"client_secret\": \"18e85b583cf919eddcd28c45e9bf1e71463158c6c01d39316a7da73046559ec7\"}" "https://xray.cloud.getxray.app/api/v2/authenticate| tr -d'"')
+        export token=$(curl -H "Content-Type: application/json" -X POST --data "{\"client_id\": \"ADE543CB4F3642259C5E5AA30FD472E7\", \"client_secret\": \"18e85b583cf919eddcd28c45e9bf1e71463158c6c01d39316a7da73046559ec7\"}" https://xray.cloud.getxray.app/api/v2/authenticate| tr -d'"')
     - echo "Fetching feature file ${TEST_CASE_ID} from JIRA"
     - | 
       curl -H "Content-Type: application/json" -X GET -H "Authorization: Bearer ${token}" "https://xray.cloud.getxray.app/api/v2/export/cucumber?filter=10124" -o features.zip
