@@ -24,8 +24,8 @@ namespace CTV.Application.SpecFlowAppiumTests.Hooks
         public static void Initialise()
         {
             //local use only
-            //Environment.SetEnvironmentVariable("PLATFORM", "Android");
-            
+            //Environment.SetEnvironmentVariable("PLATFORM", "iOS");
+
             AppiumServer appiumServer = new AppiumServer();
             Driver appiumDriver = new Driver();
             if ((Environment.GetEnvironmentVariable("PLATFORM", EnvironmentVariableTarget.Process)) == "iOS")
@@ -37,7 +37,6 @@ namespace CTV.Application.SpecFlowAppiumTests.Hooks
                 server = Process.Start(appiumServer.WindowsAppiumServer());
                 Thread.Sleep(2000);
                 _appiumClient = appiumDriver.InitAndroidDriver();
-
 
             }
         }
