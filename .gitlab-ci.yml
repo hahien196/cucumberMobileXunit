@@ -2,6 +2,10 @@ variables:
     GIT_CLONE_PATH: "$CI_BUILDS_DIR\\$CI_PROJECT_NAME"
     FF_ENABLE_JOB_CLEANUP: 1
 
+stages:
+  - android-test
+  - ios-test
+
 android-test:
   tags:
     - appium
@@ -19,6 +23,7 @@ android-test:
     - echo "Uploading results to JIRA"
     - 'curl.exe -H "Content-Type: application/json" -H "Authorization: Bearer ${token}" --data-binary "@C:\Temp\Android\data.json" -X POST https://xray.cloud.getxray.app/api/v2/import/execution/cucumber'
     - echo "Android task complete"
+  allow_failure: true
 
 ios-test:
   tags:
