@@ -25,7 +25,7 @@ namespace CTV.Application.SpecFlowAppiumTests.Hooks
         {
             //local use only
             //Environment.SetEnvironmentVariable("PLATFORM", "Android");
-            //
+            
             AppiumServer appiumServer = new AppiumServer();
             Driver appiumDriver = new Driver();
             if ((Environment.GetEnvironmentVariable("PLATFORM", EnvironmentVariableTarget.Process)) == "iOS")
