@@ -12,7 +12,6 @@ namespace CTV.Application.SpecFlowAppiumTests.Hooks
     class TestHooks
     {
         private static FeatureContext _featureContext;
-        private static Process server;
         private static AppiumDriver _appiumClient;
         
         public TestHooks(FeatureContext featureContext)
@@ -34,7 +33,6 @@ namespace CTV.Application.SpecFlowAppiumTests.Hooks
             }
             else if ((Environment.GetEnvironmentVariable("PLATFORM", EnvironmentVariableTarget.Process)) == "Android")
             {
-                server = Process.Start(appiumServer.WindowsAppiumServer());
                 Thread.Sleep(2000);
                 _appiumClient = appiumDriver.InitAndroidDriver();
 
@@ -44,10 +42,6 @@ namespace CTV.Application.SpecFlowAppiumTests.Hooks
         [BeforeScenario]
         public void SaveContext()
         {
-            if (!_featureContext.ContainsKey("SERVER"))
-            {
-                _featureContext.Add("SERVER", server);
-            }
             if (!_featureContext.ContainsKey("DRIVER"))
             {
                 _featureContext.Add("DRIVER", _appiumClient);
@@ -67,13 +61,6 @@ namespace CTV.Application.SpecFlowAppiumTests.Hooks
         {
             var driver = ((AppiumDriver)context["DRIVER"]);
             driver.Quit();
-            var server = ((Process)context["SERVER"]);
-            if (server != null)
-            {
-                server.CloseMainWindow();
-                server.Close();
-            }
-            
         }
 
     }

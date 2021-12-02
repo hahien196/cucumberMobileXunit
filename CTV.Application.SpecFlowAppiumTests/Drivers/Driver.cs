@@ -4,6 +4,7 @@ using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.iOS;
 using System;
 
+
 namespace CTV.Application.SpecFlowAppiumTests.Drivers
 {
     public class Driver
@@ -18,8 +19,8 @@ namespace CTV.Application.SpecFlowAppiumTests.Drivers
             driverOptions.AddAdditionalAppiumOption("appium:avd", "AndroidTest001");
             driverOptions.AutomationName = AutomationName.AndroidUIAutomator2;
             driverOptions.App = apk;
-            driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 0);
-            driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.FullReset, true);
+            driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
+            driverOptions.AddAdditionalAppiumOption("appium:launchTimeout", "120000");
 
             return new AndroidDriver(new Uri("http://localhost:4723/"), driverOptions);
         }
