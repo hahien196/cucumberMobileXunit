@@ -38,6 +38,8 @@ namespace CTV.Application.SpecFlowAppiumTests.Drivers
             driverOptions.PlatformVersion = "15.0";
             driverOptions.App =  ipa;
             driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 60000);
+            driverOptions.AddAdditionalAppiumOption("appium:wdaLaunchTimeout", "120000");
+            driverOptions.AddAdditionalAppiumOption("appium:useNewWDA", "false");
 
             //remote mac mini
             return new IOSDriver(new Uri("http://185.200.102.183:4723/"), driverOptions);
