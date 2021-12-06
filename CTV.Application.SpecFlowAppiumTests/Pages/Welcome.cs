@@ -45,5 +45,19 @@ namespace CTV.Application.SpecFlowAppiumTests.Pages
 
             return false;
         }
+
+        public void SelectVPRQuestionSet()
+        {
+            if (Globals.IsAndroid())
+            {
+                AppiumElement VPRQuestionSet = _driver.FindElement(MobileBy.XPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[3]/android.view.View/android.view.View[5]"));
+                Thread.Sleep(3000);
+                VPRQuestionSet.Click();
+            }
+            else if (Globals.IsIOS())
+            {
+                //do nothing until we can build latest ios app
+            }
+        }
     }
 }

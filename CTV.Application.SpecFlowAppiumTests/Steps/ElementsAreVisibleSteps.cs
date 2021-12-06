@@ -39,14 +39,6 @@ namespace CTV.Application.SpecFlowAppiumTests.Steps
         public void WhenTheUserIsOnTheScreen(string p0)
         {
             Thread.Sleep(3000);
-            /*for (int i = 0; !_driver.PageSource.Contains(p0); i++)
-            {
-                Thread.Sleep(500);
-                if (i == 10)
-                {
-                    break;
-                }
-            }*/
             if(Globals.IsAndroid())
             {
                 bool correctView = _driver.PageSource.Contains(p0);
