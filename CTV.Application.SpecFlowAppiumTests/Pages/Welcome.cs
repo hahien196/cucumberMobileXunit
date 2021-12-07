@@ -56,7 +56,9 @@ namespace CTV.Application.SpecFlowAppiumTests.Pages
             }
             else if (Globals.IsIOS())
             {
-                //do nothing until we can build latest ios app
+                AppiumElement VPRQuestionSet = _driver.FindElement(MobileBy.XPath("//XCUIElementTypeStaticText[@name='VPR Pre-Exercise Diary']"));
+                Thread.Sleep(3000);
+                VPRQuestionSet.Click();
             }
         }
     }

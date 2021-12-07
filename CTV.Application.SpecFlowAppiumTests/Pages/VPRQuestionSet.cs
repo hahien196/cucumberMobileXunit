@@ -32,10 +32,9 @@ namespace CTV.Application.SpecFlowAppiumTests.Pages
             }
             else if (Globals.IsIOS())
             {
-                //fill in iOS locators here
-                yesButton = null;
-                noButton = null;
-                nextButton = null;
+                yesButton = _driver.FindElement(MobileBy.AccessibilityId("Yes"));
+                noButton = _driver.FindElement(MobileBy.AccessibilityId("No"));
+                nextButton = _driver.FindElement(MobileBy.AccessibilityId("Next"));
             }
 
             if (q1.ToLower() == "yes")
@@ -62,11 +61,10 @@ namespace CTV.Application.SpecFlowAppiumTests.Pages
             }
             else if (Globals.IsIOS())
             {
-                //fill in iOS locators here
-                betterThanYesterday = null;
-                sameAsYesterday = null;
-                worseThanYesterday = null;
-                nextButton = null;
+                betterThanYesterday = _driver.FindElement(MobileBy.AccessibilityId("Better than yesterday"));
+                sameAsYesterday = _driver.FindElement(MobileBy.AccessibilityId("Same as yesterday"));
+                worseThanYesterday = _driver.FindElement(MobileBy.AccessibilityId("Worse than yesterday"));
+                nextButton = _driver.FindElement(MobileBy.AccessibilityId("Next"));
             }
 
             switch (q2)
@@ -103,10 +101,9 @@ namespace CTV.Application.SpecFlowAppiumTests.Pages
             }
             else if (Globals.IsIOS())
             {
-                //fill in iOS locators here
-                yesButton = null;
-                noButton = null;
-                nextButton = null;
+                yesButton = _driver.FindElement(MobileBy.AccessibilityId("Yes"));
+                noButton = _driver.FindElement(MobileBy.AccessibilityId("No"));
+                nextButton = _driver.FindElement(MobileBy.AccessibilityId("Next"));
             }
 
             if (q3.ToLower() == "yes")
