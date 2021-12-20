@@ -1,12 +1,10 @@
-﻿using CTV.Application.SpecFlowAppiumTests.Drivers;
+﻿using SpecFlowAppiumTests.Drivers;
 using OpenQA.Selenium.Appium;
 using System;
-using System.Diagnostics;
 using System.Threading;
 using TechTalk.SpecFlow;
-using Xunit;
 
-namespace CTV.Application.SpecFlowAppiumTests.Hooks
+namespace SpecFlowAppiumTests.Hooks
 {
     [Binding]
     class TestHooks
@@ -23,7 +21,7 @@ namespace CTV.Application.SpecFlowAppiumTests.Hooks
         public static void Initialise()
         {
             //local use only
-            //Environment.SetEnvironmentVariable("PLATFORM", "Android");
+            Environment.SetEnvironmentVariable("PLATFORM", "Android");
 
             AppiumServer appiumServer = new AppiumServer();
             Driver appiumDriver = new Driver();

@@ -1,9 +1,9 @@
 ﻿using OpenQA.Selenium.Appium;
-using CTV.Application.SpecFlowAppiumTests.Pages;
-using CTV.Application.SpecFlowAppiumTests.Helpers;
+using SpecFlowAppiumTests.Pages;
+using SpecFlowAppiumTests.Helpers;
 using System.Threading;
 
-namespace CTV.Application.SpecFlowAppiumTests.Navigation
+namespace SpecFlowAppiumTests.Navigation
 {
     public class WelcomeNav : INavigationManager
     {
@@ -13,7 +13,7 @@ namespace CTV.Application.SpecFlowAppiumTests.Navigation
             _navigationDriver = driver;
         }
 
-        public void NavigateTo()
+        public void NavigateWithConsent()
         {
             Activation act = new Activation(_navigationDriver);
             act.SendCodeThenContinue();
@@ -21,5 +21,13 @@ namespace CTV.Application.SpecFlowAppiumTests.Navigation
             Consent cons = new Consent(_navigationDriver);
             cons.ApproveConsent();
         }
+
+        public void Navigate()
+        {
+            Activation act = new Activation(_navigationDriver);
+            act.SendCodeThenContinue();
+            Thread.Sleep(3000);
+        }
+
     }
 }

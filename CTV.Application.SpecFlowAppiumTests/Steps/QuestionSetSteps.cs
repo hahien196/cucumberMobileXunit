@@ -1,15 +1,10 @@
-﻿using CTV.Application.SpecFlowAppiumTests.Pages;
+﻿using SpecFlowAppiumTests.Pages;
 using OpenQA.Selenium.Appium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 using Xunit;
 
-namespace CTV.Application.SpecFlowAppiumTests.Steps
+namespace SpecFlowAppiumTests.Steps
 {
     [Binding]
     public class QuestionSetSteps

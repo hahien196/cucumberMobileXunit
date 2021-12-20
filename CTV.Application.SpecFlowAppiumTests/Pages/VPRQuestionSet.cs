@@ -1,9 +1,9 @@
-﻿using CTV.Application.SpecFlowAppiumTests.Helpers;
+﻿using SpecFlowAppiumTests.Helpers;
 using OpenQA.Selenium.Appium;
 using System;
 using System.Threading;
 
-namespace CTV.Application.SpecFlowAppiumTests.Pages
+namespace SpecFlowAppiumTests.Pages
 {
     public class VPRQuestionSet
     {

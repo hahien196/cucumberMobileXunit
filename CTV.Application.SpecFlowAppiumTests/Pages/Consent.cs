@@ -1,11 +1,10 @@
 ﻿using OpenQA.Selenium.Appium;
 using System;
-using CTV.Application.SpecFlowAppiumTests.Helpers;
+using SpecFlowAppiumTests.Helpers;
 using System.Threading;
-using System.Drawing;
 using OpenQA.Selenium.Appium.MultiTouch;
 
-namespace CTV.Application.SpecFlowAppiumTests.Pages
+namespace SpecFlowAppiumTests.Pages
 {
     public class Consent : IPageManager
     {
@@ -55,6 +54,14 @@ namespace CTV.Application.SpecFlowAppiumTests.Pages
             Thread.Sleep(500);
 
             acceptInput.Click();
+        }
+
+        public void RejectConsent()
+        {
+            ScrollToBottom();
+            Thread.Sleep(500);
+
+            rejectInput.Click();
         }
 
         public void ScrollToBottom()

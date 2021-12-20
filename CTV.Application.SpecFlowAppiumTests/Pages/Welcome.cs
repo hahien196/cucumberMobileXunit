@@ -1,11 +1,9 @@
 ﻿using OpenQA.Selenium.Appium;
 using System;
-using CTV.Application.SpecFlowAppiumTests.Helpers;
+using SpecFlowAppiumTests.Helpers;
 using System.Threading;
-using System.Drawing;
-using OpenQA.Selenium.Appium.MultiTouch;
 
-namespace CTV.Application.SpecFlowAppiumTests.Pages
+namespace SpecFlowAppiumTests.Pages
 {
     public class Welcome : IPageManager
     {

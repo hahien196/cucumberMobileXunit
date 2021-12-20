@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium.Appium;
-using CTV.Application.SpecFlowAppiumTests.Navigation;
+using SpecFlowAppiumTests.Navigation;
 
-namespace CTV.Application.SpecFlowAppiumTests.Helpers
+namespace SpecFlowAppiumTests.Helpers
 {
     public class NavigationManager
     {

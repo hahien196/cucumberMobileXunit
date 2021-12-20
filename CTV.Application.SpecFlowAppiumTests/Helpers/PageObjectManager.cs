@@ -1,7 +1,7 @@
-﻿using CTV.Application.SpecFlowAppiumTests.Pages;
+﻿using SpecFlowAppiumTests.Pages;
 using OpenQA.Selenium.Appium;
 
-namespace CTV.Application.SpecFlowAppiumTests.Helpers
+namespace SpecFlowAppiumTests.Helpers
 {
     public class PageObjectManager
     {

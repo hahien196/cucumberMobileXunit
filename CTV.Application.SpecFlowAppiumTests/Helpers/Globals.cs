@@ -1,7 +1,6 @@
-﻿using OpenQA.Selenium.Appium;
-using System;
+﻿using System;
 
-namespace CTV.Application.SpecFlowAppiumTests.Helpers
+namespace SpecFlowAppiumTests.Helpers
 {
     public static class Globals
     {

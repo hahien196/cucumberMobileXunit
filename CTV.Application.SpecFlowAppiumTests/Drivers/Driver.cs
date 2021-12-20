@@ -5,7 +5,7 @@ using OpenQA.Selenium.Appium.iOS;
 using System;
 
 
-namespace CTV.Application.SpecFlowAppiumTests.Drivers
+namespace SpecFlowAppiumTests.Drivers
 {
     public class Driver
     {

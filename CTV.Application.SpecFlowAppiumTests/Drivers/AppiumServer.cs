@@ -1,9 +1,7 @@
-﻿using Renci.SshNet;
-using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 
-namespace CTV.Application.SpecFlowAppiumTests.Drivers
+namespace SpecFlowAppiumTests.Drivers
 {
     public class AppiumServer
     {

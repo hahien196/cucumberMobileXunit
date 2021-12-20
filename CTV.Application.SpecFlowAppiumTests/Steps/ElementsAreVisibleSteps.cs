@@ -2,10 +2,10 @@
 using System.Threading;
 using TechTalk.SpecFlow;
 using Xunit;
-using CTV.Application.SpecFlowAppiumTests.Helpers;
-using CTV.Application.SpecFlowAppiumTests.Pages;
+using SpecFlowAppiumTests.Helpers;
+using SpecFlowAppiumTests.Pages;
 
-namespace CTV.Application.SpecFlowAppiumTests.Steps
+namespace SpecFlowAppiumTests.Steps
 {
     [Binding]
     public class ElementsAreVisibleSteps
@@ -32,7 +32,7 @@ namespace CTV.Application.SpecFlowAppiumTests.Steps
         {
             nav = new(_driver);
             INavigationManager navigate = nav.NavigationSwitch(p0);
-            navigate.NavigateTo();
+            navigate.NavigateWithConsent();
         }
 
         [When(@"the user is on the (.*) screen")]

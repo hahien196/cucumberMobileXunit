@@ -1,7 +1,7 @@
-﻿namespace CTV.Application.SpecFlowAppiumTests.Helpers
+﻿namespace SpecFlowAppiumTests.Helpers
 {
     public interface INavigationManager
     {
-        public void NavigateTo();
+        public void NavigateWithConsent();
     }
 }
