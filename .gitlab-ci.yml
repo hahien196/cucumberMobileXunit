@@ -3,14 +3,9 @@ variables:
     FF_ENABLE_JOB_CLEANUP: 1
 
 stages:
-#  - android-test
-#  - ios-test
-   - test
+ - android-test
+ - ios-test
 
-test:
-  stage: test
-  script:
-    - echo $newvar 
 
 android-test:
   stage: android-test
