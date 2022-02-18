@@ -3,8 +3,9 @@ variables:
     FF_ENABLE_JOB_CLEANUP: 1
 
 stages:
-  - android-test
-  - ios-test
+ - android-test
+ - ios-test
+
 
 android-test:
   stage: android-test
