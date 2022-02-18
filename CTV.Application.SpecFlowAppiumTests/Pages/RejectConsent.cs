@@ -1,10 +1,5 @@
-﻿using SpecFlowAppiumTests.Helpers;
-using OpenQA.Selenium.Appium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenQA.Selenium.Appium;
+
 
 namespace SpecFlowAppiumTests.Pages
 {
