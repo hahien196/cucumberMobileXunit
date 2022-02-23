@@ -26,8 +26,8 @@ namespace SpecFlowAppiumTests.Pages
             Thread.Sleep(1000);
             if (Globals.IsAndroid())
             {
-                yesButton = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='have-you-taken-your-inhalers-today-as-prescribed-yes']"));
-                noButton = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='have-you-taken-your-inhalers-today-as-prescribed-no']"));
+                yesButton = _driver.FindElement(MobileBy.AccessibilityId("have-you-taken-your-inhalers-today-as-prescribed-yes"));
+                noButton = _driver.FindElement(MobileBy.AccessibilityId("have-you-taken-your-inhalers-today-as-prescribed-no"));
                 nextButton = _driver.FindElement(MobileBy.XPath("//android.view.View/android.widget.Button"));
             }
             else if (Globals.IsIOS())
@@ -54,9 +54,9 @@ namespace SpecFlowAppiumTests.Pages
             Thread.Sleep(1000);
             if (Globals.IsAndroid())
             {
-                betterThanYesterday = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='how-are-you-today-better-than-yesterday']"));
-                sameAsYesterday = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='how-are-you-today-same-as-yesterday']"));
-                worseThanYesterday = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='how-are-you-today-worse-than-yesterday']"));
+                betterThanYesterday = _driver.FindElement(MobileBy.AccessibilityId("how-are-you-today-better-than-yesterday"));
+                sameAsYesterday = _driver.FindElement(MobileBy.AccessibilityId("how-are-you-today-same-as-yesterday"));
+                worseThanYesterday = _driver.FindElement(MobileBy.AccessibilityId("how-are-you-today-worse-than-yesterday"));
                 nextButton = _driver.FindElement(MobileBy.XPath("//android.view.View/android.widget.Button"));
             }
             else if (Globals.IsIOS())
@@ -95,8 +95,8 @@ namespace SpecFlowAppiumTests.Pages
             Thread.Sleep(1000);
             if (Globals.IsAndroid())
             {
-                yesButton = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='do-you-feel-able-to-do-your-exercises-session-today-yes']"));
-                noButton = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='do-you-feel-able-to-do-your-exercises-session-today-no']"));
+                yesButton = _driver.FindElement(MobileBy.AccessibilityId("do-you-feel-able-to-do-your-exercises-session-today-yes"));
+                noButton = _driver.FindElement(MobileBy.AccessibilityId("do-you-feel-able-to-do-your-exercises-session-today-no"));
                 nextButton = _driver.FindElement(MobileBy.XPath("//android.view.View/android.widget.Button"));
             }
             else if (Globals.IsIOS())

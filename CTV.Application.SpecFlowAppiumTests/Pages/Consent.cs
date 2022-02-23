@@ -53,15 +53,22 @@ namespace SpecFlowAppiumTests.Pages
         {
             ScrollToBottom();
             Thread.Sleep(500);
-
-            acceptInput.Click();
+            try
+            {
+                acceptInput.Click();
+            }
+            catch (Exception e)
+            {
+                ScrollToBottom();
+                Thread.Sleep(500);
+                acceptInput.Click();
+            }
         }
 
         public void RejectConsent()
         {
             ScrollToBottom();
             Thread.Sleep(500);
-
             rejectInput.Click();
         }
 
