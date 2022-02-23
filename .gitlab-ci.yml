@@ -25,8 +25,6 @@ android-test:
     - echo "Uploading results to JIRA"
     - 'curl.exe -H "Content-Type: application/json" -H "Authorization: Bearer ${token}" --data-binary "@C:\Temp\Android\data.json" -X POST https://xray.cloud.getxray.app/api/v2/import/execution/cucumber'
     - echo "Android task complete"
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
   allow_failure: true
 
 ios-test:
@@ -47,6 +45,4 @@ ios-test:
     - echo "Uploading results to JIRA"
     - 'curl.exe -H "Content-Type: application/json" -H "Authorization: Bearer ${token}" --data-binary "@C:\Temp\iOS\data.json" -X POST https://xray.cloud.getxray.app/api/v2/import/execution/cucumber'
     - echo "iOS task complete"
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
   allow_failure: true
