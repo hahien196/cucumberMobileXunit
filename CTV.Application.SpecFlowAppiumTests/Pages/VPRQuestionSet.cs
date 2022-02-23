@@ -28,7 +28,7 @@ namespace SpecFlowAppiumTests.Pages
             {
                 yesButton = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='have-you-taken-your-inhalers-today-as-prescribed-yes']"));
                 noButton = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='have-you-taken-your-inhalers-today-as-prescribed-no']"));
-                nextButton = _driver.FindElement(MobileBy.XPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[3]/android.widget.Button"));
+                nextButton = _driver.FindElement(MobileBy.XPath("//android.view.View/android.widget.Button"));
             }
             else if (Globals.IsIOS())
             {
@@ -57,7 +57,7 @@ namespace SpecFlowAppiumTests.Pages
                 betterThanYesterday = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='how-are-you-today-better-than-yesterday']"));
                 sameAsYesterday = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='how-are-you-today-same-as-yesterday']"));
                 worseThanYesterday = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='how-are-you-today-worse-than-yesterday']"));
-                nextButton = _driver.FindElement(MobileBy.XPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[3]/android.widget.Button"));
+                nextButton = _driver.FindElement(MobileBy.XPath("//android.view.View/android.widget.Button"));
             }
             else if (Globals.IsIOS())
             {
@@ -97,7 +97,7 @@ namespace SpecFlowAppiumTests.Pages
             {
                 yesButton = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='do-you-feel-able-to-do-your-exercises-session-today-yes']"));
                 noButton = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='do-you-feel-able-to-do-your-exercises-session-today-no']"));
-                nextButton = _driver.FindElement(MobileBy.XPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[3]/android.widget.Button"));
+                nextButton = _driver.FindElement(MobileBy.XPath("//android.view.View/android.widget.Button"));
             }
             else if (Globals.IsIOS())
             {
@@ -136,7 +136,7 @@ namespace SpecFlowAppiumTests.Pages
         public bool AnswersMatchExpected(string q1, string q2, string q3)
         {
             Thread.Sleep(1000);
-            AppiumElement saveButton = _driver.FindElement(MobileBy.XPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[3]/android.widget.Button")); 
+            AppiumElement saveButton = _driver.FindElement(MobileBy.XPath("//android.view.View/android.widget.Button")); 
 
             string pageSource = _driver.PageSource;
             Thread.Sleep(1000);
