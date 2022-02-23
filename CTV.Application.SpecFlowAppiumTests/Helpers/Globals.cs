@@ -42,6 +42,15 @@ namespace SpecFlowAppiumTests.Helpers
             return null;
         }
 
+        public static double IOSWindowHeight()
+        {
+            return 0.9;
+        }
+
+        public static double AndroidWindowHeight()
+        {
+            return 0.8;
+        }
 
         public static string GetLocator()
         {

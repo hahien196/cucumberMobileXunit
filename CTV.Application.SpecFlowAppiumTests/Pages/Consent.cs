@@ -52,29 +52,31 @@ namespace SpecFlowAppiumTests.Pages
         public void ApproveConsent()
         {
             ScrollToBottom();
-            Thread.Sleep(500);
-            try
-            {
-                acceptInput.Click();
-            }
-            catch (Exception e)
-            {
-                ScrollToBottom();
-                Thread.Sleep(500);
-                acceptInput.Click();
-            }
+            Thread.Sleep(1000);
+            acceptInput.Click();
         }
 
         public void RejectConsent()
         {
             ScrollToBottom();
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
             rejectInput.Click();
         }
 
         public void ScrollToBottom()
         {
-            double windowStartHeight = _driver.Manage().Window.Size.Height * 0.9;
+            double windowHeight;
+
+            if (Globals.IsIOS())
+            {
+                windowHeight = Globals.IOSWindowHeight();
+            }
+            else
+            {
+                windowHeight = Globals.AndroidWindowHeight();
+            }
+
+            double windowStartHeight = _driver.Manage().Window.Size.Height * windowHeight;
             double windowEndHeight = _driver.Manage().Window.Size.Height * 0.2;
             double windowWidth = _driver.Manage().Window.Size.Width / 2;
 
