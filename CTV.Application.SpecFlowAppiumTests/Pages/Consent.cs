@@ -17,8 +17,6 @@ namespace SpecFlowAppiumTests.Pages
 
         AppiumElement companyLogo => _driver.FindElement(MobileBy.AccessibilityId("companyLogoImage"));
         AppiumElement consentTitle => _driver.FindElement(MobileBy.AccessibilityId("consentTitle"));
-        //AppiumElement consentContent => _driver.FindElement(MobileBy.AccessibilityId("consentContent"));
-        AppiumElement consentContent => _driver.FindElement(MobileBy.ClassName("android.widget.TextView"));
         AppiumElement acceptInput => _driver.FindElement(MobileBy.AccessibilityId("acceptInput"));
         AppiumElement rejectInput => _driver.FindElement(MobileBy.AccessibilityId("rejectInput"));
 
@@ -26,7 +24,7 @@ namespace SpecFlowAppiumTests.Pages
 
         public bool ValidateElements(string elementName)
         {
-            AppiumElement[] appiumWebElements = { companyLogo, consentTitle, consentContent, acceptInput, rejectInput };
+            AppiumElement[] appiumWebElements = { companyLogo, consentTitle, acceptInput, rejectInput };
 
             string locator = Globals.GetLocator();
 

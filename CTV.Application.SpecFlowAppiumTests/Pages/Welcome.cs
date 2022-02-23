@@ -15,7 +15,7 @@ namespace SpecFlowAppiumTests.Pages
         }
 
         AppiumElement companyLogo => _driver.FindElement(MobileBy.AccessibilityId("companyLogoImage"));
-        AppiumElement welcomeTitle => _driver.FindElement(MobileBy.AccessibilityId("welcomeTitle"));
+        AppiumElement welcomeTitle => _driver.FindElement(MobileBy.AccessibilityId("questionSetSelectionTitle"));
         AppiumElement welcomePatient => _driver.FindElement(MobileBy.AccessibilityId("patientName"));
 
 
