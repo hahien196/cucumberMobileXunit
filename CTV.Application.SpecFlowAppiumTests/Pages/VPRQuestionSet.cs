@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Appium;
 using System;
 using System.Threading;
+using OpenQA.Selenium;
 
 namespace SpecFlowAppiumTests.Pages
 {
@@ -15,6 +16,35 @@ namespace SpecFlowAppiumTests.Pages
         AppiumElement sameAsYesterday;
         AppiumElement worseThanYesterday;
         AppiumElement nextButton;
+        AppiumElement saveButton;
+
+        // android locator
+        By and_q1YesLocator = MobileBy.AccessibilityId("have-you-taken-your-inhalers-today-as-prescribed-yes");
+        By and_q1NoLocator = MobileBy.AccessibilityId("have-you-taken-your-inhalers-today-as-prescribed-no");
+        By and_q1NextBtnLocator = MobileBy.XPath("//android.view.View/android.widget.Button");
+        By and_q2Op1Locator = MobileBy.AccessibilityId("how-are-you-today-better-than-yesterday");
+
+        By and_q2Op2Locator = MobileBy.AccessibilityId("how-are-you-today-same-as-yesterday");
+        By and_q2Op3Locator = MobileBy.AccessibilityId("how-are-you-today-worse-than-yesterday");
+        By and_q2NextBtnLocator = MobileBy.XPath("//android.view.View/android.widget.Button");
+
+        By and_q3YesLocator = MobileBy.AccessibilityId("do-you-feel-able-to-do-your-exercises-session-today-yes");
+        By and_q3NoLocator = MobileBy.AccessibilityId("do-you-feel-able-to-do-your-exercises-session-today-no");
+        By and_q3NextBtnLocator = MobileBy.XPath("//android.view.View/android.widget.Button");
+        By and_saveBtnLocator = MobileBy.XPath("//android.view.View/android.widget.Button");
+
+        // ios locator
+        By ios_q1YesLocator = MobileBy.AccessibilityId("Yes");
+        By ios_q1NoLocator = MobileBy.AccessibilityId("No");
+        By ios_q1NextBtnLocator = MobileBy.AccessibilityId("Next");
+        By ios_q2Op1Locator = MobileBy.AccessibilityId("Better than yesterday");
+        By ios_q2Op2Locator = MobileBy.AccessibilityId("Same as yesterday");
+        By ios_q2Op3Locator = MobileBy.AccessibilityId("Worse than yesterday");
+        By ios_q2NextBtnLocator = MobileBy.AccessibilityId("Next");
+        By ios_q3YesLocator = MobileBy.AccessibilityId("Yes");
+        By ios_q3NoLocator = MobileBy.AccessibilityId("No");
+        By ios_q3NextBtnLocator = MobileBy.AccessibilityId("Next");
+        By ios_saveBtnLocator = MobileBy.AccessibilityId("Save");
 
         public VPRQuestionSet(AppiumDriver appiumDriver)
         {
@@ -23,18 +53,19 @@ namespace SpecFlowAppiumTests.Pages
 
         private void QuestionOne(string q1)
         {
-            Thread.Sleep(1000);
             if (Globals.IsAndroid())
             {
-                yesButton = _driver.FindElement(MobileBy.AccessibilityId("have-you-taken-your-inhalers-today-as-prescribed-yes"));
-                noButton = _driver.FindElement(MobileBy.AccessibilityId("have-you-taken-your-inhalers-today-as-prescribed-no"));
-                nextButton = _driver.FindElement(MobileBy.XPath("//android.view.View/android.widget.Button"));
+                ElementUtils.WaitForElementClickable(_driver, and_q1YesLocator);
+                yesButton = _driver.FindElement(and_q1YesLocator);
+                noButton = _driver.FindElement(and_q1NoLocator);
+                nextButton = _driver.FindElement(and_q1NextBtnLocator);
             }
             else if (Globals.IsIOS())
             {
-                yesButton = _driver.FindElement(MobileBy.AccessibilityId("Yes"));
-                noButton = _driver.FindElement(MobileBy.AccessibilityId("No"));
-                nextButton = _driver.FindElement(MobileBy.AccessibilityId("Next"));
+                ElementUtils.WaitForElementClickable(_driver, ios_q1YesLocator);
+                yesButton = _driver.FindElement(ios_q1YesLocator);
+                noButton = _driver.FindElement(ios_q1NoLocator);
+                nextButton = _driver.FindElement(ios_q1NextBtnLocator);
             }
 
             if (q1.ToLower() == "yes")
@@ -51,20 +82,21 @@ namespace SpecFlowAppiumTests.Pages
 
         private void QuestionOTwo(string q2)
         {
-            Thread.Sleep(1000);
             if (Globals.IsAndroid())
             {
-                betterThanYesterday = _driver.FindElement(MobileBy.AccessibilityId("how-are-you-today-better-than-yesterday"));
-                sameAsYesterday = _driver.FindElement(MobileBy.AccessibilityId("how-are-you-today-same-as-yesterday"));
-                worseThanYesterday = _driver.FindElement(MobileBy.AccessibilityId("how-are-you-today-worse-than-yesterday"));
-                nextButton = _driver.FindElement(MobileBy.XPath("//android.view.View/android.widget.Button"));
+                ElementUtils.WaitForElementClickable(_driver, and_q2Op1Locator);
+                betterThanYesterday = _driver.FindElement(and_q2Op1Locator);
+                sameAsYesterday = _driver.FindElement(and_q2Op2Locator);
+                worseThanYesterday = _driver.FindElement(and_q2Op3Locator);
+                nextButton = _driver.FindElement(and_q2NextBtnLocator);
             }
             else if (Globals.IsIOS())
             {
-                betterThanYesterday = _driver.FindElement(MobileBy.AccessibilityId("Better than yesterday"));
-                sameAsYesterday = _driver.FindElement(MobileBy.AccessibilityId("Same as yesterday"));
-                worseThanYesterday = _driver.FindElement(MobileBy.AccessibilityId("Worse than yesterday"));
-                nextButton = _driver.FindElement(MobileBy.AccessibilityId("Next"));
+                ElementUtils.WaitForElementClickable(_driver, ios_q2Op1Locator);
+                betterThanYesterday = _driver.FindElement(ios_q2Op1Locator);
+                sameAsYesterday = _driver.FindElement(ios_q2Op2Locator);
+                worseThanYesterday = _driver.FindElement(ios_q2Op3Locator);
+                nextButton = _driver.FindElement(ios_q2NextBtnLocator);
             }
 
             switch (q2)
@@ -92,18 +124,19 @@ namespace SpecFlowAppiumTests.Pages
 
         private void QuestionThree(string q3)
         {
-            Thread.Sleep(1000);
             if (Globals.IsAndroid())
             {
-                yesButton = _driver.FindElement(MobileBy.AccessibilityId("do-you-feel-able-to-do-your-exercises-session-today-yes"));
-                noButton = _driver.FindElement(MobileBy.AccessibilityId("do-you-feel-able-to-do-your-exercises-session-today-no"));
-                nextButton = _driver.FindElement(MobileBy.XPath("//android.view.View/android.widget.Button"));
+                ElementUtils.WaitForElementClickable(_driver, and_q3YesLocator);
+                yesButton = _driver.FindElement(and_q3YesLocator);
+                noButton = _driver.FindElement(and_q3NoLocator);
+                nextButton = _driver.FindElement(and_q3NextBtnLocator);
             }
             else if (Globals.IsIOS())
             {
-                yesButton = _driver.FindElement(MobileBy.AccessibilityId("Yes"));
-                noButton = _driver.FindElement(MobileBy.AccessibilityId("No"));
-                nextButton = _driver.FindElement(MobileBy.AccessibilityId("Next"));
+                ElementUtils.WaitForElementClickable(_driver, ios_q3YesLocator);
+                yesButton = _driver.FindElement(ios_q3YesLocator);
+                noButton = _driver.FindElement(ios_q3NoLocator);
+                nextButton = _driver.FindElement(ios_q3NextBtnLocator);
             }
 
             if (q3.ToLower() == "yes")
@@ -126,7 +159,6 @@ namespace SpecFlowAppiumTests.Pages
                 QuestionOne(q1);
                 QuestionOTwo(q2);
                 QuestionThree(q3);
-                Thread.Sleep(500);
                 return true;
             }
 
@@ -135,8 +167,16 @@ namespace SpecFlowAppiumTests.Pages
 
         public bool AnswersMatchExpected(string q1, string q2, string q3)
         {
-            Thread.Sleep(1000);
-            AppiumElement saveButton = _driver.FindElement(MobileBy.XPath("//android.view.View/android.widget.Button")); 
+            if (Globals.IsAndroid())
+            {
+                ElementUtils.WaitForElementClickable(_driver, and_saveBtnLocator);
+                saveButton = _driver.FindElement(and_saveBtnLocator);
+            }
+            else if (Globals.IsIOS())
+            {
+                ElementUtils.WaitForElementClickable(_driver, ios_saveBtnLocator);
+                saveButton = _driver.FindElement(ios_saveBtnLocator);
+            }
 
             string pageSource = _driver.PageSource;
             Thread.Sleep(1000);
@@ -145,7 +185,9 @@ namespace SpecFlowAppiumTests.Pages
                 saveButton.Click();
                 return true; 
             }
-            else { return false; }
+            else { 
+                return false; 
+            }
         }
     }
 }

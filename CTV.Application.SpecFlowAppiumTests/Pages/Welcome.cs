@@ -2,22 +2,26 @@
 using System;
 using SpecFlowAppiumTests.Helpers;
 using System.Threading;
+using OpenQA.Selenium;
 
 namespace SpecFlowAppiumTests.Pages
 {
     public class Welcome : IPageManager
     {
         private static AppiumDriver _driver;
-
+        AppiumElement VPRQuestionSetMenu;
+        By VPRQuestionSetLocator;
         public Welcome(AppiumDriver appiumDriver)
         {
             _driver = appiumDriver;
         }
 
+        AppiumElement acceptInput => _driver.FindElement(MobileBy.AccessibilityId("acceptInput"));
         AppiumElement companyLogo => _driver.FindElement(MobileBy.AccessibilityId("companyLogoImage"));
         AppiumElement welcomeTitle => _driver.FindElement(MobileBy.AccessibilityId("questionSetSelectionTitle"));
         AppiumElement welcomePatient => _driver.FindElement(MobileBy.AccessibilityId("patientName"));
-
+        By and_VPRQuestionSetLocator = MobileBy.XPath("//android.view.View[@text='VPR Pre-Exercise Diary']");
+        By ios_VPRQuestionSetLocator = MobileBy.XPath("//XCUIElementTypeStaticText[@name='VPR Pre-Exercise Diary']");
 
         public bool ValidateElements(string elementName)
         {
@@ -48,16 +52,26 @@ namespace SpecFlowAppiumTests.Pages
         {
             if (Globals.IsAndroid())
             {
-                AppiumElement VPRQuestionSet = _driver.FindElement(MobileBy.XPath("//android.view.View[@text='VPR Pre-Exercise Diary']"));
-                Thread.Sleep(3000);
-                VPRQuestionSet.Click();
+                VPRQuestionSetLocator = and_VPRQuestionSetLocator;
             }
             else if (Globals.IsIOS())
             {
-                AppiumElement VPRQuestionSet = _driver.FindElement(MobileBy.XPath("//XCUIElementTypeStaticText[@name='VPR Pre-Exercise Diary']"));
-                Thread.Sleep(3000);
-                VPRQuestionSet.Click();
+                VPRQuestionSetLocator = ios_VPRQuestionSetLocator;
             }
+
+            try
+            {
+                VPRQuestionSetMenu = _driver.FindElement(VPRQuestionSetLocator);
+            }
+            catch (Exception e)
+            {
+                ElementUtils.ScrollToBottom(_driver);
+                Thread.Sleep(1000);
+                acceptInput.Click();
+                ElementUtils.WaitForElementClickable(_driver, VPRQuestionSetLocator);
+                VPRQuestionSetMenu = _driver.FindElement(VPRQuestionSetLocator);
+            }
+            VPRQuestionSetMenu.Click();
         }
     }
 }

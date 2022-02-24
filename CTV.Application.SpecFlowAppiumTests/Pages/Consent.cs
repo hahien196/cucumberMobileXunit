@@ -3,6 +3,7 @@ using System;
 using SpecFlowAppiumTests.Helpers;
 using System.Threading;
 using OpenQA.Selenium.Appium.MultiTouch;
+using OpenQA.Selenium;
 
 namespace SpecFlowAppiumTests.Pages
 {
@@ -17,8 +18,10 @@ namespace SpecFlowAppiumTests.Pages
 
         AppiumElement companyLogo => _driver.FindElement(MobileBy.AccessibilityId("companyLogoImage"));
         AppiumElement consentTitle => _driver.FindElement(MobileBy.AccessibilityId("consentTitle"));
-        AppiumElement acceptInput => _driver.FindElement(MobileBy.AccessibilityId("acceptInput"));
-        AppiumElement rejectInput => _driver.FindElement(MobileBy.AccessibilityId("rejectInput"));
+        By acceptInputSelector = MobileBy.AccessibilityId("acceptInput");
+        AppiumElement acceptInput => _driver.FindElement(acceptInputSelector);
+        By rejectInputSelector = MobileBy.AccessibilityId("rejectInput");
+        AppiumElement rejectInput => _driver.FindElement(rejectInputSelector);
 
 
 
@@ -49,42 +52,19 @@ namespace SpecFlowAppiumTests.Pages
 
         public void ApproveConsent()
         {
-            ScrollToBottom();
-            Thread.Sleep(1000);
+            ElementUtils.ScrollToBottom(_driver);
+            ElementUtils.WaitForElementClickable(_driver, acceptInputSelector);
             acceptInput.Click();
         }
 
         public void RejectConsent()
         {
-            ScrollToBottom();
-            Thread.Sleep(1000);
+            //ElementUtils.ScrollToBottom(_driver);
+            //Thread.Sleep(1000);
+            ElementUtils.WaitForElementClickable(_driver, rejectInputSelector);
             rejectInput.Click();
         }
 
-        public void ScrollToBottom()
-        {
-            double windowHeight;
-
-            if (Globals.IsIOS())
-            {
-                windowHeight = Globals.IOSWindowHeight();
-            }
-            else
-            {
-                windowHeight = Globals.AndroidWindowHeight();
-            }
-
-            double windowStartHeight = _driver.Manage().Window.Size.Height * windowHeight;
-            double windowEndHeight = _driver.Manage().Window.Size.Height * 0.2;
-            double windowWidth = _driver.Manage().Window.Size.Width / 2;
-
-            TouchAction dragtobottom = (TouchAction)new TouchAction(_driver).
-                Press(windowWidth, windowStartHeight)
-                .Wait(500)
-                .MoveTo(windowWidth, windowEndHeight)
-                .Release();
-
-            dragtobottom.Perform();
-        }
+        
     }
 }

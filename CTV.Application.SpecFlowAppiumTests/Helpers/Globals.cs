@@ -4,6 +4,9 @@ namespace SpecFlowAppiumTests.Helpers
 {
     public static class Globals
     {
+
+        public const string activateCode = "123456";
+        public const int explicitWaitTimeout = 2;
         public static bool IsAndroid()
         {
             if ((Environment.GetEnvironmentVariable("PLATFORM", EnvironmentVariableTarget.Process)) == "Android")
@@ -44,7 +47,7 @@ namespace SpecFlowAppiumTests.Helpers
 
         public static double IOSWindowHeight()
         {
-            return 0.9;
+            return 0.7;
         }
 
         public static double AndroidWindowHeight()

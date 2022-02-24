@@ -20,7 +20,6 @@ namespace SpecFlowAppiumTests.Steps
         [When(@"they select the ""(.*)"" Question Set")]
         public void WhenTheySelectTheQuestionSet(string p0)
         {
-            Thread.Sleep(1000);
             Welcome welcome = new(_driver);
             welcome.SelectVPRQuestionSet();
         }
@@ -28,7 +27,6 @@ namespace SpecFlowAppiumTests.Steps
         [When(@"respond to all the questions with (.*), (.*), (.*)")]
         public void WhenRespondToAllTheQuestionsWith(string p0, string p1, string p2)
         {
-            Thread.Sleep(1000);
             VPRQuestionSet vprqs = new(_driver);
             Assert.True(vprqs.CompletedQuestions(p0, p1, p2));
         }
@@ -36,7 +34,6 @@ namespace SpecFlowAppiumTests.Steps
         [Then(@"the final results page should show (.*), (.*), (.*)")]
         public void ThenTheFinalResultsPageShouldShow(string p0, string p1, string p2)
         {
-            Thread.Sleep(1000);
             VPRQuestionSet vprq2 = new(_driver);
             Assert.True(vprq2.AnswersMatchExpected(p0, p1, p2));
         }

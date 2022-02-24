@@ -20,7 +20,6 @@ namespace SpecFlowAppiumTests.Steps
         [When(@"the user clicks the ""(.*)"" Button")]
         public void WhenTheUserClicksTheButton(string p0)
         {
-            Thread.Sleep(2000);
             Consent cons = new(_driver);
             cons.RejectConsent();
         }
@@ -28,7 +27,6 @@ namespace SpecFlowAppiumTests.Steps
         [Then(@"they are taken to the ""(.*)"" screen")]
         public void ThenTheyAreTakenToTheScreen(string p0)
         {
-            Thread.Sleep(1000);
             RejectConsent rejcons = new(_driver);
             Assert.True(rejcons.RejectPage());
         }
