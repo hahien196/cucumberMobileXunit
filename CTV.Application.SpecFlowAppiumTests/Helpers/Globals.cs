@@ -6,7 +6,7 @@ namespace SpecFlowAppiumTests.Helpers
     {
 
         public const string activateCode = "123456";
-        public const int explicitWaitTimeout = 2;
+        public const int explicitWaitTimeout = 5;
         public static bool IsAndroid()
         {
             if ((Environment.GetEnvironmentVariable("PLATFORM", EnvironmentVariableTarget.Process)) == "Android")
