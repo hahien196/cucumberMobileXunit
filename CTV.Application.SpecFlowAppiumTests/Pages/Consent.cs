@@ -16,7 +16,8 @@ namespace SpecFlowAppiumTests.Pages
             _driver = appiumDriver;
         }
 
-        AppiumElement companyLogo => _driver.FindElement(MobileBy.AccessibilityId("companyLogoImage"));
+        By companyLogoSelector = MobileBy.AccessibilityId("companyLogoImage");
+        AppiumElement companyLogo => _driver.FindElement(companyLogoSelector);
         AppiumElement consentTitle => _driver.FindElement(MobileBy.AccessibilityId("consentTitle"));
         By acceptInputSelector = MobileBy.AccessibilityId("acceptInput");
         AppiumElement acceptInput => _driver.FindElement(acceptInputSelector);
@@ -27,6 +28,8 @@ namespace SpecFlowAppiumTests.Pages
 
         public bool ValidateElements(string elementName)
         {
+            ElementUtils.WaitForElementVisible(_driver, companyLogoSelector);
+            Thread.Sleep(1000);
             AppiumElement[] appiumWebElements = { companyLogo, consentTitle, acceptInput, rejectInput };
 
             string locator = Globals.GetLocator();
@@ -52,6 +55,7 @@ namespace SpecFlowAppiumTests.Pages
 
         public void ApproveConsent()
         {
+            ElementUtils.ScrollToBottom(_driver);
             ElementUtils.ScrollToBottom(_driver);
             ElementUtils.WaitForElementClickable(_driver, acceptInputSelector);
             acceptInput.Click();

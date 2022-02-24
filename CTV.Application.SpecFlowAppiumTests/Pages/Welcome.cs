@@ -18,14 +18,18 @@ namespace SpecFlowAppiumTests.Pages
 
         AppiumElement acceptInput => _driver.FindElement(MobileBy.AccessibilityId("acceptInput"));
         AppiumElement companyLogo => _driver.FindElement(MobileBy.AccessibilityId("companyLogoImage"));
-        AppiumElement welcomeTitle => _driver.FindElement(MobileBy.AccessibilityId("questionSetSelectionTitle"));
-        AppiumElement welcomePatient => _driver.FindElement(MobileBy.AccessibilityId("patientName"));
+        static By welcomeTitleLocator = MobileBy.AccessibilityId("questionSetSelectionTitle");
+        AppiumElement welcomeTitle => _driver.FindElement(welcomeTitleLocator);
+        static By welcomePatientLocator = MobileBy.AccessibilityId("patientName");
+        AppiumElement welcomePatient => _driver.FindElement(welcomePatientLocator);
         By and_VPRQuestionSetLocator = MobileBy.XPath("//android.view.View[@text='VPR Pre-Exercise Diary']");
         By ios_VPRQuestionSetLocator = MobileBy.XPath("//XCUIElementTypeStaticText[@name='VPR Pre-Exercise Diary']");
 
         public bool ValidateElements(string elementName)
         {
-            AppiumElement[] appiumWebElements = { companyLogo, welcomeTitle, welcomePatient, };
+            ElementUtils.WaitForElementVisible(_driver, welcomePatientLocator);
+            Thread.Sleep(1000);
+            AppiumElement[] appiumWebElements = { companyLogo, welcomeTitle, welcomePatient};
 
             string locator = Globals.GetLocator();
 

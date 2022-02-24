@@ -16,11 +16,12 @@ namespace SpecFlowAppiumTests.Pages
         }
 
         By codeInputParentLocator = MobileBy.XPath("//android.view.View[@content-desc='activationCodeInput']/..");
-        AppiumElement companyLogo => _driver.FindElement(MobileBy.AccessibilityId("companyLogoImage"));
+        By companyLogoSelector = MobileBy.AccessibilityId("companyLogoImage");
+        AppiumElement companyLogo => _driver.FindElement(companyLogoSelector);
         AppiumElement pageTitle => _driver.FindElement(MobileBy.AccessibilityId("activationTitle"));
         AppiumElement pageDescription => _driver.FindElement(MobileBy.AccessibilityId("activationDesc"));
         AppiumElement codeInput => _driver.FindElement(MobileBy.AccessibilityId("activationCodeInput"));
-        By tandcSelector =MobileBy.AccessibilityId("termsAgreedInput");
+        By tandcSelector = MobileBy.AccessibilityId("termsAgreedInput");
         AppiumElement tandc => _driver.FindElement(tandcSelector);
         By continueInputSelector = MobileBy.AccessibilityId("activationContinueInput");
         AppiumElement continueInput => _driver.FindElement(continueInputSelector);
@@ -28,6 +29,8 @@ namespace SpecFlowAppiumTests.Pages
 
         public bool ValidateElements(string elementName)
         {
+            ElementUtils.WaitForElementVisible(_driver, companyLogoSelector);
+            Thread.Sleep(1000);
             AppiumElement[] appiumWebElements = { companyLogo, pageTitle, pageDescription, codeInput, tandc, continueInput };
 
             string locator = Globals.GetLocator();
