@@ -2,6 +2,7 @@
 using System;
 using SpecFlowAppiumTests.Helpers;
 using System.Threading;
+using OpenQA.Selenium;
 
 namespace SpecFlowAppiumTests.Pages
 {
@@ -14,16 +15,22 @@ namespace SpecFlowAppiumTests.Pages
             _driver = appiumDriver;
         }
 
-        AppiumElement companyLogo => _driver.FindElement(MobileBy.AccessibilityId("companyLogoImage"));
+        By codeInputParentLocator = MobileBy.XPath("//android.view.View[@content-desc='activationCodeInput']/..");
+        By companyLogoSelector = MobileBy.AccessibilityId("companyLogoImage");
+        AppiumElement companyLogo => _driver.FindElement(companyLogoSelector);
         AppiumElement pageTitle => _driver.FindElement(MobileBy.AccessibilityId("activationTitle"));
         AppiumElement pageDescription => _driver.FindElement(MobileBy.AccessibilityId("activationDesc"));
         AppiumElement codeInput => _driver.FindElement(MobileBy.AccessibilityId("activationCodeInput"));
-        AppiumElement tandc => _driver.FindElement(MobileBy.AccessibilityId("termsAgreedInput"));
-        AppiumElement continueInput => _driver.FindElement(MobileBy.AccessibilityId("activationContinueInput"));
+        By tandcSelector = MobileBy.AccessibilityId("termsAgreedInput");
+        AppiumElement tandc => _driver.FindElement(tandcSelector);
+        By continueInputSelector = MobileBy.AccessibilityId("activationContinueInput");
+        AppiumElement continueInput => _driver.FindElement(continueInputSelector);
 
 
         public bool ValidateElements(string elementName)
         {
+            ElementUtils.WaitForElementVisible(_driver, companyLogoSelector);
+            Thread.Sleep(1000);
             AppiumElement[] appiumWebElements = { companyLogo, pageTitle, pageDescription, codeInput, tandc, continueInput };
 
             string locator = Globals.GetLocator();
@@ -52,17 +59,17 @@ namespace SpecFlowAppiumTests.Pages
             AppiumElement parent;
             if(Globals.IsAndroid())
             { 
-                parent = _driver.FindElement(MobileBy.XPath("//android.view.View[@content-desc='activationCodeInput']/.."));
-                parent.SendKeys("123456");
+                parent = _driver.FindElement(codeInputParentLocator);
+                parent.SendKeys(Globals.activateCode);
             }
             else if (Globals.IsIOS())
             {
-                codeInput.SendKeys("123456");
+                codeInput.SendKeys(Globals.activateCode);
             }
-            
-            Thread.Sleep(500);
+
+            ElementUtils.WaitForElementClickable(_driver, tandcSelector);
             tandc.Click();
-            Thread.Sleep(2000);
+            ElementUtils.WaitForElementClickable(_driver, continueInputSelector);
             continueInput.Click();
         }
     }
