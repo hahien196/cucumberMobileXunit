@@ -23,8 +23,7 @@ namespace SpecFlowAppiumTests.Steps
         [Given(@"the app is running")]
         public void GivenTheAppIsRunning()
         {
-            //_driver.LaunchApp();
-            Thread.Sleep(5000);
+            Thread.Sleep(2000);
         }
 
         [Given(@"the user has navigated to the ""(.*)"" screen")]
@@ -51,10 +50,25 @@ namespace SpecFlowAppiumTests.Steps
         public void ThenTheyAreAbleToSeeTheExpectedElement(string p0)
         {
             pom = new(_driver);
-            IPageManager screen = pom.ViewSwitcher(_view);
+            IPageManager screen = pom.ViewSwitcher(_view.Replace(" ", ""));
             Assert.True(screen.ValidateElements(p0));
             
         }
+        [Then(@"they are able to see the expected elements")]
+        public void ThenTheyAreAbleToSeeTheExpectedElements(Table table)
+        {
+            pom = new(_driver);
+            IPageManager screen = pom.ViewSwitcher(_view.Replace(" ", ""));
+            int numDisplayed = 0;
+            foreach (var row in table.Rows)
+            {
+                if (screen.ValidateElements(row[1]))
+                {
+                    numDisplayed++;
+                }
+            }
+            Assert.True(numDisplayed == table.Rows.Count);
 
+        }
     }
 }

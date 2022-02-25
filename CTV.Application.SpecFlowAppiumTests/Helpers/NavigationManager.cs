@@ -8,6 +8,7 @@ namespace SpecFlowAppiumTests.Helpers
         private AppiumDriver _pomdriver;
         private ConsentNav _consent;
         private WelcomeNav _welcome;
+        private CarerLoginNav _carerLoginNav;
 
         public NavigationManager(AppiumDriver driver)
         {
@@ -25,6 +26,10 @@ namespace SpecFlowAppiumTests.Helpers
                 case "Welcome":
                     {
                         return _welcome ??= new WelcomeNav(_pomdriver);
+                    }
+                case "Carer Login":
+                    {
+                        return _carerLoginNav ??= new CarerLoginNav(_pomdriver);
                     }
                 default:
                     {
