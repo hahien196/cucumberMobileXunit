@@ -45,9 +45,9 @@ namespace SpecFlowAppiumTests.Drivers
             driverOptions.AddAdditionalAppiumOption("appium:language", "en");
 
             //remote mac mini
-            return new IOSDriver(new Uri("http://185.200.102.183:4723/"), driverOptions);
+            //return new IOSDriver(new Uri("http://185.200.102.183:4723/"), driverOptions);
             //local mac mini
-            //return new IOSDriver(new Uri("http://192.168.1.54:4723/"), driverOptions);
+            return new IOSDriver(new Uri("http://192.168.1.54:4723/"), driverOptions);
         }
     }
 }
