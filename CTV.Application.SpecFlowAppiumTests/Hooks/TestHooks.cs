@@ -21,7 +21,7 @@ namespace SpecFlowAppiumTests.Hooks
         public static void Initialise()
         {
             //local use only
-            Environment.SetEnvironmentVariable("PLATFORM", "Android");
+            //Environment.SetEnvironmentVariable("PLATFORM", "Android");
 
             AppiumServer appiumServer = new AppiumServer();
             Driver appiumDriver = new Driver();
@@ -31,7 +31,7 @@ namespace SpecFlowAppiumTests.Hooks
             }
             else if ((Environment.GetEnvironmentVariable("PLATFORM", EnvironmentVariableTarget.Process)) == "Android")
             {
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
                 _appiumClient = appiumDriver.InitAndroidDriver();
 
             }
@@ -51,7 +51,6 @@ namespace SpecFlowAppiumTests.Hooks
         {
             var driver = ((AppiumDriver)context["DRIVER"]);
             driver.ResetApp();
-            Thread.Sleep(2000);
         }
 
         [AfterFeature]

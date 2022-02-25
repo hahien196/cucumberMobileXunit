@@ -17,7 +17,6 @@ namespace SpecFlowAppiumTests.Navigation
         {
             Activation act = new Activation(_navigationDriver);
             act.SendCodeThenContinue();
-            Thread.Sleep(3000);
             Consent cons = new Consent(_navigationDriver);
             cons.ApproveConsent();
         }
@@ -26,7 +25,6 @@ namespace SpecFlowAppiumTests.Navigation
         {
             Activation act = new Activation(_navigationDriver);
             act.SendCodeThenContinue();
-            Thread.Sleep(3000);
         }
 
     }
