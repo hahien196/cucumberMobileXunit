@@ -21,7 +21,7 @@ namespace SpecFlowAppiumTests.Hooks
         public static void Initialise()
         {
             //local use only
-            Environment.SetEnvironmentVariable("PLATFORM", "iOS");
+            //Environment.SetEnvironmentVariable("PLATFORM", "Android");
 
             AppiumServer appiumServer = new AppiumServer();
             Driver appiumDriver = new Driver();
@@ -51,7 +51,6 @@ namespace SpecFlowAppiumTests.Hooks
         {
             var driver = ((AppiumDriver)context["DRIVER"]);
             driver.ResetApp();
-            //Thread.Sleep(2000);
         }
 
         [AfterFeature]

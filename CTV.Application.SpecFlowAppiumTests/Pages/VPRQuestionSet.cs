@@ -185,9 +185,7 @@ namespace SpecFlowAppiumTests.Pages
                 saveButton.Click();
                 return true; 
             }
-            else { 
-                return false; 
-            }
+            else { return false; }
         }
     }
 }
