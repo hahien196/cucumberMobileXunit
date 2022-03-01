@@ -21,7 +21,7 @@ namespace SpecFlowAppiumTests.Helpers
         {
             switch (screen)
             {
-                case "PatientAccountActivation":
+                case "Patient Account Activation":
                     {
                         return _patientActivationPage ??= new PatientAccountActivation(_pomdriver);
                     }
@@ -33,11 +33,11 @@ namespace SpecFlowAppiumTests.Helpers
                     {
                         return _welcome ??= new Welcome(_pomdriver);
                     }
-                case "PatientLogin":
+                case "Patient Login":
                     {
                         return _patientLogin ??= new PatientLogin(_pomdriver);
                     }
-                case "CarerLogin":
+                case "Carer Login":
                     {
                         return _carerLogin ??= new CarerLogin(_pomdriver);
                     }

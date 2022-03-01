@@ -27,15 +27,16 @@ namespace SpecFlowAppiumTests.Steps
             Thread.Sleep(1000);
         }
 
-        [Given(@"the user has navigated to the ""(.*)"" screen")]
+        [When(@"the user has navigated to the ""(.*)"" screen")]
         public void GivenTheUserHasNavigatedToTheScreen(string p0)
         {
             nav = new(_driver);
             INavigationManager navigate = nav.NavigationSwitch(p0);
             navigate.NavigateTo();
+            _view = p0;
         }
 
-        [When(@"the user is on the (.*) screen")]
+        [When(@"the user is on the ""(.*)"" screen")]
         public void WhenTheUserIsOnTheScreen(string p0)
         {
             if (Globals.IsAndroid())
@@ -54,24 +55,27 @@ namespace SpecFlowAppiumTests.Steps
         public void ThenTheyAreAbleToSeeTheExpectedElement(string p0)
         {
             pom = new(_driver);
-            IPageManager screen = pom.ViewSwitcher(_view.Replace(" ", ""));
+            IPageManager screen = pom.ViewSwitcher(_view);
             Assert.True(screen.ValidateElements(p0));
             
         }
+
         [Then(@"they are able to see the expected elements")]
         public void ThenTheyAreAbleToSeeTheExpectedElements(Table table)
         {
             pom = new(_driver);
-            IPageManager screen = pom.ViewSwitcher(_view.Replace(" ", ""));
+            IPageManager screen = pom.ViewSwitcher(_view);
+            var dictionary = Utilities.TableToDictionary(table);
             int numDisplayed = 0;
-            foreach (var row in table.Rows)
+
+            foreach (var row in dictionary)
             {
-                if (screen.ValidateElements(row[1]))
+                if (screen.ValidateElements(row.Value))
                 {
                     numDisplayed++;
                 }
             }
-            Assert.True(numDisplayed == table.Rows.Count);
+            Assert.True(numDisplayed == dictionary.Count);
 
         }
     }
