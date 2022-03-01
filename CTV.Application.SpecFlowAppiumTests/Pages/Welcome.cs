@@ -2,29 +2,35 @@
 using System;
 using SpecFlowAppiumTests.Helpers;
 using System.Threading;
+using OpenQA.Selenium;
 
 namespace SpecFlowAppiumTests.Pages
 {
     public class Welcome : IPageManager
     {
         private static AppiumDriver _driver;
-
+        AppiumElement VPRQuestionSetMenu;
+        By VPRQuestionSetLocator;
         public Welcome(AppiumDriver appiumDriver)
         {
             _driver = appiumDriver;
         }
 
         AppiumElement companyLogo => _driver.FindElement(MobileBy.AccessibilityId("companyLogoImage"));
-        AppiumElement welcomeTitle => _driver.FindElement(MobileBy.AccessibilityId("questionSetSelectionTitle"));
-        AppiumElement welcomePatient => _driver.FindElement(MobileBy.AccessibilityId("patientName"));
-
+        By welcomeTitleLocator = MobileBy.AccessibilityId("questionSetSelectionTitle");
+        AppiumElement welcomeTitle => _driver.FindElement(welcomeTitleLocator);
+        By welcomePatientLocator = MobileBy.AccessibilityId("patientName");
+        AppiumElement welcomePatient => _driver.FindElement(welcomePatientLocator);
+        By and_VPRQuestionSetLocator = MobileBy.XPath("//android.view.View[@text='VPR Pre-Exercise Diary']");
+        By ios_VPRQuestionSetLocator = MobileBy.XPath("//XCUIElementTypeStaticText[@name='VPR Pre-Exercise Diary']");
 
         public bool ValidateElements(string elementName)
         {
-            AppiumElement[] appiumWebElements = { companyLogo, welcomeTitle, welcomePatient, };
+            ElementUtils.WaitForElementVisible(_driver, welcomePatientLocator);
+            Thread.Sleep(1000);
+            AppiumElement[] appiumWebElements = { companyLogo, welcomeTitle, welcomePatient};
 
             string locator = Globals.GetLocator();
-
              foreach (AppiumElement element in appiumWebElements)
              {
 
@@ -36,7 +42,7 @@ namespace SpecFlowAppiumTests.Pages
                      }
                      catch (Exception)
                      {
-                         return false;
+                        return false;
                      }
                  }
              }
@@ -48,16 +54,15 @@ namespace SpecFlowAppiumTests.Pages
         {
             if (Globals.IsAndroid())
             {
-                AppiumElement VPRQuestionSet = _driver.FindElement(MobileBy.XPath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.compose.ui.platform.ComposeView/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[3]/android.view.View/android.view.View[5]"));
-                Thread.Sleep(3000);
-                VPRQuestionSet.Click();
+                VPRQuestionSetLocator = and_VPRQuestionSetLocator;
             }
             else if (Globals.IsIOS())
             {
-                AppiumElement VPRQuestionSet = _driver.FindElement(MobileBy.XPath("//XCUIElementTypeStaticText[@name='VPR Pre-Exercise Diary']"));
-                Thread.Sleep(3000);
-                VPRQuestionSet.Click();
+                VPRQuestionSetLocator = ios_VPRQuestionSetLocator;
             }
+            ElementUtils.WaitForElementClickable(_driver, VPRQuestionSetLocator);
+            VPRQuestionSetMenu = _driver.FindElement(VPRQuestionSetLocator);
+            VPRQuestionSetMenu.Click();
         }
     }
 }

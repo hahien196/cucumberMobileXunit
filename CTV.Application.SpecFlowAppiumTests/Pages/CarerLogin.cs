@@ -2,6 +2,7 @@
 using System;
 using SpecFlowAppiumTests.Helpers;
 using OpenQA.Selenium;
+using System.Threading;
 
 namespace SpecFlowAppiumTests.Pages
 {
@@ -28,6 +29,7 @@ namespace SpecFlowAppiumTests.Pages
         public bool ValidateElements(string elementName)
         {
             ElementUtils.WaitForElementVisible(_driver, emailInputSelector);
+            Thread.Sleep(1000);
             AppiumElement[] appiumWebElements = { companyLogo, carerLoginTitle, emailInput, passwordInput, loginButton, forgottenPasswordButton };
 
             string locator = Globals.GetLocator();
@@ -58,6 +60,13 @@ namespace SpecFlowAppiumTests.Pages
 
         public void clickLogin()
         {
+            loginButton.Click();
+        }
+
+        public void doLogin(string userName, string password)
+        {
+            emailInput.SendKeys(userName);
+            passwordInput.SendKeys(password);
             loginButton.Click();
         }
 

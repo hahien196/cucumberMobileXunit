@@ -12,7 +12,7 @@ namespace SpecFlowAppiumTests.Navigation
             _navigationDriver = driver;
         }
 
-        public void NavigateWithConsent()
+        public void NavigateTo()
         {
             PatientLogin patientLogin = new PatientLogin(_navigationDriver);
             patientLogin.navigateToCarerLogin();

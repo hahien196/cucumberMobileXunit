@@ -3,25 +3,29 @@ using OpenQA.Selenium.Appium;
 using System;
 using System.Threading;
 using TechTalk.SpecFlow;
+using SpecFlowAppiumTests.Helpers;
 
 namespace SpecFlowAppiumTests.Hooks
 {
     [Binding]
     class TestHooks
     {
-        private static FeatureContext _featureContext;
+        private static FeatureContext _featureContext; 
+        private static ScenarioContext _scenarioContext;
+
         private static AppiumDriver _appiumClient;
         
-        public TestHooks(FeatureContext featureContext)
+        public TestHooks(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
-            _featureContext = featureContext;
+            _featureContext = featureContext; 
+            _scenarioContext = scenarioContext;
         }
 
         [BeforeFeature]
         public static void Initialise()
         {
-            //local use only
-            Environment.SetEnvironmentVariable("PLATFORM", "Android");
+            // local use only
+            //Environment.SetEnvironmentVariable("PLATFORM", "Android");
 
             AppiumServer appiumServer = new AppiumServer();
             Driver appiumDriver = new Driver();
@@ -31,7 +35,7 @@ namespace SpecFlowAppiumTests.Hooks
             }
             else if ((Environment.GetEnvironmentVariable("PLATFORM", EnvironmentVariableTarget.Process)) == "Android")
             {
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
                 _appiumClient = appiumDriver.InitAndroidDriver();
 
             }
@@ -50,8 +54,11 @@ namespace SpecFlowAppiumTests.Hooks
         public static void CleanScenario(FeatureContext context)
         {
             var driver = ((AppiumDriver)context["DRIVER"]);
+            if (_scenarioContext.TestError != null)
+            {
+                Utilities.takeScreenShot(driver, _scenarioContext.ScenarioInfo.Title);
+            }
             driver.ResetApp();
-            Thread.Sleep(2000);
         }
 
         [AfterFeature]

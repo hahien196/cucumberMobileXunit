@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.MultiTouch;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
@@ -40,7 +41,7 @@ namespace SpecFlowAppiumTests.Helpers
             AppiumElement ele = null;
             try
             {
-                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Globals.explicitWaitTimeout));
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Globals.EXPLICIT_WAIT_TIMEOUT));
                 wait.Until(ExpectedConditions.ElementIsVisible(by));
                 ele = _driver.FindElement(by);
             }
@@ -54,11 +55,18 @@ namespace SpecFlowAppiumTests.Helpers
             ele = WaitForElementVisible(_driver, by);
             try
             {
-                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Globals.explicitWaitTimeout));
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Globals.EXPLICIT_WAIT_TIMEOUT));
                 wait.Until(ExpectedConditions.ElementToBeClickable(by));
             }
             catch (Exception) { }
             return ele;
+        }
+
+        public static void actionSendKeys(AppiumDriver _driver, AppiumElement ele, string input)
+        {
+            ele.Click();
+            Actions action = new Actions(_driver);
+            action.SendKeys(input).Perform();
         }
     }
 }

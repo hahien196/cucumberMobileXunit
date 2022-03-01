@@ -4,6 +4,7 @@ using TechTalk.SpecFlow;
 using Xunit;
 using SpecFlowAppiumTests.Helpers;
 using SpecFlowAppiumTests.Pages;
+using OpenQA.Selenium;
 
 namespace SpecFlowAppiumTests.Steps
 {
@@ -23,7 +24,7 @@ namespace SpecFlowAppiumTests.Steps
         [Given(@"the app is running")]
         public void GivenTheAppIsRunning()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
         }
 
         [Given(@"the user has navigated to the ""(.*)"" screen")]
@@ -31,17 +32,20 @@ namespace SpecFlowAppiumTests.Steps
         {
             nav = new(_driver);
             INavigationManager navigate = nav.NavigationSwitch(p0);
-            navigate.NavigateWithConsent();
+            navigate.NavigateTo();
         }
 
         [When(@"the user is on the (.*) screen")]
         public void WhenTheUserIsOnTheScreen(string p0)
         {
-            Thread.Sleep(3000);
-            if(Globals.IsAndroid())
+            if (Globals.IsAndroid())
             {
-                bool correctView = _driver.PageSource.Contains(p0);
-                Assert.True(correctView);
+                By titleEle = MobileBy.XPath($"//*[contains(text(),'{p0.Trim()}')]");
+                ElementUtils.WaitForElementVisible(_driver, titleEle);
+            } else if (Globals.IsIOS())
+            {
+                By titleEle = MobileBy.XPath($"//*[contains(@label,'{p0.Trim()}')]");
+                ElementUtils.WaitForElementVisible(_driver, titleEle);
             }
             _view = p0;
         }

@@ -1,7 +1,6 @@
 ﻿using OpenQA.Selenium.Appium;
 using SpecFlowAppiumTests.Pages;
 using SpecFlowAppiumTests.Helpers;
-using System.Threading;
 
 namespace SpecFlowAppiumTests.Navigation
 {
@@ -15,18 +14,18 @@ namespace SpecFlowAppiumTests.Navigation
 
         public void NavigateWithConsent()
         {
-            Activation act = new Activation(_navigationDriver);
+            PatientAccountActivation act = new PatientAccountActivation(_navigationDriver);
             act.SendCodeThenContinue();
-            Thread.Sleep(3000);
             Consent cons = new Consent(_navigationDriver);
             cons.ApproveConsent();
         }
 
-        public void Navigate()
+        public void NavigateTo()
         {
-            Activation act = new Activation(_navigationDriver);
-            act.SendCodeThenContinue();
-            Thread.Sleep(3000);
+            PatientLogin patientLogin = new PatientLogin(_navigationDriver);
+            patientLogin.doLogin(Globals.DEFAULT_PATIENT_USER, Globals.DEFAULT_PATIENT_PASSWORD); 
+            Consent cons = new Consent(_navigationDriver);
+            cons.ApproveConsent();
         }
 
     }

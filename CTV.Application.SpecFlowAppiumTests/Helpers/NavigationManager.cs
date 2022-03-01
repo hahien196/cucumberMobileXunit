@@ -9,6 +9,7 @@ namespace SpecFlowAppiumTests.Helpers
         private ConsentNav _consent;
         private WelcomeNav _welcome;
         private CarerLoginNav _carerLoginNav;
+        private PatientAccountActivationNav _patientActivationNav;
 
         public NavigationManager(AppiumDriver driver)
         {
@@ -30,6 +31,10 @@ namespace SpecFlowAppiumTests.Helpers
                 case "Carer Login":
                     {
                         return _carerLoginNav ??= new CarerLoginNav(_pomdriver);
+                    }
+                case "Patient Account Activation":
+                    {
+                        return _patientActivationNav ??= new PatientAccountActivationNav(_pomdriver);
                     }
                 default:
                     {

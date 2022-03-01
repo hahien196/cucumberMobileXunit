@@ -2,6 +2,7 @@
 using System;
 using SpecFlowAppiumTests.Helpers;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 
 namespace SpecFlowAppiumTests.Pages
 {
@@ -62,6 +63,14 @@ namespace SpecFlowAppiumTests.Pages
         public void clickLogin()
         {
             loginButton.Click();
+        }
+
+        public void doLogin(string userName, string password)
+        {
+            ElementUtils.actionSendKeys(_driver, usernameInput, userName);
+            ElementUtils.actionSendKeys(_driver, pinInput, password);
+            loginButton.Click();
+
         }
 
         public void navigateToCarerLogin()
