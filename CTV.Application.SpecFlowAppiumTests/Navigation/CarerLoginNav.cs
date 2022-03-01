@@ -4,10 +4,10 @@ using SpecFlowAppiumTests.Pages;
 
 namespace SpecFlowAppiumTests.Navigation
 {
-    public class ConsentNav : INavigationManager
+    public class CarerLoginNav : INavigationManager
     {
         private AppiumDriver _navigationDriver;
-        public ConsentNav(AppiumDriver driver)
+        public CarerLoginNav(AppiumDriver driver)
         {
             _navigationDriver = driver;
         }
@@ -15,7 +15,7 @@ namespace SpecFlowAppiumTests.Navigation
         public void NavigateTo()
         {
             PatientLogin patientLogin = new PatientLogin(_navigationDriver);
-            patientLogin.doLogin(Globals.DEFAULT_PATIENT_USER, Globals.DEFAULT_PATIENT_PASSWORD);
+            patientLogin.navigateToCarerLogin();
         }
     }
 }

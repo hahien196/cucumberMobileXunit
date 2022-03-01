@@ -6,9 +6,11 @@ namespace SpecFlowAppiumTests.Helpers
     public class PageObjectManager
     {
         private AppiumDriver _pomdriver;
-        private Activation _activationPage;
+        private PatientAccountActivation _patientActivationPage;
         private Consent _consent;
         private Welcome _welcome;
+        private PatientLogin _patientLogin;
+        private CarerLogin _carerLogin; 
 
         public PageObjectManager(AppiumDriver _driver)
         {
@@ -19,9 +21,9 @@ namespace SpecFlowAppiumTests.Helpers
         {
             switch (screen)
             {
-                case "Activation":
+                case "Patient Account Activation":
                     {
-                        return _activationPage ??= new Activation(_pomdriver);
+                        return _patientActivationPage ??= new PatientAccountActivation(_pomdriver);
                     }
                 case "Consent":
                     {
@@ -30,6 +32,14 @@ namespace SpecFlowAppiumTests.Helpers
                 case "Welcome":
                     {
                         return _welcome ??= new Welcome(_pomdriver);
+                    }
+                case "Patient Login":
+                    {
+                        return _patientLogin ??= new PatientLogin(_pomdriver);
+                    }
+                case "Carer Login":
+                    {
+                        return _carerLogin ??= new CarerLogin(_pomdriver);
                     }
                 default:
                     {

@@ -1,6 +1,5 @@
 ﻿using SpecFlowAppiumTests.Pages;
 using OpenQA.Selenium.Appium;
-using System.Threading;
 using TechTalk.SpecFlow;
 using Xunit;
 

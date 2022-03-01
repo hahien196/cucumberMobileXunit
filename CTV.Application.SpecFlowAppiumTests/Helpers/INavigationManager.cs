@@ -2,6 +2,6 @@
 {
     public interface INavigationManager
     {
-        public void NavigateWithConsent();
+        public void NavigateTo();
     }
 }

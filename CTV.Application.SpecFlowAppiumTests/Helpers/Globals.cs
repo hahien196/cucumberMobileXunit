@@ -5,8 +5,10 @@ namespace SpecFlowAppiumTests.Helpers
     public static class Globals
     {
 
-        public const string activateCode = "123456";
-        public const int explicitWaitTimeout = 5;
+        public const string ACTIVATE_CODE = "123456";
+        public const int EXPLICIT_WAIT_TIMEOUT = 5;
+        public const string DEFAULT_PATIENT_USER = "user";
+        public const string DEFAULT_PATIENT_PASSWORD = "12345678";
         public static bool IsAndroid()
         {
             if ((Environment.GetEnvironmentVariable("PLATFORM", EnvironmentVariableTarget.Process)) == "Android")

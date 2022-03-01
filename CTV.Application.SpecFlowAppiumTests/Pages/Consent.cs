@@ -18,7 +18,8 @@ namespace SpecFlowAppiumTests.Pages
 
         By companyLogoSelector = MobileBy.AccessibilityId("companyLogoImage");
         AppiumElement companyLogo => _driver.FindElement(companyLogoSelector);
-        AppiumElement consentTitle => _driver.FindElement(MobileBy.AccessibilityId("consentTitle"));
+        string consentTitleName = "consentTitle";
+        AppiumElement consentTitle => _driver.FindElement(MobileBy.AccessibilityId(consentTitleName));
 
         By acceptInputSelector = MobileBy.AccessibilityId("acceptInput");
         AppiumElement acceptInput => _driver.FindElement(acceptInputSelector);
@@ -69,6 +70,9 @@ namespace SpecFlowAppiumTests.Pages
             rejectInput.Click();
         }
 
-        
+        public bool isConsentDisplayed()
+        {
+            return ValidateElements(consentTitleName) ? true : false;
+        }
     }
 }

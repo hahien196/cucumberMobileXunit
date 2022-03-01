@@ -4,6 +4,7 @@ using TechTalk.SpecFlow;
 using Xunit;
 using SpecFlowAppiumTests.Helpers;
 using SpecFlowAppiumTests.Pages;
+using OpenQA.Selenium;
 
 namespace SpecFlowAppiumTests.Steps
 {
@@ -23,26 +24,29 @@ namespace SpecFlowAppiumTests.Steps
         [Given(@"the app is running")]
         public void GivenTheAppIsRunning()
         {
-            //_driver.LaunchApp();
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
         }
 
-        [Given(@"the user has navigated to the ""(.*)"" screen")]
+        [When(@"the user has navigated to the ""(.*)"" screen")]
         public void GivenTheUserHasNavigatedToTheScreen(string p0)
         {
             nav = new(_driver);
             INavigationManager navigate = nav.NavigationSwitch(p0);
-            navigate.NavigateWithConsent();
+            navigate.NavigateTo();
+            _view = p0;
         }
 
-        [When(@"the user is on the (.*) screen")]
+        [When(@"the user is on the ""(.*)"" screen")]
         public void WhenTheUserIsOnTheScreen(string p0)
         {
-            Thread.Sleep(3000);
-            if(Globals.IsAndroid())
+            if (Globals.IsAndroid())
             {
-                bool correctView = _driver.PageSource.Contains(p0);
-                Assert.True(correctView);
+                By titleEle = MobileBy.XPath($"//*[contains(text(),'{p0.Trim()}')]");
+                ElementUtils.WaitForElementVisible(_driver, titleEle);
+            } else if (Globals.IsIOS())
+            {
+                By titleEle = MobileBy.XPath($"//*[contains(@label,'{p0.Trim()}')]");
+                ElementUtils.WaitForElementVisible(_driver, titleEle);
             }
             _view = p0;
         }
@@ -56,5 +60,23 @@ namespace SpecFlowAppiumTests.Steps
             
         }
 
+        [Then(@"they are able to see the expected elements")]
+        public void ThenTheyAreAbleToSeeTheExpectedElements(Table table)
+        {
+            pom = new(_driver);
+            IPageManager screen = pom.ViewSwitcher(_view);
+            var dictionary = Utilities.TableToDictionary(table);
+            int numDisplayed = 0;
+
+            foreach (var row in dictionary)
+            {
+                if (screen.ValidateElements(row.Value))
+                {
+                    numDisplayed++;
+                }
+            }
+            Assert.True(numDisplayed == dictionary.Count);
+
+        }
     }
 }

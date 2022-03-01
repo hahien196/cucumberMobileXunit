@@ -16,7 +16,6 @@ namespace SpecFlowAppiumTests.Pages
             _driver = appiumDriver;
         }
 
-        AppiumElement acceptInput => _driver.FindElement(MobileBy.AccessibilityId("acceptInput"));
         AppiumElement companyLogo => _driver.FindElement(MobileBy.AccessibilityId("companyLogoImage"));
         By welcomeTitleLocator = MobileBy.AccessibilityId("questionSetSelectionTitle");
         AppiumElement welcomeTitle => _driver.FindElement(welcomeTitleLocator);
@@ -27,7 +26,6 @@ namespace SpecFlowAppiumTests.Pages
 
         public bool ValidateElements(string elementName)
         {
-            ElementUtils.WaitForElementVisible(_driver, welcomeTitleLocator);
             ElementUtils.WaitForElementVisible(_driver, welcomePatientLocator);
             Thread.Sleep(1000);
             AppiumElement[] appiumWebElements = { companyLogo, welcomeTitle, welcomePatient};
