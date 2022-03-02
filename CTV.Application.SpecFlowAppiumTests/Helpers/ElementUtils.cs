@@ -36,6 +36,19 @@ namespace SpecFlowAppiumTests.Helpers
             dragtobottom.Perform();
         }
 
+        public static AppiumElement WaitForElementExists(AppiumDriver _driver, By by)
+        {
+            AppiumElement ele = null;
+            try
+            {
+                WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Globals.EXPLICIT_WAIT_TIMEOUT));
+                wait.Until(ExpectedConditions.ElementExists(by));
+                ele = _driver.FindElement(by);
+            }
+            catch (Exception) { }
+            return ele;
+        }
+
         public static AppiumElement WaitForElementVisible(AppiumDriver _driver, By by)
         {
             AppiumElement ele = null;
@@ -52,7 +65,7 @@ namespace SpecFlowAppiumTests.Helpers
         public static AppiumElement WaitForElementClickable(AppiumDriver _driver, By by)
         {
             AppiumElement ele = null;
-            ele = WaitForElementVisible(_driver, by);
+            ele = WaitForElementExists(_driver, by);
             try
             {
                 WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Globals.EXPLICIT_WAIT_TIMEOUT));

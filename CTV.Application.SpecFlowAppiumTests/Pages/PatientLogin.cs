@@ -56,19 +56,21 @@ namespace SpecFlowAppiumTests.Pages
 
         public void inputData(string userName, string password)
         {
-             usernameInput.SendKeys(userName);
-             pinInput.SendKeys(password);            
+            ElementUtils.WaitForElementVisible(_driver, usernameInputSelector);
+            ElementUtils.actionSendKeys(_driver, usernameInput, userName);
+            ElementUtils.actionSendKeys(_driver, pinInput, password);
+            _driver.HideKeyboard();
         }
 
         public void clickLogin()
         {
+            ElementUtils.WaitForElementClickable(_driver, loginButtonSelector);
             loginButton.Click();
         }
 
         public void doLogin(string userName, string password)
         {
-            ElementUtils.actionSendKeys(_driver, usernameInput, userName);
-            ElementUtils.actionSendKeys(_driver, pinInput, password);
+            inputData(userName, password);
             loginButton.Click();
 
         }

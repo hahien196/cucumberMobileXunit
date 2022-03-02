@@ -24,7 +24,7 @@ namespace SpecFlowAppiumTests.Pages
 
         By resetButtonSelector = MobileBy.AccessibilityId("pinResetResetButton");
         AppiumElement resetButton => _driver.FindElement(resetButtonSelector);
-        
+
         public bool ValidateElements(string elementName)
         {
             ElementUtils.WaitForElementVisible(_driver, usernameInputSelector);
@@ -53,11 +53,14 @@ namespace SpecFlowAppiumTests.Pages
 
         public void inputData(string userName)
         {
-             usernameInput.SendKeys(userName);          
+            ElementUtils.WaitForElementVisible(_driver, usernameInputSelector);
+            ElementUtils.actionSendKeys(_driver, usernameInput, userName);
+            _driver.HideKeyboard();
         }
 
         public void clickResetButton()
         {
+            ElementUtils.WaitForElementClickable(_driver, resetButtonSelector);
             resetButton.Click();
         }
     }
