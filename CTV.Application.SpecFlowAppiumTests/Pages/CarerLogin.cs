@@ -25,7 +25,7 @@ namespace SpecFlowAppiumTests.Pages
         By loginButtonSelector = MobileBy.AccessibilityId("carerLoginLoginButton");
         AppiumElement loginButton => _driver.FindElement(loginButtonSelector);
 
-        By forgottenPasswordButtonSelector = MobileBy.AccessibilityId("carerLoginLoginButton");
+        By forgottenPasswordButtonSelector = MobileBy.AccessibilityId("carerLoginForgottenPasswordButton");
         AppiumElement forgottenPasswordButton => _driver.FindElement(forgottenPasswordButtonSelector);
 
         public bool ValidateElements(string elementName)

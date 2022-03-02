@@ -12,6 +12,7 @@ namespace SpecFlowAppiumTests.Helpers
         private PatientLogin _patientLogin;
         private CarerLogin _carerLogin;
         private PINReset _PINReset;
+        private ForgotPassword _forgotPassword;
 
         public PageObjectManager(AppiumDriver _driver)
         {
@@ -45,6 +46,10 @@ namespace SpecFlowAppiumTests.Helpers
                 case "PINReset":
                     {
                         return _PINReset ??= new PINReset(_pomdriver);
+                    }
+                case "ForgotPassword":
+                    {
+                        return _forgotPassword ??= new ForgotPassword(_pomdriver);
                     }
                 default:
                     {
