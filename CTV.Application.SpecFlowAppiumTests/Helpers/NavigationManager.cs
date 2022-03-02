@@ -30,19 +30,19 @@ namespace SpecFlowAppiumTests.Helpers
                     {
                         return _welcome ??= new WelcomeNav(_pomdriver);
                     }
-                case "CarerLogin":
+                case "Carer Login":
                     {
                         return _carerLoginNav ??= new CarerLoginNav(_pomdriver);
                     }
-                case "PatientAccountActivation":
+                case "Patient Account Activation":
                     {
                         return _patientActivationNav ??= new PatientAccountActivationNav(_pomdriver);
                     }
-                case "PINReset":
+                case "PIN Reset":
                     {
                         return _PINResetNav ??= new PINResetNav(_pomdriver);
                     }
-                case "ForgotPassword":
+                case "Forgot Password":
                     {
                         return _forgotPasswordNav ??= new ForgotPasswordNav(_pomdriver);
                     }
