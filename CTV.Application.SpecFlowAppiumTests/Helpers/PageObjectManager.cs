@@ -10,7 +10,8 @@ namespace SpecFlowAppiumTests.Helpers
         private Consent _consent;
         private Welcome _welcome;
         private PatientLogin _patientLogin;
-        private CarerLogin _carerLogin; 
+        private CarerLogin _carerLogin;
+        private PINReset _PINReset;
 
         public PageObjectManager(AppiumDriver _driver)
         {
@@ -21,7 +22,7 @@ namespace SpecFlowAppiumTests.Helpers
         {
             switch (screen)
             {
-                case "Patient Account Activation":
+                case "PatientAccountActivation":
                     {
                         return _patientActivationPage ??= new PatientAccountActivation(_pomdriver);
                     }
@@ -33,13 +34,17 @@ namespace SpecFlowAppiumTests.Helpers
                     {
                         return _welcome ??= new Welcome(_pomdriver);
                     }
-                case "Patient Login":
+                case "PatientLogin":
                     {
                         return _patientLogin ??= new PatientLogin(_pomdriver);
                     }
-                case "Carer Login":
+                case "CarerLogin":
                     {
                         return _carerLogin ??= new CarerLogin(_pomdriver);
+                    }
+                case "PINReset":
+                    {
+                        return _PINReset ??= new PINReset(_pomdriver);
                     }
                 default:
                     {
