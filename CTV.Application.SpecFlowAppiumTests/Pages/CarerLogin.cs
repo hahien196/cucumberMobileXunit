@@ -24,8 +24,10 @@ namespace SpecFlowAppiumTests.Pages
 
         By loginButtonSelector = MobileBy.AccessibilityId("carerLoginLoginButton");
         AppiumElement loginButton => _driver.FindElement(loginButtonSelector);
-        AppiumElement forgottenPasswordButton => _driver.FindElement(MobileBy.AccessibilityId("carerLoginForgottenPasswordButton"));
-        
+
+        By forgottenPasswordButtonSelector = MobileBy.AccessibilityId("carerLoginForgottenPasswordButton");
+        AppiumElement forgottenPasswordButton => _driver.FindElement(forgottenPasswordButtonSelector);
+
         public bool ValidateElements(string elementName)
         {
             ElementUtils.WaitForElementVisible(_driver, emailInputSelector);
@@ -54,24 +56,27 @@ namespace SpecFlowAppiumTests.Pages
 
         public void inputData(string userName, string password)
         {
-             emailInput.SendKeys(userName);
-             passwordInput.SendKeys(password);            
+            ElementUtils.WaitForElementVisible(_driver, emailInputSelector);
+            ElementUtils.actionSendKeys(_driver, emailInput, userName);
+            ElementUtils.actionSendKeys(_driver, passwordInput, password);
+            _driver.HideKeyboard();
         }
 
         public void clickLogin()
         {
+            ElementUtils.WaitForElementClickable(_driver, loginButtonSelector);
             loginButton.Click();
         }
 
         public void doLogin(string userName, string password)
         {
-            emailInput.SendKeys(userName);
-            passwordInput.SendKeys(password);
+            inputData(userName, password);
             loginButton.Click();
         }
 
         public void navigateToPasswordReset()
         {
+            ElementUtils.WaitForElementClickable(_driver, forgottenPasswordButtonSelector);
             forgottenPasswordButton.Click();
         }
     }
