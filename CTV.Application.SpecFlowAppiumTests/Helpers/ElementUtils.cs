@@ -74,7 +74,10 @@ namespace SpecFlowAppiumTests.Helpers
                 wait.Until(ExpectedConditions.ElementExists(by));
                 ele = _driver.FindElement(by);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                Console.WriteLine("===Element is not existed: " + by.ToString());
+            }
             return ele;
         }
 
@@ -87,7 +90,10 @@ namespace SpecFlowAppiumTests.Helpers
                 wait.Until(ExpectedConditions.ElementIsVisible(by));
                 ele = _driver.FindElement(by);
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+                Console.WriteLine("===Element is not visible: " + by.ToString());
+            }
             return ele;
         }
 
@@ -100,7 +106,9 @@ namespace SpecFlowAppiumTests.Helpers
                 WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(Globals.EXPLICIT_WAIT_TIMEOUT));
                 wait.Until(ExpectedConditions.ElementToBeClickable(by));
             }
-            catch (Exception) { }
+            catch (Exception) {
+                Console.WriteLine("===Element is not clickable: " + by.ToString());
+            }
             return ele;
         }
 
