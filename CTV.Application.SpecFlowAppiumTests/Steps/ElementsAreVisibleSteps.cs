@@ -77,8 +77,6 @@ namespace SpecFlowAppiumTests.Steps
                     notDisplayedEles.Add(row.Value);
                 }
             }
-            // this function for debugging, print all elements not displayed
-            Utilities.DebugPrintList(notDisplayedEles);
 
             Assert.True(numDisplayed == dictionary.Count);
 

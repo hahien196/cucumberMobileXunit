@@ -33,16 +33,6 @@ namespace SpecFlowAppiumTests.Helpers
             screenshot.SaveAsFile(subPath + "\\" + testID, ScreenshotImageFormat.Png);
         }
 
-        public static void DebugPrintList<T>(List<T> list)
-        {
-            Console.WriteLine("===========below element(s) is not displayed===========");
-            foreach (var ele in list)
-            {
-                Console.WriteLine(ele);
-            }
-            Console.WriteLine("===========end debug list==============================");
-        }
-
         public static Tuple<string, string, string> SplitDate(string date, string splitString)
         {
             var splittedDate = date.Split(splitString);
