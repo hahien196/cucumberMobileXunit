@@ -1,8 +1,6 @@
 ﻿using OpenQA.Selenium.Appium;
-using System;
 using SpecFlowAppiumTests.Helpers;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
 
 namespace SpecFlowAppiumTests.Pages
 {
@@ -15,84 +13,54 @@ namespace SpecFlowAppiumTests.Pages
             _driver = appiumDriver;
         }
 
-        AppiumElement companyLogo => _driver.FindElement(MobileBy.AccessibilityId("companyLogoImage"));
-        AppiumElement patientLoginTitle => _driver.FindElement(MobileBy.AccessibilityId("patientLoginTitle"));
-
         By usernameInputSelector = MobileBy.AccessibilityId("patientLoginUsernameInput");
-        AppiumElement usernameInput => _driver.FindElement(usernameInputSelector);
-        AppiumElement pinInput => _driver.FindElement(MobileBy.AccessibilityId("patientLoginPinInput"));
-
+        By pinInputSelector = MobileBy.AccessibilityId("patientLoginPinInput");
         By loginButtonSelector = MobileBy.AccessibilityId("patientLoginLoginButton");
-        AppiumElement loginButton => _driver.FindElement(loginButtonSelector);
-        AppiumElement forgottenPinButton => _driver.FindElement(MobileBy.AccessibilityId("patientLoginForgottenPinButton"));
-        AppiumElement activateAccountButton => _driver.FindElement(MobileBy.AccessibilityId("patientLoginActivateAccountButton"));
-        AppiumElement needHelpButton => _driver.FindElement(MobileBy.AccessibilityId("patientLoginNeedHelpButton"));
-        AppiumElement carerLoginButton => _driver.FindElement(MobileBy.AccessibilityId("patientLoginCarerLoginButton"));
+        By forgottenPinButtonSelector = MobileBy.AccessibilityId("patientLoginForgottenPinButton");
+        By activateAccountButtonSelector = MobileBy.AccessibilityId("patientLoginActivateAccountButton");
+        By needHelpButtonSelector = MobileBy.AccessibilityId("patientLoginNeedHelpButton");
+        By carerLoginButtonSelector = MobileBy.AccessibilityId("patientLoginCarerLoginButton");
 
-        public bool ValidateElements(string elementName)
+
+        public void InputData(string userName, string password)
         {
-            ElementUtils.WaitForElementVisible(_driver, usernameInputSelector);
-            AppiumElement[] appiumWebElements = { companyLogo, patientLoginTitle, usernameInput, pinInput, loginButton, forgottenPinButton, activateAccountButton, needHelpButton, carerLoginButton };
-
-            string locator = Globals.GetLocator();
-
-            foreach (AppiumElement element in appiumWebElements)
+            ElementUtils.ActionSendKeys(_driver, usernameInputSelector, userName);
+            ElementUtils.ActionSendKeys(_driver, pinInputSelector, password);
+            if (Globals.IsAndroid())
             {
-                if (element.GetAttribute(locator) == elementName)
-                {
-                    try
-                    {
-                        return true ? element.Displayed : false;
-                    }
-                    catch (Exception)
-                    {
-                        return false;
-                    }
-                }
+                _driver.HideKeyboard();
             }
-
-            return false;
         }
 
-        public void inputData(string userName, string password)
+        public void ClickLogin()
         {
-            ElementUtils.WaitForElementVisible(_driver, usernameInputSelector);
-            ElementUtils.actionSendKeys(_driver, usernameInput, userName);
-            ElementUtils.actionSendKeys(_driver, pinInput, password);
-            _driver.HideKeyboard();
+            ElementUtils.DoClick(_driver, loginButtonSelector);
         }
 
-        public void clickLogin()
+        public void DoLogin(string userName, string password)
         {
-            ElementUtils.WaitForElementClickable(_driver, loginButtonSelector);
-            loginButton.Click();
+            InputData(userName, password);
+            ClickLogin();
         }
 
-        public void doLogin(string userName, string password)
+        public void NavigateToCarerLogin()
         {
-            inputData(userName, password);
-            loginButton.Click();
-
+            ElementUtils.DoClick(_driver, carerLoginButtonSelector);
         }
 
-        public void navigateToCarerLogin()
+        public void NavigateToPatientAccountActivation()
         {
-            carerLoginButton.Click();
+            ElementUtils.DoClick(_driver, activateAccountButtonSelector);
         }
 
-        public void navigateToPatientAccountActivation()
+        public void NavigateToPinReset()
         {
-            activateAccountButton.Click();
+            ElementUtils.DoClick(_driver, forgottenPinButtonSelector);
         }
 
-        public void navigateToPinReset()
+        public void NavigateToNeedHelp()
         {
-            forgottenPinButton.Click();
-        }
-
-        public void navigateToNeedHelp()
-        {
-            needHelpButton.Click();
+            ElementUtils.DoClick(_driver, needHelpButtonSelector);
         }
     }
 }

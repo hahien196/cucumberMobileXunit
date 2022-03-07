@@ -15,9 +15,9 @@ namespace SpecFlowAppiumTests.Navigation
         public void NavigateTo()
         {
             PatientLogin patientLogin = new PatientLogin(_navigationDriver);
-            patientLogin.navigateToCarerLogin();
+            patientLogin.NavigateToCarerLogin();
             CarerLogin carerLogin = new CarerLogin(_navigationDriver);
-            carerLogin.navigateToPasswordReset();
+            carerLogin.NavigateToPasswordReset();
         }
     }
 }

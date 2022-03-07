@@ -12,18 +12,10 @@ namespace SpecFlowAppiumTests.Navigation
             _navigationDriver = driver;
         }
 
-        public void NavigateWithConsent()
-        {
-            PatientAccountActivation act = new PatientAccountActivation(_navigationDriver);
-            act.SendCodeThenContinue();
-            Consent cons = new Consent(_navigationDriver);
-            cons.ApproveConsent();
-        }
-
         public void NavigateTo()
         {
             PatientLogin patientLogin = new PatientLogin(_navigationDriver);
-            patientLogin.doLogin(Globals.DEFAULT_PATIENT_USER, Globals.DEFAULT_PATIENT_PASSWORD); 
+            patientLogin.DoLogin(Globals.DEFAULT_PATIENT_USER, Globals.DEFAULT_PATIENT_PASSWORD); 
             Consent cons = new Consent(_navigationDriver);
             cons.ApproveConsent();
         }

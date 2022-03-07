@@ -10,7 +10,7 @@ namespace SpecFlowAppiumTests.Helpers
 {
     public static class ElementUtils
     {
-        public static void ScrollToBottom(AppiumDriver _driver)
+        public static void ScrollDown(AppiumDriver _driver)
         {
             double windowHeight;
 
@@ -34,6 +34,35 @@ namespace SpecFlowAppiumTests.Helpers
                 .Release();
 
             dragtobottom.Perform();
+        }
+
+        public static void ScrollUp(AppiumDriver _driver)
+        {
+            double windowStartHeight = _driver.Manage().Window.Size.Height * 0.4;
+            double windowEndHeight = _driver.Manage().Window.Size.Height * 0.7;
+            double windowWidth = _driver.Manage().Window.Size.Width / 2;
+
+            TouchAction drag = (TouchAction)new TouchAction(_driver).
+                Press(windowWidth, windowStartHeight)
+                .MoveTo(windowWidth, windowEndHeight)
+                .Release();
+
+            drag.Perform();
+        }
+
+        public static void ScrollDownToElement(AppiumDriver _driver, By by)
+        {
+            while (_driver.FindElements(by).Count == 0)
+            {
+                ScrollDown(_driver);
+            }
+        }
+        public static void ScrollUpToElement(AppiumDriver _driver, By by)
+        {
+            while(_driver.FindElements(by).Count == 0)
+            {
+                ScrollUp(_driver);
+            }
         }
 
         public static AppiumElement WaitForElementExists(AppiumDriver _driver, By by)
@@ -75,11 +104,28 @@ namespace SpecFlowAppiumTests.Helpers
             return ele;
         }
 
-        public static void actionSendKeys(AppiumDriver _driver, AppiumElement ele, string input)
+        public static void DoClick(AppiumDriver _driver, By by)
         {
+            WaitForElementClickable(_driver, by);
+            _driver.FindElement(by).Click();
+        }
+
+        public static void ActionSendKeys(AppiumDriver _driver, By by, string input)
+        {
+            WaitForElementVisible(_driver, by);
+            AppiumElement ele = _driver.FindElement(by);
             ele.Click();
             Actions action = new Actions(_driver);
             action.SendKeys(input).Perform();
         }
+
+        public static bool IsElementDisplayed(AppiumDriver _driver, string elementName)
+        {
+            By locator = MobileBy.XPath($"//*[@{Globals.GetLocator()}='{elementName}']");
+            WaitForElementVisible(_driver, locator);
+            var count = _driver.FindElements(locator).Count;
+            return count > 0;
+        }
+
     }
 }

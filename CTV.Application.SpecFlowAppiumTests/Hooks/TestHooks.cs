@@ -25,7 +25,7 @@ namespace SpecFlowAppiumTests.Hooks
         public static void Initialise()
         {
             // local use only
-            //Environment.SetEnvironmentVariable("PLATFORM", "Android");
+            //Environment.SetEnvironmentVariable("PLATFORM", "iOS");
 
             AppiumServer appiumServer = new AppiumServer();
             Driver appiumDriver = new Driver();
@@ -56,7 +56,7 @@ namespace SpecFlowAppiumTests.Hooks
             var driver = ((AppiumDriver)context["DRIVER"]);
             if (_scenarioContext.TestError != null)
             {
-                Utilities.takeScreenShot(driver, _scenarioContext.ScenarioInfo.Title);
+                Utilities.TakeScreenShot(driver, _scenarioContext.ScenarioInfo.Title);
             }
             driver.ResetApp();
         }

@@ -15,7 +15,7 @@ namespace SpecFlowAppiumTests.Navigation
         public void NavigateTo()
         {
             PatientLogin patientLogin = new PatientLogin(_navigationDriver);
-            patientLogin.doLogin(Globals.DEFAULT_PATIENT_USER, Globals.DEFAULT_PATIENT_PASSWORD);
+            patientLogin.DoLogin(Globals.DEFAULT_PATIENT_USER, Globals.DEFAULT_PATIENT_PASSWORD);
         }
     }
 }

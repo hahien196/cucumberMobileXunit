@@ -3,9 +3,6 @@ using OpenQA.Selenium.Appium;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
 namespace SpecFlowAppiumTests.Helpers
@@ -22,7 +19,7 @@ namespace SpecFlowAppiumTests.Helpers
             return dictionary;
         }
 
-        public static void takeScreenShot(AppiumDriver _driver, string testID)
+        public static void TakeScreenShot(AppiumDriver _driver, string testID)
         {
             Screenshot screenshot = _driver.GetScreenshot();
             string folder = "screenshot";
@@ -34,6 +31,25 @@ namespace SpecFlowAppiumTests.Helpers
             Directory.CreateDirectory(subPath);
             // subPath: //SpiritDigital.CliniTouchVie.Application.Testing/CTV.Application.SpecFlowAppiumTests/TestResults/screenshot/
             screenshot.SaveAsFile(subPath + "\\" + testID, ScreenshotImageFormat.Png);
+        }
+
+        public static void DebugPrintList<T>(List<T> list)
+        {
+            Console.WriteLine("===========below element(s) is not displayed===========");
+            foreach (var ele in list)
+            {
+                Console.WriteLine(ele);
+            }
+            Console.WriteLine("===========end debug list==============================");
+        }
+
+        public static Tuple<string, string, string> SplitDate(string date, string splitString)
+        {
+            var splittedDate = date.Split(splitString);
+            var day = splittedDate[0];
+            var month = splittedDate[1];
+            var year = splittedDate[2];
+            return new Tuple<string, string, string>(day, month, year);
         }
     }
 }
