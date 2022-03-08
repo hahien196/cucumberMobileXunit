@@ -19,11 +19,14 @@ namespace SpecFlowAppiumTests.Pages
         By postcodeInputLocator = MobileBy.AccessibilityId("activationPostcodeInput");
         By dateOfBirthInputLocator = MobileBy.AccessibilityId("activationDateOfBirthInput");
         By DOB_yearSelector = MobileBy.XPath("//*[@resource-id='android:id/date_picker_header_year']");
-        By calendarOKButtonLocator = MobileBy.Id("android:id/button1");
-        By calendarCancelButtonLocator = MobileBy.Id("android:id/button2");
         By activateButtonSelector = MobileBy.AccessibilityId("activationContinueButton");
         By noActivationCodeButtonLocator = MobileBy.AccessibilityId("noActivationCodeButton");
-        String yearXpath = "//android.widget.ListView/android.widget.TextView[contains(@text,'year')]";
+        By and_calendarOKButtonLocator = MobileBy.Id("android:id/button1");
+        By and_calendarCancelButtonLocator = MobileBy.Id("android:id/button2");
+        By iOS_calendarOKButtonLocator = MobileBy.Id("TBD");
+        By iOS_calendarCancelButtonLocator = MobileBy.Id("TBD");
+        String and_yearXpath = "//android.widget.ListView/android.widget.TextView[contains(@text,'year')]";
+        String iOS_yearXpath = "TBD";
         By nextMonthButton = MobileBy.AccessibilityId("Next month");
         By prevMonthButton = MobileBy.AccessibilityId("Previous month");
 
@@ -48,6 +51,19 @@ namespace SpecFlowAppiumTests.Pages
         /// <param name="dob">The date of birth in format "dd MMMM yyyy"</param>
         public void SelectDate (string dob)
         {
+            string yearXpath = "";
+            By calendarOKButtonLocator = null;
+            if (Globals.IsAndroid())
+            {
+                yearXpath = and_yearXpath;
+                calendarOKButtonLocator = and_calendarOKButtonLocator;
+            } 
+            else if (Globals.IsIOS())
+            {
+                yearXpath = iOS_yearXpath;
+                calendarOKButtonLocator = iOS_calendarOKButtonLocator;
+            }
+
             ElementUtils.DoClick(_driver, DOB_yearSelector);
 
             var splittedDate = Utilities.SplitDate(dob, " ");

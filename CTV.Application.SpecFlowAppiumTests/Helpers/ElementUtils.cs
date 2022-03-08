@@ -76,7 +76,7 @@ namespace SpecFlowAppiumTests.Helpers
             }
             catch (Exception)
             {
-                Console.WriteLine("===Element is not existed: " + by.ToString());
+                Console.WriteLine("===Element does not exist: " + by.ToString());
             }
             return ele;
         }

@@ -14,7 +14,7 @@ namespace SpecFlowAppiumTests.Helpers
         public const string DEFAULT_PATIENT_PASSWORD = "12345678";
         public const string DEFAULT_PATIENT_ACTIVE_CODE = "123456";
         public const string DEFAULT_PATIENT_DOB = "02 October 1990";
-        public const string DEFAULT_PATIENT_POSTCODE = "12345678";
+        public const string DEFAULT_PATIENT_POSTCODE = "CV37 8LE";
 
         public static bool IsAndroid()
         {
