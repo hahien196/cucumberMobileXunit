@@ -1,9 +1,7 @@
 ﻿using OpenQA.Selenium.Appium;
-using System;
 using SpecFlowAppiumTests.Helpers;
-using System.Threading;
-using OpenQA.Selenium.Appium.MultiTouch;
 using OpenQA.Selenium;
+using System.Threading;
 
 namespace SpecFlowAppiumTests.Pages
 {
@@ -16,63 +14,27 @@ namespace SpecFlowAppiumTests.Pages
             _driver = appiumDriver;
         }
 
-        By companyLogoSelector = MobileBy.AccessibilityId("companyLogoImage");
-        AppiumElement companyLogo => _driver.FindElement(companyLogoSelector);
         string consentTitleName = "consentTitle";
-        AppiumElement consentTitle => _driver.FindElement(MobileBy.AccessibilityId(consentTitleName));
-
         By acceptInputSelector = MobileBy.AccessibilityId("acceptInput");
-        AppiumElement acceptInput => _driver.FindElement(acceptInputSelector);
-
         By rejectInputSelector = MobileBy.AccessibilityId("rejectInput");
-        AppiumElement rejectInput => _driver.FindElement(rejectInputSelector);
 
-
-
-        public bool ValidateElements(string elementName)
-        {
-            ElementUtils.WaitForElementVisible(_driver, companyLogoSelector);
-            Thread.Sleep(1000);
-            AppiumElement[] appiumWebElements = { companyLogo, consentTitle, acceptInput, rejectInput };
-
-            string locator = Globals.GetLocator();
-
-             foreach (AppiumElement element in appiumWebElements)
-             {
-
-                 if (element.GetAttribute(locator) == elementName)
-                 {
-                     try
-                     {
-                        return true ? element.Displayed : false;
-                     }
-                     catch (Exception)
-                     {
-                         return false;
-                     }
-                 }
-             }
-
-            return false;
-        }
 
         public void ApproveConsent()
         {
-            ElementUtils.ScrollToBottom(_driver);
-            ElementUtils.ScrollToBottom(_driver);
-            ElementUtils.WaitForElementClickable(_driver, acceptInputSelector);
-            acceptInput.Click();
+            ElementUtils.ScrollDown(_driver);
+            Thread.Sleep(1000);
+            ElementUtils.ScrollDown(_driver);
+            ElementUtils.DoClick(_driver, acceptInputSelector);
         }
 
         public void RejectConsent()
         {
-            ElementUtils.WaitForElementClickable(_driver, rejectInputSelector);
-            rejectInput.Click();
+            ElementUtils.DoClick(_driver, rejectInputSelector);
         }
 
-        public bool isConsentDisplayed()
+        public bool IsConsentDisplayed()
         {
-            return ValidateElements(consentTitleName) ? true : false;
+            return ElementUtils.IsElementDisplayed(_driver, consentTitleName) ? true : false;
         }
     }
 }

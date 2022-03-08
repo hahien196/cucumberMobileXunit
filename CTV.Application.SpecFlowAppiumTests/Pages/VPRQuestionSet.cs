@@ -10,13 +10,14 @@ namespace SpecFlowAppiumTests.Pages
     {
 
         private static AppiumDriver _driver;
+        public VPRQuestionSet(AppiumDriver appiumDriver)
+        {
+            _driver = appiumDriver;
+        }
+
         AppiumElement yesButton;
         AppiumElement noButton;
-        AppiumElement betterThanYesterday;
-        AppiumElement sameAsYesterday;
-        AppiumElement worseThanYesterday;
         AppiumElement nextButton;
-        AppiumElement saveButton;
 
         // android locator
         By and_q1YesLocator = MobileBy.AccessibilityId("have-you-taken-your-inhalers-today-as-prescribed-yes");
@@ -45,12 +46,7 @@ namespace SpecFlowAppiumTests.Pages
         By ios_q3NoLocator = MobileBy.AccessibilityId("No");
         By ios_q3NextBtnLocator = MobileBy.AccessibilityId("Next");
         By ios_saveBtnLocator = MobileBy.AccessibilityId("Save");
-
-        public VPRQuestionSet(AppiumDriver appiumDriver)
-        {
-            _driver = appiumDriver;
-        }
-
+        
         private void QuestionOne(string q1)
         {
             if (Globals.IsAndroid())
@@ -82,6 +78,9 @@ namespace SpecFlowAppiumTests.Pages
 
         private void QuestionOTwo(string q2)
         {
+            AppiumElement betterThanYesterday = null;
+            AppiumElement sameAsYesterday = null;
+            AppiumElement worseThanYesterday = null;
             if (Globals.IsAndroid())
             {
                 ElementUtils.WaitForElementClickable(_driver, and_q2Op1Locator);
@@ -167,22 +166,21 @@ namespace SpecFlowAppiumTests.Pages
 
         public bool AnswersMatchExpected(string q1, string q2, string q3)
         {
+            By saveButtonLocator = null;
             if (Globals.IsAndroid())
             {
-                ElementUtils.WaitForElementClickable(_driver, and_saveBtnLocator);
-                saveButton = _driver.FindElement(and_saveBtnLocator);
+                saveButtonLocator = and_saveBtnLocator;
             }
             else if (Globals.IsIOS())
             {
-                ElementUtils.WaitForElementClickable(_driver, ios_saveBtnLocator);
-                saveButton = _driver.FindElement(ios_saveBtnLocator);
+                saveButtonLocator = ios_saveBtnLocator;
             }
 
             string pageSource = _driver.PageSource;
             Thread.Sleep(1000);
             if (pageSource.Contains(q1) && pageSource.Contains(q2) && pageSource.Contains(q3))
             {
-                saveButton.Click();
+                ElementUtils.DoClick(_driver, saveButtonLocator);
                 return true; 
             }
             else { return false; }

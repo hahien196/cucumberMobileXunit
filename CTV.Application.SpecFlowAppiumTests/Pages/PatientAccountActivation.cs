@@ -1,7 +1,6 @@
 ﻿using OpenQA.Selenium.Appium;
 using System;
 using SpecFlowAppiumTests.Helpers;
-using System.Threading;
 using OpenQA.Selenium;
 
 namespace SpecFlowAppiumTests.Pages
@@ -15,63 +14,95 @@ namespace SpecFlowAppiumTests.Pages
             _driver = appiumDriver;
         }
 
-        By codeInputParentLocator = MobileBy.XPath("//android.view.View[@content-desc='activationCodeInput']/..");
 
-        By companyLogoSelector = MobileBy.AccessibilityId("companyLogoImage");
-        AppiumElement companyLogo => _driver.FindElement(companyLogoSelector);
-        AppiumElement pageTitle => _driver.FindElement(MobileBy.AccessibilityId("activationTitle"));
-        AppiumElement codeInput => _driver.FindElement(MobileBy.AccessibilityId("activationCodeInput"));
-        AppiumElement activationPostcodeInput => _driver.FindElement(MobileBy.AccessibilityId("activationPostcodeInput"));
-        AppiumElement activationDateOfBirthInput => _driver.FindElement(MobileBy.AccessibilityId("activationDateOfBirthInput"));
-        AppiumElement calendarOKButton => _driver.FindElement(By.Id("android:id/button1"));
-        AppiumElement calendarCancelButton => _driver.FindElement(By.Id("android:id/button2"));
+        By codeInputLocator = MobileBy.AccessibilityId("activationCodeInput");
+        By postcodeInputLocator = MobileBy.AccessibilityId("activationPostcodeInput");
+        By dateOfBirthInputLocator = MobileBy.AccessibilityId("activationDateOfBirthInput");
+        By DOB_yearSelector = MobileBy.XPath("//*[@resource-id='android:id/date_picker_header_year']");
+        By activateButtonSelector = MobileBy.AccessibilityId("activationContinueButton");
+        By noActivationCodeButtonLocator = MobileBy.AccessibilityId("noActivationCodeButton");
+        By and_calendarOKButtonLocator = MobileBy.Id("android:id/button1");
+        By and_calendarCancelButtonLocator = MobileBy.Id("android:id/button2");
+        By iOS_calendarOKButtonLocator = MobileBy.Id("TBD");
+        By iOS_calendarCancelButtonLocator = MobileBy.Id("TBD");
+        String and_yearXpath = "//android.widget.ListView/android.widget.TextView[contains(@text,'year')]";
+        String iOS_yearXpath = "TBD";
+        By nextMonthButton = MobileBy.AccessibilityId("Next month");
+        By prevMonthButton = MobileBy.AccessibilityId("Previous month");
 
-        By ativateButtonSelector = MobileBy.AccessibilityId("activationContinueButton");
-        AppiumElement ativateButton => _driver.FindElement(ativateButtonSelector);
-        AppiumElement noActivationCodeButton => _driver.FindElement(MobileBy.AccessibilityId("noActivationCodeButton"));
-        public bool ValidateElements(string elementName)
+
+        /// <summary>Input data in Activation screen</summary>
+        /// <param name="dob">The date of birth is in format "dd MMMM yyyy"</param>
+        /// <param name="code">The activation code</param>
+        /// <param name="postCode">The postcode</param>
+        public void InputData(string code, string dob, string postCode)
         {
-            ElementUtils.WaitForElementVisible(_driver, companyLogoSelector);
-            Thread.Sleep(1000);
-            AppiumElement[] appiumWebElements = { companyLogo, pageTitle, codeInput, activationPostcodeInput, activationDateOfBirthInput, ativateButton, noActivationCodeButton };
-
-            string locator = Globals.GetLocator();
-
-             foreach (AppiumElement element in appiumWebElements)
-             {
-
-                 if (element.GetAttribute(locator) == elementName)
-                 {
-                     try
-                     {
-                        return true ? element.Displayed : false;
-                     }
-                     catch (Exception)
-                     {
-                         return false;
-                     }
-                 }
-             }
-
-            return false;
+            ElementUtils.ActionSendKeys(_driver, codeInputLocator, code);
+            ElementUtils.DoClick(_driver, dateOfBirthInputLocator);
+            SelectDate(dob);
+            ElementUtils.ActionSendKeys(_driver, postcodeInputLocator, postCode);
+            if (Globals.IsAndroid())
+            {
+                _driver.HideKeyboard();
+            }
         }
 
-        // need to update
-        public void SendCodeThenContinue()
+        /// <summary>Select a date in date picker. The date is in format "dd MMMM yyyy"</summary>
+        /// <param name="dob">The date of birth in format "dd MMMM yyyy"</param>
+        public void SelectDate (string dob)
         {
-            AppiumElement parent;
-            if(Globals.IsAndroid())
-            { 
-                parent = _driver.FindElement(codeInputParentLocator);
-                parent.SendKeys(Globals.ACTIVATE_CODE);
-            }
+            string yearXpath = "";
+            By calendarOKButtonLocator = null;
+            if (Globals.IsAndroid())
+            {
+                yearXpath = and_yearXpath;
+                calendarOKButtonLocator = and_calendarOKButtonLocator;
+            } 
             else if (Globals.IsIOS())
             {
-                codeInput.SendKeys(Globals.ACTIVATE_CODE);
+                yearXpath = iOS_yearXpath;
+                calendarOKButtonLocator = iOS_calendarOKButtonLocator;
             }
 
-            ElementUtils.WaitForElementClickable(_driver, ativateButtonSelector);
-            ativateButton.Click();
+            ElementUtils.DoClick(_driver, DOB_yearSelector);
+
+            var splittedDate = Utilities.SplitDate(dob, " ");
+            var month = splittedDate.Item2;
+            var year = splittedDate.Item3;
+
+            // select year
+            By yearSelector = MobileBy.XPath(yearXpath.Replace("year", year));
+            ElementUtils.ScrollUpToElement(_driver, yearSelector);
+            ElementUtils.DoClick(_driver, yearSelector);
+            int currentMonth = (int)DateTime.Now.Month;
+            int inputtedMonth = (int)Enum.Parse(typeof(Globals.Month), month);
+
+            // move to the selected month
+            if (inputtedMonth > currentMonth)
+            {
+                for (int i = 0; i < inputtedMonth-currentMonth; i++)
+                {
+                    ElementUtils.DoClick(_driver, nextMonthButton);
+                }
+            } else
+            {
+                for (int i = 0; i < currentMonth - inputtedMonth; i++)
+                {
+                    ElementUtils.DoClick(_driver, prevMonthButton);
+                }
+            }
+
+            // select date
+            By date = MobileBy.AccessibilityId(dob);
+            ElementUtils.DoClick(_driver, date);
+
+            ElementUtils.DoClick(_driver, calendarOKButtonLocator);
+
         }
+        public void ClickActivateButton()
+        {
+            ElementUtils.DoClick(_driver, activateButtonSelector);
+        }
+
     }
 }

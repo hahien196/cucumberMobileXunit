@@ -15,69 +15,36 @@ namespace SpecFlowAppiumTests.Pages
             _driver = appiumDriver;
         }
 
-        AppiumElement companyLogo => _driver.FindElement(MobileBy.AccessibilityId("companyLogoImage"));
-        AppiumElement carerLoginTitle => _driver.FindElement(MobileBy.AccessibilityId("carerLoginTitle"));
-
         By emailInputSelector = MobileBy.AccessibilityId("carerLoginEmailInput");
-        AppiumElement emailInput => _driver.FindElement(emailInputSelector);
-        AppiumElement passwordInput => _driver.FindElement(MobileBy.AccessibilityId("carerLoginPasswordInput"));
-
+        By passwordInputSelector = MobileBy.AccessibilityId("carerLoginPasswordInput");
         By loginButtonSelector = MobileBy.AccessibilityId("carerLoginLoginButton");
-        AppiumElement loginButton => _driver.FindElement(loginButtonSelector);
-
         By forgottenPasswordButtonSelector = MobileBy.AccessibilityId("carerLoginForgottenPasswordButton");
-        AppiumElement forgottenPasswordButton => _driver.FindElement(forgottenPasswordButtonSelector);
 
-        public bool ValidateElements(string elementName)
+
+        public void InputData(string userName, string password)
         {
-            ElementUtils.WaitForElementVisible(_driver, emailInputSelector);
-            Thread.Sleep(1000);
-            AppiumElement[] appiumWebElements = { companyLogo, carerLoginTitle, emailInput, passwordInput, loginButton, forgottenPasswordButton };
-
-            string locator = Globals.GetLocator();
-
-            foreach (AppiumElement element in appiumWebElements)
+            ElementUtils.ActionSendKeys(_driver, emailInputSelector, userName);
+            ElementUtils.ActionSendKeys(_driver, passwordInputSelector, password);
+            if (Globals.IsAndroid())
             {
-                if (element.GetAttribute(locator) == elementName)
-                {
-                    try
-                    {
-                        return true ? element.Displayed : false;
-                    }
-                    catch (Exception)
-                    {
-                        return false;
-                    }
-                }
+                _driver.HideKeyboard();
             }
-
-            return false;
         }
 
-        public void inputData(string userName, string password)
+        public void ClickLogin()
         {
-            ElementUtils.WaitForElementVisible(_driver, emailInputSelector);
-            ElementUtils.actionSendKeys(_driver, emailInput, userName);
-            ElementUtils.actionSendKeys(_driver, passwordInput, password);
-            _driver.HideKeyboard();
+            ElementUtils.DoClick(_driver, loginButtonSelector);
         }
 
-        public void clickLogin()
+        public void DoLogin(string userName, string password)
         {
-            ElementUtils.WaitForElementClickable(_driver, loginButtonSelector);
-            loginButton.Click();
+            InputData(userName, password);
+            ClickLogin();
         }
 
-        public void doLogin(string userName, string password)
+        public void NavigateToPasswordReset()
         {
-            inputData(userName, password);
-            loginButton.Click();
-        }
-
-        public void navigateToPasswordReset()
-        {
-            ElementUtils.WaitForElementClickable(_driver, forgottenPasswordButtonSelector);
-            forgottenPasswordButton.Click();
+            ElementUtils.DoClick(_driver, forgottenPasswordButtonSelector);
         }
     }
 }

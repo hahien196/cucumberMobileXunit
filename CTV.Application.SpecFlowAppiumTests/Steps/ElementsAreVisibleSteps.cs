@@ -5,6 +5,7 @@ using Xunit;
 using SpecFlowAppiumTests.Helpers;
 using SpecFlowAppiumTests.Pages;
 using OpenQA.Selenium;
+using System.Collections.Generic;
 
 namespace SpecFlowAppiumTests.Steps
 {
@@ -55,26 +56,28 @@ namespace SpecFlowAppiumTests.Steps
         public void ThenTheyAreAbleToSeeTheExpectedElement(string p0)
         {
             pom = new(_driver);
-            IPageManager screen = pom.ViewSwitcher(_view);
-            Assert.True(screen.ValidateElements(p0));
-            
+            Assert.True(ElementUtils.IsElementDisplayed(_driver, p0));            
         }
 
         [Then(@"they are able to see the expected elements")]
         public void ThenTheyAreAbleToSeeTheExpectedElements(Table table)
         {
             pom = new(_driver);
-            IPageManager screen = pom.ViewSwitcher(_view);
             var dictionary = Utilities.TableToDictionary(table);
             int numDisplayed = 0;
-
+            List<string> notDisplayedEles = new List<string>();
             foreach (var row in dictionary)
             {
-                if (screen.ValidateElements(row.Value))
+                if (ElementUtils.IsElementDisplayed(_driver, row.Value))
                 {
                     numDisplayed++;
                 }
+                else
+                {
+                    notDisplayedEles.Add(row.Value);
+                }
             }
+
             Assert.True(numDisplayed == dictionary.Count);
 
         }
