@@ -57,8 +57,8 @@ namespace SpecFlowAppiumTests.Drivers
             driverOptions.AddAdditionalAppiumOption("appium:avd", "AndroidTest001");
             driverOptions.AutomationName = AutomationName.AndroidUIAutomator2;
             driverOptions.App = apk;
-            //driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
-            //driverOptions.AddAdditionalAppiumOption("appium:launchTimeout", "120000");
+            driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
+            driverOptions.AddAdditionalAppiumOption("appium:launchTimeout", "120000");
 
             return new AndroidDriver(new Uri("http://localhost:4723/"), driverOptions);
         }
