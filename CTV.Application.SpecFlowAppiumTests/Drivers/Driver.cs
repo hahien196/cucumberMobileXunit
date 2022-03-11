@@ -10,19 +10,18 @@ namespace SpecFlowAppiumTests.Drivers
     public class Driver
     {
 
-        public AndroidDriver InitAndroidDriver()
+        public AndroidDriver InitAndroidDriver(string deviceType)
         {
+            string browser = deviceType.ToUpper();
 
-            var apk = @"C:\TestAPK\CTV\app-debug.apk";
-            var driverOptions = new AppiumOptions();
-            driverOptions.PlatformName = "Android";
-            driverOptions.AddAdditionalAppiumOption("appium:avd", "AndroidTest001");
-            driverOptions.AutomationName = AutomationName.AndroidUIAutomator2;
-            driverOptions.App = apk;
-            driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
-            driverOptions.AddAdditionalAppiumOption("appium:launchTimeout", "120000");
+            switch (browser)
+            {
+                case "MOBILE": return MobileDriver();
+                case "TABLET": return TabletDriver();
+                case string unknown: throw new NotSupportedException($"{unknown} is not a supported device");
+                default: throw new NotSupportedException("unsupported device: <null>");
+            }
 
-            return new AndroidDriver(new Uri("http://localhost:4723/"), driverOptions);
         }
 
         public IOSDriver InitIOSDriver()
@@ -48,6 +47,35 @@ namespace SpecFlowAppiumTests.Drivers
             return new IOSDriver(new Uri("http://185.200.102.183:4723/"), driverOptions);
             //local mac mini
             //return new IOSDriver(new Uri("http://192.168.1.54:4723/"), driverOptions);
+        }
+
+        public AndroidDriver MobileDriver()
+        {
+            var apk = @"C:\TestAPK\CTV\app-debug.apk";
+            var driverOptions = new AppiumOptions();
+            driverOptions.PlatformName = "Android";
+            driverOptions.AddAdditionalAppiumOption("appium:avd", "AndroidTest001");
+            driverOptions.AutomationName = AutomationName.AndroidUIAutomator2;
+            driverOptions.App = apk;
+            //driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
+            //driverOptions.AddAdditionalAppiumOption("appium:launchTimeout", "120000");
+
+            return new AndroidDriver(new Uri("http://localhost:4723/"), driverOptions);
+        }
+
+
+        public AndroidDriver TabletDriver()
+        {
+            var apk = @"C:\TestAPK\CTV\app-debug.apk";
+            var driverOptions = new AppiumOptions();
+            driverOptions.PlatformName = "Android";
+            driverOptions.AddAdditionalAppiumOption("appium:avd", "AndroidTestTablet001");
+            driverOptions.AutomationName = AutomationName.AndroidUIAutomator2;
+            driverOptions.App = apk;
+            driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
+            driverOptions.AddAdditionalAppiumOption("appium:launchTimeout", "120000");
+
+            return new AndroidDriver(new Uri("http://localhost:4723/"), driverOptions);
         }
     }
 }
