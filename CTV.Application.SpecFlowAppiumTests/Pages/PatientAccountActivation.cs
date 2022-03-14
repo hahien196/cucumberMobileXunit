@@ -18,15 +18,17 @@ namespace SpecFlowAppiumTests.Pages
         By codeInputLocator = MobileBy.AccessibilityId("activationCodeInput");
         By postcodeInputLocator = MobileBy.AccessibilityId("activationPostcodeInput");
         By dateOfBirthInputLocator = MobileBy.AccessibilityId("activationDateOfBirthInput");
-        By DOB_yearSelector = MobileBy.XPath("//*[@resource-id='android:id/date_picker_header_year']");
+        By iOS_dateOfBirthInputLocator = MobileBy.AccessibilityId("Date Picker");
+        By and_DOB_yearSelector = MobileBy.XPath("//*[@resource-id='android:id/date_picker_header_year']");
+        By iOS_showYearSelector = MobileBy.AccessibilityId("Show year picker");
+        By iOS_hideYearSelector = MobileBy.AccessibilityId("Hide year picker");
         By activateButtonSelector = MobileBy.AccessibilityId("activationContinueButton");
         By noActivationCodeButtonLocator = MobileBy.AccessibilityId("noActivationCodeButton");
         By and_calendarOKButtonLocator = MobileBy.Id("android:id/button1");
         By and_calendarCancelButtonLocator = MobileBy.Id("android:id/button2");
-        By iOS_calendarOKButtonLocator = MobileBy.Id("TBD");
-        By iOS_calendarCancelButtonLocator = MobileBy.Id("TBD");
         String and_yearXpath = "//android.widget.ListView/android.widget.TextView[contains(@text,'year')]";
-        String iOS_yearXpath = "TBD";
+        String iOS_yearXpath = "//XCUIElementTypePickerWheel[@value='year']";
+        String iOS_monthXpath = "//XCUIElementTypePickerWheel[@value='month']";
         By nextMonthButton = MobileBy.AccessibilityId("Next month");
         By prevMonthButton = MobileBy.AccessibilityId("Previous month");
 
@@ -37,7 +39,16 @@ namespace SpecFlowAppiumTests.Pages
         /// <param name="postCode">The postcode</param>
         public void InputData(string code, string dob, string postCode)
         {
-            ElementUtils.ActionSendKeys(_driver, codeInputLocator, code);
+            if (Globals.IsIOS())
+            {
+                dateOfBirthInputLocator = iOS_dateOfBirthInputLocator;
+            }
+            ElementUtils.DoClick(_driver, codeInputLocator);
+            ElementUtils.ActionSendKeys(_driver, codeInputLocator, code); 
+            if (Globals.IsAndroid())
+            {
+                _driver.HideKeyboard();
+            }
             ElementUtils.DoClick(_driver, dateOfBirthInputLocator);
             SelectDate(dob);
             ElementUtils.ActionSendKeys(_driver, postcodeInputLocator, postCode);
@@ -53,52 +64,79 @@ namespace SpecFlowAppiumTests.Pages
         {
             string yearXpath = "";
             By calendarOKButtonLocator = null;
+            By DOB_yearSelector = null;
+
+            if (Globals.IsIOS())
+            {
+                if (dob.Substring(0,1) == "0")
+                {
+                    dob = dob.Substring(1);
+                }
+            }
+            var splittedDate = Utilities.SplitDate(dob, " ");
+            string day = splittedDate.Item1;
+            string month = splittedDate.Item2;
+            string year = splittedDate.Item3;
+
             if (Globals.IsAndroid())
             {
                 yearXpath = and_yearXpath;
                 calendarOKButtonLocator = and_calendarOKButtonLocator;
+                DOB_yearSelector = and_DOB_yearSelector;
+                ElementUtils.DoClick(_driver, DOB_yearSelector);
+
+                // select year
+                By yearSelector = MobileBy.XPath(yearXpath.Replace("year", year));
+                ElementUtils.ScrollToElement(_driver, yearSelector, 0.4, 0.7, 0.5);
+                ElementUtils.DoClick(_driver, yearSelector);
+                int currentMonth = (int)DateTime.Now.Month;
+                int inputtedMonth = (int)Enum.Parse(typeof(Globals.Month), month);
+
+                // move to the selected month
+                if (inputtedMonth > currentMonth)
+                {
+                    for (int i = 0; i < inputtedMonth - currentMonth; i++)
+                    {
+                        ElementUtils.DoClick(_driver, nextMonthButton);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < currentMonth - inputtedMonth; i++)
+                    {
+                        ElementUtils.DoClick(_driver, prevMonthButton);
+                    }
+                }
+
+                // select date
+                By date = MobileBy.AccessibilityId(dob);
+                ElementUtils.DoClick(_driver, date);
+
+                ElementUtils.DoClick(_driver, calendarOKButtonLocator);
             } 
             else if (Globals.IsIOS())
             {
                 yearXpath = iOS_yearXpath;
-                calendarOKButtonLocator = iOS_calendarOKButtonLocator;
-            }
-
-            ElementUtils.DoClick(_driver, DOB_yearSelector);
-
-            var splittedDate = Utilities.SplitDate(dob, " ");
-            var month = splittedDate.Item2;
-            var year = splittedDate.Item3;
-
-            // select year
-            By yearSelector = MobileBy.XPath(yearXpath.Replace("year", year));
-            ElementUtils.ScrollUpToElement(_driver, yearSelector);
-            ElementUtils.DoClick(_driver, yearSelector);
-            int currentMonth = (int)DateTime.Now.Month;
-            int inputtedMonth = (int)Enum.Parse(typeof(Globals.Month), month);
-
-            // move to the selected month
-            if (inputtedMonth > currentMonth)
-            {
-                for (int i = 0; i < inputtedMonth-currentMonth; i++)
+                ElementUtils.DoClick(_driver, iOS_showYearSelector);
+                By yearSelector = MobileBy.XPath(yearXpath.Replace("year", year));
+                // scroll to year
+                while (_driver.FindElements(By.XPath(iOS_yearXpath.Replace("year", year))).Count == 0) 
                 {
-                    ElementUtils.DoClick(_driver, nextMonthButton);
+                    ElementUtils.ScrollToElement(_driver, yearSelector, 0.55, 0.6, 0.7);
                 }
-            } else
-            {
-                for (int i = 0; i < currentMonth - inputtedMonth; i++)
-                {
-                    ElementUtils.DoClick(_driver, prevMonthButton);
-                }
-            }
 
-            // select date
-            By date = MobileBy.AccessibilityId(dob);
-            ElementUtils.DoClick(_driver, date);
+                // scroll to month
+                By monthSelector = By.XPath(iOS_monthXpath.Replace("month", month));
+                ElementUtils.ScrollToElement(_driver, monthSelector, 0.55, 0.6, 0.3);
+                ElementUtils.DoClick(_driver, iOS_hideYearSelector);
 
-            ElementUtils.DoClick(_driver, calendarOKButtonLocator);
-
+                By date = MobileBy.AccessibilityId(day);
+                ElementUtils.DoClick(_driver, date);
+                ElementUtils.DoClick(_driver, date);
+                ElementUtils.DoClick(_driver, iOS_dateOfBirthInputLocator);
+            }            
         }
+
         public void ClickActivateButton()
         {
             ElementUtils.DoClick(_driver, activateButtonSelector);

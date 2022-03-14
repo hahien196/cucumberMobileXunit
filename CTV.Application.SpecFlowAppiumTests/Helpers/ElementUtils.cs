@@ -10,58 +10,25 @@ namespace SpecFlowAppiumTests.Helpers
 {
     public static class ElementUtils
     {
-        public static void ScrollDown(AppiumDriver _driver)
+        public static void Scroll(AppiumDriver _driver, double startHeightRatio, double endHeightRatio, double widthRatio)
         {
-            double windowHeight;
+            double windowStartHeight = _driver.Manage().Window.Size.Height * startHeightRatio;
+            double windowEndHeight = _driver.Manage().Window.Size.Height * endHeightRatio;
+            double windowWidth = _driver.Manage().Window.Size.Width * widthRatio;
 
-            if (Globals.IsIOS())
-            {
-                windowHeight = Globals.IOSWindowHeight();
-            }
-            else
-            {
-                windowHeight = Globals.AndroidWindowHeight();
-            }
-
-            double windowStartHeight = _driver.Manage().Window.Size.Height * windowHeight;
-            double windowEndHeight = _driver.Manage().Window.Size.Height * 0.2;
-            double windowWidth = _driver.Manage().Window.Size.Width / 2;
-
-            TouchAction dragtobottom = (TouchAction)new TouchAction(_driver).
-                Press(windowWidth, windowStartHeight)
-                .Wait(500)
-                .MoveTo(windowWidth, windowEndHeight)
-                .Release();
-
-            dragtobottom.Perform();
-        }
-
-        public static void ScrollUp(AppiumDriver _driver)
-        {
-            double windowStartHeight = _driver.Manage().Window.Size.Height * 0.4;
-            double windowEndHeight = _driver.Manage().Window.Size.Height * 0.7;
-            double windowWidth = _driver.Manage().Window.Size.Width / 2;
-
-            TouchAction drag = (TouchAction)new TouchAction(_driver).
-                Press(windowWidth, windowStartHeight)
+            TouchAction drag = (TouchAction)new TouchAction(_driver)
+                .Press(windowWidth, windowStartHeight)
                 .MoveTo(windowWidth, windowEndHeight)
                 .Release();
 
             drag.Perform();
         }
 
-        public static void ScrollDownToElement(AppiumDriver _driver, By by)
-        {
-            while (_driver.FindElements(by).Count == 0)
-            {
-                ScrollDown(_driver);
-            }
-        }
-        public static void ScrollUpToElement(AppiumDriver _driver, By by)
+        public static void ScrollToElement(AppiumDriver _driver, By by, double startHeightRatio, double endHeightRatio, double widthRatio)
         {
             while(_driver.FindElements(by).Count == 0)
             {
-                ScrollUp(_driver);
+                Scroll(_driver, startHeightRatio, endHeightRatio, widthRatio);
             }
         }
 
