@@ -21,9 +21,9 @@ namespace SpecFlowAppiumTests.Pages
 
         public void ApproveConsent()
         {
-            ElementUtils.ScrollDown(_driver);
-            Thread.Sleep(1000);
-            ElementUtils.ScrollDown(_driver);
+            ElementUtils.Scroll(_driver, Globals.GetWindowHeight(), 0.2, 0.5);
+            ElementUtils.Scroll(_driver, Globals.GetWindowHeight(), 0.2, 0.5);
+            var h = Globals.GetWindowHeight();
             ElementUtils.DoClick(_driver, acceptInputSelector);
         }
 

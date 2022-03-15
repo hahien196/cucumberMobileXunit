@@ -5,8 +5,6 @@ namespace SpecFlowAppiumTests.Helpers
 {
     public static class Globals
     {
-
-        public const string ACTIVATE_CODE = "123456";
         public const int EXPLICIT_WAIT_TIMEOUT = 5;
 
         // patien information
@@ -54,14 +52,18 @@ namespace SpecFlowAppiumTests.Helpers
             return null;
         }
 
-        public static double IOSWindowHeight()
+        public static double GetWindowHeight()
         {
-            return 0.7;
-        }
-
-        public static double AndroidWindowHeight()
-        {
-            return 0.8;
+            double height = 0.0;
+            if (Globals.IsAndroid())
+            {
+                height = 0.8;
+            } 
+            else if (Globals.IsIOS())
+            {
+                height = 0.6;
+            }
+            return height;
         }
 
         public static string GetLocator()
