@@ -16,6 +16,8 @@ namespace SpecFlowAppiumTests.Navigation
         {
             PatientLogin patientLogin = new PatientLogin(_navigationDriver);
             patientLogin.NavigateToCarerLogin();
+            //CarerLogin carerLogin = new CarerLogin(_navigationDriver);
+            //carerLogin.InputData(Globals.DEFAULT_CARER_EMAIL, Globals.DEFAULT_CARER_PASSWORD);
         }
     }
 }

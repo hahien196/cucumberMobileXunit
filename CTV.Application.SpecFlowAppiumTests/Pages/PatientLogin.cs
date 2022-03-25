@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium.Appium;
 using SpecFlowAppiumTests.Helpers;
 using OpenQA.Selenium;
+using TechTalk.SpecFlow;
 
 namespace SpecFlowAppiumTests.Pages
 {
@@ -35,6 +36,7 @@ namespace SpecFlowAppiumTests.Pages
         public void ClickLogin()
         {
             ElementUtils.DoClick(_driver, loginButtonSelector);
+
         }
 
         public void DoLogin(string userName, string password)
@@ -61,6 +63,13 @@ namespace SpecFlowAppiumTests.Pages
         public void NavigateToNeedHelp()
         {
             ElementUtils.DoClick(_driver, needHelpButtonSelector);
+        }
+
+        public void SubmitData(Table table)
+        {
+            var dictionary = Utilities.TableToDictionary(table);
+            InputData(dictionary["Username"], dictionary["PIN"]);
+            ClickLogin();
         }
     }
 }

@@ -90,8 +90,11 @@ namespace SpecFlowAppiumTests.Helpers
             WaitForElementVisible(_driver, by);
             AppiumElement ele = _driver.FindElement(by);
             ele.Click();
-            Actions action = new Actions(_driver);
-            action.SendKeys(input).Perform();
+            if (!String.IsNullOrEmpty(input))
+            {
+                Actions action = new Actions(_driver);
+                action.SendKeys(input).Perform();
+            }
         }
 
         public static bool IsElementDisplayed(AppiumDriver _driver, string elementName)
@@ -100,6 +103,21 @@ namespace SpecFlowAppiumTests.Helpers
             WaitForElementVisible(_driver, locator);
             var count = _driver.FindElements(locator).Count;
             return count > 0;
+        }
+
+        public static bool IsErrorMessageCorrect(AppiumDriver _driver, string elementName, string text)
+        {
+            AppiumElement ele = null;
+            if (Globals.IsAndroid())
+            {
+                ele = _driver.FindElement(By.XPath($"//android.view.View[@{Globals.AndroidLocator()}='{elementName}']/../following-sibling::android.view.View[1]"));
+            }
+            else if (Globals.IsIOS())
+            {
+                ele = _driver.FindElement(By.XPath($"//*[@{Globals.IOSLocator()}='{elementName}']/following-sibling::XCUIElementTypeStaticText[1]"));
+            }
+            string errText = ele.GetAttribute(Globals.TextLocator());
+            return text == errText;
         }
 
     }
