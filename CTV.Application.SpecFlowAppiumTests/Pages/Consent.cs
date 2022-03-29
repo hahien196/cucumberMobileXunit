@@ -20,8 +20,15 @@ namespace SpecFlowAppiumTests.Pages
 
         public void ApproveConsent()
         {
-            ElementUtils.Scroll(_driver, Globals.GetWindowHeight(), 0.2, 0.5);
-            ElementUtils.Scroll(_driver, Globals.GetWindowHeight(), 0.2, 0.5);
+            if (Globals.IsAndroid())
+            {
+                ElementUtils.Scroll(_driver, Globals.GetWindowHeight(), 0.3, 0.4);
+                ElementUtils.Scroll(_driver, Globals.GetWindowHeight(), 0.3, 0.4);
+            }
+            else if (Globals.IsIOS())
+            {
+                ElementUtils.IOSScroll(_driver, "down");
+            }
             ElementUtils.DoClick(_driver, acceptInputSelector);
         }
 

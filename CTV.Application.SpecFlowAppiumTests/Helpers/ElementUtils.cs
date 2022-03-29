@@ -1,10 +1,12 @@
-﻿using OpenQA.Selenium;
+﻿using Lucene.Net.Support;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.MultiTouch;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
+using System.Collections.Generic;
 
 namespace SpecFlowAppiumTests.Helpers
 {
@@ -22,6 +24,15 @@ namespace SpecFlowAppiumTests.Helpers
                 .Release();
 
             drag.Perform();
+        }
+
+        public static void IOSScroll(AppiumDriver _driver, string direction)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) _driver;
+            Dictionary<string, string> scrollObject = new Dictionary<string, string>();
+            // direction can be "down", "up"
+            scrollObject.Add("direction", direction);
+            js.ExecuteScript("mobile: scroll", scrollObject);
         }
 
         public static void ScrollToElement(AppiumDriver _driver, By by, double startHeightRatio, double endHeightRatio, double widthRatio)
