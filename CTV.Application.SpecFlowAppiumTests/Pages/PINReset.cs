@@ -37,7 +37,7 @@ namespace SpecFlowAppiumTests.Pages
         {
             var dictionary = Utilities.TableToDictionary(table);
             InputData(dictionary["Username"]);
-            ClickResetButton();
+            ElementUtils.DoClick(_driver, resetButtonSelector);
         }
     }
 }

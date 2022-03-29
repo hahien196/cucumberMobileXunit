@@ -117,7 +117,12 @@ namespace SpecFlowAppiumTests.Helpers
                 ele = _driver.FindElement(By.XPath($"//*[@{Globals.IOSLocator()}='{elementName}']/following-sibling::XCUIElementTypeStaticText[1]"));
             }
             string errText = ele.GetAttribute(Globals.TextLocator());
-            return text == errText;
+            bool isSuccess = text == errText;
+            if (!isSuccess)
+            {
+                Console.WriteLine("===Actual text: " + errText + " is not match the expected text: " + text);
+            }
+            return isSuccess;
         }
 
     }
