@@ -14,6 +14,7 @@ namespace SpecFlowAppiumTests.Pages
 
         By and_VPRQuestionSetLocator = MobileBy.XPath("//android.view.View[@text='VPR Pre-Exercise Diary']");
         By ios_VPRQuestionSetLocator = MobileBy.XPath("//XCUIElementTypeStaticText[@name='VPR Pre-Exercise Diary']");
+        By accountNavigationItem = MobileBy.AccessibilityId("accountNavigationItem");
 
         public void SelectVPRQuestionSet()
         {
@@ -28,7 +29,10 @@ namespace SpecFlowAppiumTests.Pages
             }
             ElementUtils.DoClick(_driver, VPRQuestionSetLocator);
         }
-
+        public void NavigateToAccount()
+        {
+            ElementUtils.DoClick(_driver, accountNavigationItem);
+        }
     }
 
 
