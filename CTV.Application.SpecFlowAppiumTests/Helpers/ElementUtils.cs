@@ -54,7 +54,7 @@ namespace SpecFlowAppiumTests.Helpers
             }
             catch (Exception)
             {
-                Console.WriteLine("===Element does not exist: " + by.ToString());
+                Console.WriteLine("=== ERROR: Element does not exist: " + by.ToString());
             }
             return ele;
         }
@@ -70,7 +70,7 @@ namespace SpecFlowAppiumTests.Helpers
             }
             catch (Exception)
             {
-                Console.WriteLine("===Element is not visible: " + by.ToString());
+                Console.WriteLine("=== ERROR: Element is not visible: " + by.ToString());
             }
             return ele;
         }
@@ -85,7 +85,7 @@ namespace SpecFlowAppiumTests.Helpers
                 wait.Until(ExpectedConditions.ElementToBeClickable(by));
             }
             catch (Exception) {
-                Console.WriteLine("===Element is not clickable: " + by.ToString());
+                Console.WriteLine("=== ERROR: Element is not clickable: " + by.ToString());
             }
             return ele;
         }
@@ -131,7 +131,7 @@ namespace SpecFlowAppiumTests.Helpers
             bool isSuccess = text == errText;
             if (!isSuccess)
             {
-                Console.WriteLine("===Actual text: " + errText + " is not match the expected text: " + text);
+                Console.WriteLine("=== FAILED: Actual text: " + errText + " does not match the expected text:  " + text);
             }
             return isSuccess;
         }
