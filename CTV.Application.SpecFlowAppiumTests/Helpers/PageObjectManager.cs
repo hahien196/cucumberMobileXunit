@@ -7,8 +7,6 @@ namespace SpecFlowAppiumTests.Helpers
     {
         private AppiumDriver _pomdriver;
         private PatientAccountActivation _patientActivationPage;
-        private Consent _consent;
-        private Welcome _welcome;
         private PatientLogin _patientLogin;
         private CarerLogin _carerLogin;
         private PINReset _PINReset;
@@ -27,14 +25,6 @@ namespace SpecFlowAppiumTests.Helpers
                     {
                         return _patientActivationPage ??= new PatientAccountActivation(_pomdriver);
                     }
-                case "Consent":
-                    {
-                        return _consent ??= new Consent(_pomdriver);
-                    }
-                case "Welcome":
-                    {
-                        return _welcome ??= new Welcome(_pomdriver);
-                    }
                 case "Patient Login":
                     {
                         return _patientLogin ??= new PatientLogin(_pomdriver);
@@ -50,7 +40,7 @@ namespace SpecFlowAppiumTests.Helpers
                 case "Forgot Password":
                     {
                         return _forgotPassword ??= new ForgotPassword(_pomdriver);
-                    }
+                    }               
                 default:
                     {
                         return null;

@@ -44,7 +44,8 @@ namespace SpecFlowAppiumTests.Steps
             {
                 By titleEle = MobileBy.XPath($"//*[contains(text(),'{p0.Trim()}')]");
                 ElementUtils.WaitForElementVisible(_driver, titleEle);
-            } else if (Globals.IsIOS())
+            }
+            else if (Globals.IsIOS())
             {
                 By titleEle = MobileBy.XPath($"//*[contains(@label,'{p0.Trim()}')]");
                 ElementUtils.WaitForElementVisible(_driver, titleEle);
@@ -52,25 +53,69 @@ namespace SpecFlowAppiumTests.Steps
             _view = p0;
         }
 
+        [Then(@"the user is on the ""(.*)"" screen")]
+        public void ThenTheUserIsOnTheScreen(string p0)
+        {
+            if (Globals.IsAndroid())
+            {
+                By titleEle = MobileBy.XPath($"//*[contains(text(),'{p0.Trim()}')]");
+                ElementUtils.WaitForElementVisible(_driver, titleEle);
+            }
+            else if (Globals.IsIOS())
+            {
+                By titleEle = MobileBy.XPath($"//*[contains(@label,'{p0.Trim()}')]");
+                ElementUtils.WaitForElementVisible(_driver, titleEle);
+            }
+            _view = p0;
+        }
+
+        [When(@"the user submits the following data")]
+        public void GivenTheUserHasSubmittedData(Table table)
+        {
+            pom = new(_driver);
+            IPageManager screen = pom.ViewSwitcher(_view);
+            screen.SubmitData(table);
+        }        
+
         [Then(@"they are able to see the expected element (.*)")]
         public void ThenTheyAreAbleToSeeTheExpectedElement(string p0)
         {
             pom = new(_driver);
-            Assert.True(ElementUtils.IsElementDisplayed(_driver, p0));            
+            Assert.True(ElementUtils.IsElementDisplayed(_driver, p0));
+        }
+
+        [Then(@"the following error message should be present")]
+        public void ThenFollowingErrorMessageShouldBePresent(Table table)
+        { 
+            var dictionary = Utilities.TableToDictionary(table);
+            int passCount = 0;
+            List<string> notDisplayedEles = new List<string>();
+                foreach (var row in dictionary)
+                {
+                    if (ElementUtils.IsErrorMessageCorrect(_driver, row.Key, row.Value))
+                    {
+                        passCount++;
+                    }
+                    else
+                    {
+                        notDisplayedEles.Add(row.Key);
+                    }
+                }
+                Assert.True(passCount == dictionary.Count);
         }
 
         [Then(@"they are able to see the expected elements")]
         public void ThenTheyAreAbleToSeeTheExpectedElements(Table table)
         {
-            pom = new(_driver);
+
             var dictionary = Utilities.TableToDictionary(table);
-            int numDisplayed = 0;
+            int passCount = 0;
             List<string> notDisplayedEles = new List<string>();
             foreach (var row in dictionary)
             {
                 if (ElementUtils.IsElementDisplayed(_driver, row.Value))
                 {
-                    numDisplayed++;
+                    passCount++;
                 }
                 else
                 {
@@ -78,8 +123,7 @@ namespace SpecFlowAppiumTests.Steps
                 }
             }
 
-            Assert.True(numDisplayed == dictionary.Count);
-
+            Assert.True(passCount == dictionary.Count);
         }
     }
 }

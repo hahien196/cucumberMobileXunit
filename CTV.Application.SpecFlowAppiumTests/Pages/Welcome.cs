@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 
 namespace SpecFlowAppiumTests.Pages
 {
-    public class Welcome : IPageManager
+    public class Welcome
     {
         private static AppiumDriver _driver;
         public Welcome(AppiumDriver appiumDriver)
@@ -28,5 +28,8 @@ namespace SpecFlowAppiumTests.Pages
             }
             ElementUtils.DoClick(_driver, VPRQuestionSetLocator);
         }
+
     }
+
+
 }

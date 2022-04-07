@@ -1,10 +1,12 @@
-﻿using OpenQA.Selenium;
+﻿using Lucene.Net.Support;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.MultiTouch;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
+using System.Collections.Generic;
 
 namespace SpecFlowAppiumTests.Helpers
 {
@@ -22,6 +24,15 @@ namespace SpecFlowAppiumTests.Helpers
                 .Release();
 
             drag.Perform();
+        }
+
+        public static void IOSScroll(AppiumDriver _driver, string direction)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor) _driver;
+            Dictionary<string, string> scrollObject = new Dictionary<string, string>();
+            // direction can be "down", "up"
+            scrollObject.Add("direction", direction);
+            js.ExecuteScript("mobile: scroll", scrollObject);
         }
 
         public static void ScrollToElement(AppiumDriver _driver, By by, double startHeightRatio, double endHeightRatio, double widthRatio)
@@ -43,7 +54,7 @@ namespace SpecFlowAppiumTests.Helpers
             }
             catch (Exception)
             {
-                Console.WriteLine("===Element does not exist: " + by.ToString());
+                Console.WriteLine("=== ERROR: Element does not exist: " + by.ToString());
             }
             return ele;
         }
@@ -59,7 +70,7 @@ namespace SpecFlowAppiumTests.Helpers
             }
             catch (Exception)
             {
-                Console.WriteLine("===Element is not visible: " + by.ToString());
+                Console.WriteLine("=== ERROR: Element is not visible: " + by.ToString());
             }
             return ele;
         }
@@ -74,7 +85,7 @@ namespace SpecFlowAppiumTests.Helpers
                 wait.Until(ExpectedConditions.ElementToBeClickable(by));
             }
             catch (Exception) {
-                Console.WriteLine("===Element is not clickable: " + by.ToString());
+                Console.WriteLine("=== ERROR: Element is not clickable: " + by.ToString());
             }
             return ele;
         }
@@ -90,8 +101,11 @@ namespace SpecFlowAppiumTests.Helpers
             WaitForElementVisible(_driver, by);
             AppiumElement ele = _driver.FindElement(by);
             ele.Click();
-            Actions action = new Actions(_driver);
-            action.SendKeys(input).Perform();
+            if (!String.IsNullOrEmpty(input))
+            {
+                Actions action = new Actions(_driver);
+                action.SendKeys(input).Perform();
+            }
         }
 
         public static bool IsElementDisplayed(AppiumDriver _driver, string elementName)
@@ -100,6 +114,26 @@ namespace SpecFlowAppiumTests.Helpers
             WaitForElementVisible(_driver, locator);
             var count = _driver.FindElements(locator).Count;
             return count > 0;
+        }
+
+        public static bool IsErrorMessageCorrect(AppiumDriver _driver, string elementName, string text)
+        {
+            AppiumElement ele = null;
+            if (Globals.IsAndroid())
+            {
+                ele = _driver.FindElement(By.XPath($"//android.view.View[@{Globals.AndroidLocator()}='{elementName}']/../following-sibling::android.view.View[1]"));
+            }
+            else if (Globals.IsIOS())
+            {
+                ele = _driver.FindElement(By.XPath($"//*[@{Globals.IOSLocator()}='{elementName}']/following-sibling::XCUIElementTypeStaticText[1]"));
+            }
+            string errText = ele.GetAttribute(Globals.TextLocator());
+            bool isSuccess = text == errText;
+            if (!isSuccess)
+            {
+                Console.WriteLine("=== FAILED: Actual text: " + errText + " does not match the expected text:  " + text);
+            }
+            return isSuccess;
         }
 
     }

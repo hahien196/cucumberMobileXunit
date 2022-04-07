@@ -1,11 +1,10 @@
 ﻿using OpenQA.Selenium.Appium;
 using SpecFlowAppiumTests.Helpers;
 using OpenQA.Selenium;
-using System.Threading;
 
 namespace SpecFlowAppiumTests.Pages
 {
-    public class Consent : IPageManager
+    public class Consent
     {
         private static AppiumDriver _driver;
 
@@ -21,9 +20,15 @@ namespace SpecFlowAppiumTests.Pages
 
         public void ApproveConsent()
         {
-            ElementUtils.Scroll(_driver, Globals.GetWindowHeight(), 0.2, 0.5);
-            ElementUtils.Scroll(_driver, Globals.GetWindowHeight(), 0.2, 0.5);
-            var h = Globals.GetWindowHeight();
+            if (Globals.IsAndroid())
+            {
+                ElementUtils.Scroll(_driver, Globals.GetWindowHeight(), 0.3, 0.4);
+                ElementUtils.Scroll(_driver, Globals.GetWindowHeight(), 0.3, 0.4);
+            }
+            else if (Globals.IsIOS())
+            {
+                ElementUtils.IOSScroll(_driver, "down");
+            }
             ElementUtils.DoClick(_driver, acceptInputSelector);
         }
 

@@ -3,6 +3,7 @@ using OpenQA.Selenium.Appium;
 using System;
 using System.Threading;
 using OpenQA.Selenium;
+using TechTalk.SpecFlow;
 
 namespace SpecFlowAppiumTests.Pages
 {
@@ -184,6 +185,12 @@ namespace SpecFlowAppiumTests.Pages
                 return true; 
             }
             else { return false; }
+        }
+
+        public void SubmitData(Table table)
+        {
+            var dictionary = Utilities.TableToDictionary(table);
+            CompletedQuestions(dictionary["Q1"], dictionary["Q2"], dictionary["Q3"]);
         }
     }
 }

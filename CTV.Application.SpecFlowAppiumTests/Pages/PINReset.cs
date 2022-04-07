@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium.Appium;
 using SpecFlowAppiumTests.Helpers;
 using OpenQA.Selenium;
+using TechTalk.SpecFlow;
 
 namespace SpecFlowAppiumTests.Pages
 {
@@ -15,6 +16,7 @@ namespace SpecFlowAppiumTests.Pages
 
         By usernameInputSelector = MobileBy.AccessibilityId("pinResetUsernameInput");
         By resetButtonSelector = MobileBy.AccessibilityId("pinResetResetButton");
+        By pinResetSuccessText = MobileBy.AccessibilityId("pinResetSuccessText");
 
         public void InputData(string userName)
         {
@@ -27,6 +29,14 @@ namespace SpecFlowAppiumTests.Pages
 
         public void ClickResetButton()
         {
+            ElementUtils.DoClick(_driver, resetButtonSelector);
+            ElementUtils.WaitForElementVisible(_driver, pinResetSuccessText);
+        }
+
+        public void SubmitData(Table table)
+        {
+            var dictionary = Utilities.TableToDictionary(table);
+            InputData(dictionary["Username"]);
             ElementUtils.DoClick(_driver, resetButtonSelector);
         }
     }

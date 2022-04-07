@@ -2,6 +2,7 @@
 using System;
 using SpecFlowAppiumTests.Helpers;
 using OpenQA.Selenium;
+using TechTalk.SpecFlow;
 
 namespace SpecFlowAppiumTests.Pages
 {
@@ -140,6 +141,13 @@ namespace SpecFlowAppiumTests.Pages
         public void ClickActivateButton()
         {
             ElementUtils.DoClick(_driver, activateButtonSelector);
+        }
+
+        public void SubmitData(Table table)
+        {
+            var dictionary = Utilities.TableToDictionary(table);
+            InputData(dictionary["Activation Code"], dictionary["Date of Birth"], dictionary["Postcode"]);
+            ClickActivateButton();
         }
 
     }
