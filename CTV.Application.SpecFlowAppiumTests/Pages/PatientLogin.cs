@@ -39,12 +39,6 @@ namespace SpecFlowAppiumTests.Pages
 
         }
 
-        public void DoLogin(string userName, string password)
-        {
-            InputData(userName, password);
-            ClickLogin();
-        }
-
         public void NavigateToCarerLogin()
         {
             ElementUtils.DoClick(_driver, carerLoginButtonSelector);

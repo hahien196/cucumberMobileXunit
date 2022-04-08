@@ -13,6 +13,7 @@ namespace SpecFlowAppiumTests.Helpers
         private PINResetNav _PINResetNav;
         private ForgotPasswordNav _forgotPasswordNav;
         private AccountNav _accountNav;
+        private SelectPatientNav _selectPatientNav;
 
         public NavigationManager(AppiumDriver driver)
         {
@@ -50,6 +51,10 @@ namespace SpecFlowAppiumTests.Helpers
                 case "Account":
                     {
                         return _accountNav ??= new AccountNav(_pomdriver);
+                    }
+                case "Select Patient":
+                    {
+                        return _selectPatientNav ??= new SelectPatientNav(_pomdriver);
                     }
                 default:
                     {
