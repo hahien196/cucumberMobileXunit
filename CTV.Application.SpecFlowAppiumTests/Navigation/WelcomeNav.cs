@@ -15,7 +15,8 @@ namespace SpecFlowAppiumTests.Navigation
         public void NavigateTo()
         {
             PatientLogin patientLogin = new PatientLogin(_navigationDriver);
-            patientLogin.DoLogin(Globals.DEFAULT_PATIENT_USERNAME, Globals.DEFAULT_PATIENT_PIN);
+            patientLogin.InputData(Globals.DEFAULT_PATIENT_USERNAME, Globals.DEFAULT_PATIENT_PIN);
+            patientLogin.ClickLogin();
             Consent cons = new Consent(_navigationDriver);
             cons.ApproveConsent();
         }
