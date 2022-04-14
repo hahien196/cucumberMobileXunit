@@ -53,7 +53,7 @@ namespace SpecFlowAppiumTests.Helpers
         {
             if (Globals.IsAndroid())
             {
-                TouchScroll(_driver, 0.7, 0.3, 0.5);
+                TouchScroll(_driver, Globals.GetWindowHeight(), 0.3, 0.5);
             }
             else if (Globals.IsIOS())
             {
