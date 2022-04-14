@@ -21,6 +21,7 @@ namespace SpecFlowAppiumTests.Pages
         public void ApproveConsent()
         {
             ElementUtils.ScrollDown(_driver);
+            ElementUtils.ScrollDown(_driver);
             ElementUtils.DoClick(_driver, acceptInputSelector);
         }
 
@@ -28,10 +29,9 @@ namespace SpecFlowAppiumTests.Pages
         {
             ElementUtils.DoClick(_driver, rejectInputSelector);
         }
-
         public bool IsConsentDisplayed()
         {
-            return ElementUtils.IsElementDisplayed(_driver, consentTitleName) ? true : false;
+            return Globals.SUCCESS_TEXT == ElementUtils.IsElementDisplayed(_driver, consentTitleName) ? true : false;
         }
     }
 }

@@ -6,6 +6,7 @@ namespace SpecFlowAppiumTests.Helpers
     public static class Globals
     {
         public const int EXPLICIT_WAIT_TIMEOUT = 5;
+        public const string SUCCESS_TEXT = "Success";
 
         // patien information
         public const string DEFAULT_PATIENT_USERNAME = "user";

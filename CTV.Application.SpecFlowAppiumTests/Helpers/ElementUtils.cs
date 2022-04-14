@@ -36,16 +36,10 @@ namespace SpecFlowAppiumTests.Helpers
 
         public static void ScrollToElement(AppiumDriver _driver, By by, double startHeightRatio, double endHeightRatio, double widthRatio)
         {
-            while(_driver.FindElements(by).Count == 0)
+            int retry = 0;
+            while(_driver.FindElements(by).Count == 0 && retry < 5)
             {
-                if (Globals.IsAndroid())
-                {
-                    TouchScroll(_driver, startHeightRatio, endHeightRatio, widthRatio);
-                } 
-                else if (Globals.IsIOS())
-                {
-                    IOSScroll(_driver, "down");
-                }
+                ScrollDown(_driver);
             }
         }
 
@@ -126,16 +120,23 @@ namespace SpecFlowAppiumTests.Helpers
             }
         }
 
-        public static bool IsElementDisplayed(AppiumDriver _driver, string elementName)
+        public static string IsElementDisplayed(AppiumDriver _driver, string elementName)
         {
             By locator = MobileBy.XPath($"//*[@{Globals.GetLocator()}='{elementName}']"); 
-            ScrollToElement(_driver, locator, Globals.GetWindowHeight(), 0.2, 0.4);
             WaitForElementVisible(_driver, locator);
-            var count = _driver.FindElements(locator).Count;
-            return count > 0;
+            var count = _driver.FindElements(locator).Count; string message;
+            if (count == 0)
+            {
+                message = "Element: " + elementName + " is not visible:  ";
+            }
+            else
+            {
+                message = Globals.SUCCESS_TEXT;
+            }
+            return message;
         }
 
-        public static bool IsErrorMessageCorrect(AppiumDriver _driver, string elementName, string text)
+        public static string IsErrorMessageCorrect(AppiumDriver _driver, string elementName, string text)
         {
             AppiumElement ele = null;
             if (Globals.IsAndroid())
@@ -148,11 +149,15 @@ namespace SpecFlowAppiumTests.Helpers
             }
             string errText = ele.GetAttribute(Globals.TextLocator());
             bool isSuccess = text == errText;
+            string message;
             if (!isSuccess)
             {
-                Console.WriteLine("=== FAILED: Actual text: " + errText + " does not match the expected text:  " + text);
+                message = "Actual text: '" + errText + "' does not match the expected text: " + text;
+            } else
+            {
+                message = Globals.SUCCESS_TEXT;
             }
-            return isSuccess;
+            return message;
         }
 
     }
