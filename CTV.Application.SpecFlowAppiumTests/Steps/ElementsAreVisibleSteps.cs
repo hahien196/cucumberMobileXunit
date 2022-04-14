@@ -101,7 +101,7 @@ namespace SpecFlowAppiumTests.Steps
                         notDisplayedEles.Add(row.Key);
                     }
                 }
-                Assert.True(passCount == dictionary.Count);
+                Assert.Equal(passCount, dictionary.Count);
         }
 
         [Then(@"they are able to see the expected elements")]
@@ -123,7 +123,7 @@ namespace SpecFlowAppiumTests.Steps
                 }
             }
 
-            Assert.True(passCount == dictionary.Count);
+            Assert.Equal(passCount, dictionary.Count);
         }
     }
 }

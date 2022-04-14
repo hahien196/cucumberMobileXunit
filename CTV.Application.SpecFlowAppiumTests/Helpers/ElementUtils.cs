@@ -11,7 +11,7 @@ namespace SpecFlowAppiumTests.Helpers
 {
     public static class ElementUtils
     {
-        public static void Scroll(AppiumDriver _driver, double startHeightRatio, double endHeightRatio, double widthRatio)
+        public static void TouchScroll(AppiumDriver _driver, double startHeightRatio, double endHeightRatio, double widthRatio)
         {
             double windowStartHeight = _driver.Manage().Window.Size.Height * startHeightRatio;
             double windowEndHeight = _driver.Manage().Window.Size.Height * endHeightRatio;
@@ -38,7 +38,26 @@ namespace SpecFlowAppiumTests.Helpers
         {
             while(_driver.FindElements(by).Count == 0)
             {
-                Scroll(_driver, startHeightRatio, endHeightRatio, widthRatio);
+                if (Globals.IsAndroid())
+                {
+                    TouchScroll(_driver, startHeightRatio, endHeightRatio, widthRatio);
+                } 
+                else if (Globals.IsIOS())
+                {
+                    IOSScroll(_driver, "down");
+                }
+            }
+        }
+
+        public static void ScrollDown(AppiumDriver _driver)
+        {
+            if (Globals.IsAndroid())
+            {
+                TouchScroll(_driver, 0.7, 0.3, 0.5);
+            }
+            else if (Globals.IsIOS())
+            {
+                IOSScroll(_driver, "down");
             }
         }
 
@@ -109,7 +128,8 @@ namespace SpecFlowAppiumTests.Helpers
 
         public static bool IsElementDisplayed(AppiumDriver _driver, string elementName)
         {
-            By locator = MobileBy.XPath($"//*[@{Globals.GetLocator()}='{elementName}']");
+            By locator = MobileBy.XPath($"//*[@{Globals.GetLocator()}='{elementName}']"); 
+            ScrollToElement(_driver, locator, Globals.GetWindowHeight(), 0.2, 0.4);
             WaitForElementVisible(_driver, locator);
             var count = _driver.FindElements(locator).Count;
             return count > 0;
