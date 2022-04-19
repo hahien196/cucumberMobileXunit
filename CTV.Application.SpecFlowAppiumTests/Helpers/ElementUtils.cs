@@ -37,9 +37,16 @@ namespace SpecFlowAppiumTests.Helpers
         public static void ScrollToElement(AppiumDriver _driver, By by, double startHeightRatio, double endHeightRatio, double widthRatio)
         {
             int retry = 0;
-            while(_driver.FindElements(by).Count == 0 && retry < 5)
+            while (_driver.FindElements(by).Count == 0 && retry < 5)
             {
                 ScrollDown(_driver);
+                retry++;
+            }
+            retry = 0;
+            while (_driver.FindElements(by).Count == 0 && retry < 5)
+            {
+                ScrollUp(_driver);
+                retry++;
             }
         }
 
@@ -52,6 +59,18 @@ namespace SpecFlowAppiumTests.Helpers
             else if (Globals.IsIOS())
             {
                 IOSScroll(_driver, "down");
+            }
+        }
+
+        public static void ScrollUp(AppiumDriver _driver)
+        {
+            if (Globals.IsAndroid())
+            {
+                TouchScroll(_driver, 0.3, Globals.GetWindowHeight(), 0.5);
+            }
+            else if (Globals.IsIOS())
+            {
+                IOSScroll(_driver, "up");
             }
         }
 
@@ -124,7 +143,8 @@ namespace SpecFlowAppiumTests.Helpers
         {
             By locator = MobileBy.XPath($"//*[@{Globals.GetLocator()}='{elementName}']"); 
             WaitForElementVisible(_driver, locator);
-            var count = _driver.FindElements(locator).Count; string message;
+            var count = _driver.FindElements(locator).Count; 
+            string message;
             if (count == 0)
             {
                 message = "Element: " + elementName + " is not visible:  ";
@@ -133,7 +153,7 @@ namespace SpecFlowAppiumTests.Helpers
             {
                 message = Globals.SUCCESS_TEXT;
             }
-            return message;
+           return message;
         }
 
         public static string IsErrorMessageCorrect(AppiumDriver _driver, string elementName, string text)
