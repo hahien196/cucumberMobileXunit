@@ -31,7 +31,7 @@ namespace SpecFlowAppiumTests.Pages
         }
         public bool IsConsentDisplayed()
         {
-            return Globals.SUCCESS_TEXT == ElementUtils.IsElementDisplayed(_driver, consentTitleName) ? true : false;
+            return ElementUtils.IsElementDisplayed(_driver, consentTitleName).Contains(Globals.SUCCESS_TEXT);
         }
     }
 }
