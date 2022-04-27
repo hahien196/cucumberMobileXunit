@@ -14,7 +14,7 @@ namespace SpecFlowAppiumTests.Helpers
         private ForgotPasswordNav _forgotPasswordNav;
         private AccountNav _accountNav;
         private SelectPatientNav _selectPatientNav;
-        private EducationNav educationNav;
+        private EducationNav _educationNav;
 
         public NavigationManager(AppiumDriver driver)
         {
@@ -59,7 +59,7 @@ namespace SpecFlowAppiumTests.Helpers
                     }
                 case "Education":
                     {
-                        return educationNav ??= new EducationNav(_pomdriver);
+                        return _educationNav ??= new EducationNav(_pomdriver);
                     }
                 default:
                     {
