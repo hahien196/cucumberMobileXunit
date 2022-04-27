@@ -7,13 +7,14 @@ namespace SpecFlowAppiumTests.Helpers
     {
         private AppiumDriver _pomdriver;
         private ConsentNav _consent;
-        private WelcomeNav _welcome;
+        private HomeNav _home;
         private CarerLoginNav _carerLoginNav;
         private PatientAccountActivationNav _patientActivationNav;
         private PINResetNav _PINResetNav;
         private ForgotPasswordNav _forgotPasswordNav;
         private AccountNav _accountNav;
         private SelectPatientNav _selectPatientNav;
+        private EducationNav educationNav;
 
         public NavigationManager(AppiumDriver driver)
         {
@@ -30,7 +31,7 @@ namespace SpecFlowAppiumTests.Helpers
                     }
                 case "Welcome":
                     {
-                        return _welcome ??= new WelcomeNav(_pomdriver);
+                        return _home ??= new HomeNav(_pomdriver);
                     }
                 case "Carer Login":
                     {
@@ -55,6 +56,10 @@ namespace SpecFlowAppiumTests.Helpers
                 case "Select Patient":
                     {
                         return _selectPatientNav ??= new SelectPatientNav(_pomdriver);
+                    }
+                case "Education":
+                    {
+                        return educationNav ??= new EducationNav(_pomdriver);
                     }
                 default:
                     {

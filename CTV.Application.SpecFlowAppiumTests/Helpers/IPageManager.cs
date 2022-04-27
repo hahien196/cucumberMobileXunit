@@ -4,6 +4,6 @@ namespace SpecFlowAppiumTests.Pages
 {
     public interface IPageManager
     {
-        void SubmitData(Table table);
+        public void SubmitData(Table table);
     }
 }

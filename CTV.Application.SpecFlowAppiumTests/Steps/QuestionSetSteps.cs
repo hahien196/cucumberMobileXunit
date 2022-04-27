@@ -19,8 +19,8 @@ namespace SpecFlowAppiumTests.Steps
         [When(@"they select the ""(.*)"" Question Set")]
         public void WhenTheySelectTheQuestionSet(string p0)
         {
-            Welcome welcome = new(_driver);
-            welcome.SelectVPRQuestionSet();
+            Home home = new(_driver);
+            home.SelectVPRQuestionSet();
         }
 
         [When(@"respond to all the questions with (.*), (.*), (.*)")]
