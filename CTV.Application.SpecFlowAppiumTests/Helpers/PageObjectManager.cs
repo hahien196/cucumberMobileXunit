@@ -17,6 +17,11 @@ namespace SpecFlowAppiumTests.Helpers
             _pomdriver = _driver;
         }
 
+        /// <summary>
+        /// Switch to corresponding page
+        /// </summary>
+        /// <param name="screen"> any pages that have data form to fill in, corresponding pages should implement interface IPageManager</param>
+        /// <returns></returns>
         public IPageManager ViewSwitcher(string screen)
         {
             switch (screen)

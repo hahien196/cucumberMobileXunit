@@ -13,11 +13,6 @@ namespace SpecFlowAppiumTests.Pages
             _driver = appiumDriver;
         }
 
-        By accountNavigationItem = MobileBy.AccessibilityId("accountNavigationItem");
-        By homeNavigationItem = MobileBy.AccessibilityId("homeNavigationItem");
-        By educationNavigationItem = MobileBy.AccessibilityId("educationNavigationItem");
-        By contactNavigationItem = MobileBy.AccessibilityId("contactNavigationItem");
-
     }
 
 
