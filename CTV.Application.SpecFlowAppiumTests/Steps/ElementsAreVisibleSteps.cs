@@ -54,20 +54,20 @@ namespace SpecFlowAppiumTests.Steps
             _view = p0;
         }
 
+        [When(@"the user clicks on the ""(.*)""")]
+        public void WhenTheUserClicksOnTheElement(string elementName)
+        {
+            By element = MobileBy.AccessibilityId(elementName);
+            ElementUtils.DoClick(_driver, element);
+        }
+
         [Then(@"the user is on the ""(.*)"" screen")]
         public void ThenTheUserIsOnTheScreen(string p0)
         {
-            if (Globals.IsAndroid())
-            {
-                By titleEle = MobileBy.XPath($"//*[contains(text(),'{p0.Trim()}')]");
-                ElementUtils.WaitForElementVisible(_driver, titleEle);
-            }
-            else if (Globals.IsIOS())
-            {
-                By titleEle = MobileBy.XPath($"//*[contains(@label,'{p0.Trim()}')]");
-                ElementUtils.WaitForElementVisible(_driver, titleEle);
-            }
             _view = p0;
+            By titleEle = MobileBy.XPath($"//*[contains(@{Globals.TextLocator()},'{p0.Trim()}')]");
+            string responseMsg = ElementUtils.IsElementDisplayed(_driver, titleEle);
+            responseMsg.Should().Contain(Globals.SUCCESS_TEXT);
         }
 
         [When(@"the user submits the following data")]
