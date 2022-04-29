@@ -29,7 +29,7 @@ namespace SpecFlowAppiumTests.Helpers
                     {
                         return _consent ??= new ConsentNav(_pomdriver);
                     }
-                case "Welcome":
+                case "Home":
                     {
                         return _home ??= new HomeNav(_pomdriver);
                     }

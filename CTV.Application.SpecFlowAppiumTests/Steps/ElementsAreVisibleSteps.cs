@@ -41,17 +41,9 @@ namespace SpecFlowAppiumTests.Steps
         [When(@"the user is on the ""(.*)"" screen")]
         public void WhenTheUserIsOnTheScreen(string p0)
         {
-            if (Globals.IsAndroid())
-            {
-                By titleEle = MobileBy.XPath($"//*[contains(text(),'{p0.Trim()}')]");
-                ElementUtils.WaitForElementVisible(_driver, titleEle);
-            }
-            else if (Globals.IsIOS())
-            {
-                By titleEle = MobileBy.XPath($"//*[contains(@label,'{p0.Trim()}')]");
-                ElementUtils.WaitForElementVisible(_driver, titleEle);
-            }
             _view = p0;
+            By titleEle = MobileBy.XPath($"//*[contains(@{Globals.TextLocator()},'{p0.Trim()}')]");
+            ElementUtils.WaitForElementVisible(_driver, titleEle);
         }
 
         [When(@"the user clicks on the ""(.*)""")]
