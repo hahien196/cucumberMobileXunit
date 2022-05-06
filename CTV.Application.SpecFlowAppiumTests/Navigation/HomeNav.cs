@@ -4,10 +4,10 @@ using SpecFlowAppiumTests.Helpers;
 
 namespace SpecFlowAppiumTests.Navigation
 {
-    public class WelcomeNav : INavigationManager
+    public class HomeNav : INavigationManager
     {
         private AppiumDriver _navigationDriver;
-        public WelcomeNav(AppiumDriver driver)
+        public HomeNav(AppiumDriver driver)
         {
             _navigationDriver = driver;
         }

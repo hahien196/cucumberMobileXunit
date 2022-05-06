@@ -1,4 +1,6 @@
-﻿namespace SpecFlowAppiumTests.Helpers
+﻿using SpecFlowAppiumTests.Pages;
+
+namespace SpecFlowAppiumTests.Helpers
 {
     public interface INavigationManager
     {

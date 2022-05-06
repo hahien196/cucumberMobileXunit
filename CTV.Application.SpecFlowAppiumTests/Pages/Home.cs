@@ -1,13 +1,14 @@
 ﻿using OpenQA.Selenium.Appium;
 using SpecFlowAppiumTests.Helpers;
 using OpenQA.Selenium;
+using TechTalk.SpecFlow;
 
 namespace SpecFlowAppiumTests.Pages
 {
-    public class Welcome
+    public class Home
     {
         private static AppiumDriver _driver;
-        public Welcome(AppiumDriver appiumDriver)
+        public Home(AppiumDriver appiumDriver)
         {
             _driver = appiumDriver;
         }
@@ -15,6 +16,9 @@ namespace SpecFlowAppiumTests.Pages
         By and_VPRQuestionSetLocator = MobileBy.XPath("//android.view.View[@text='VPR Pre-Exercise Diary']");
         By ios_VPRQuestionSetLocator = MobileBy.XPath("//XCUIElementTypeStaticText[@name='VPR Pre-Exercise Diary']");
         By accountNavigationItem = MobileBy.AccessibilityId("accountNavigationItem");
+        By homeNavigationItem = MobileBy.AccessibilityId("homeNavigationItem");
+        By educationNavigationItem = MobileBy.AccessibilityId("educationNavigationItem");
+        By contactNavigationItem = MobileBy.AccessibilityId("contactNavigationItem");
 
         public void SelectVPRQuestionSet()
         {
@@ -33,6 +37,17 @@ namespace SpecFlowAppiumTests.Pages
         {
             ElementUtils.DoClick(_driver, accountNavigationItem);
         }
+
+        public void NavigateToEducation()
+        {
+            ElementUtils.DoClick(_driver, educationNavigationItem);
+        }
+
+        public void NavigateToContact()
+        {
+            ElementUtils.DoClick(_driver, contactNavigationItem);
+        }
+
     }
 
 

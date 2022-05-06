@@ -20,15 +20,8 @@ namespace SpecFlowAppiumTests.Pages
 
         public void ApproveConsent()
         {
-            if (Globals.IsAndroid())
-            {
-                ElementUtils.Scroll(_driver, Globals.GetWindowHeight(), 0.3, 0.4);
-                ElementUtils.Scroll(_driver, Globals.GetWindowHeight(), 0.3, 0.4);
-            }
-            else if (Globals.IsIOS())
-            {
-                ElementUtils.IOSScroll(_driver, "down");
-            }
+            ElementUtils.ScrollDown(_driver);
+            ElementUtils.ScrollDown(_driver);
             ElementUtils.DoClick(_driver, acceptInputSelector);
         }
 
@@ -36,10 +29,9 @@ namespace SpecFlowAppiumTests.Pages
         {
             ElementUtils.DoClick(_driver, rejectInputSelector);
         }
-
         public bool IsConsentDisplayed()
         {
-            return ElementUtils.IsElementDisplayed(_driver, consentTitleName) ? true : false;
+            return ElementUtils.IsElementDisplayed(_driver, consentTitleName).Contains(Globals.SUCCESS_TEXT);
         }
     }
 }

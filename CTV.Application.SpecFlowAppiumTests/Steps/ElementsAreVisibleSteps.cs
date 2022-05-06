@@ -5,7 +5,8 @@ using Xunit;
 using SpecFlowAppiumTests.Helpers;
 using SpecFlowAppiumTests.Pages;
 using OpenQA.Selenium;
-using System.Collections.Generic;
+using FluentAssertions;
+using FluentAssertions.Execution;
 
 namespace SpecFlowAppiumTests.Steps
 {
@@ -40,33 +41,25 @@ namespace SpecFlowAppiumTests.Steps
         [When(@"the user is on the ""(.*)"" screen")]
         public void WhenTheUserIsOnTheScreen(string p0)
         {
-            if (Globals.IsAndroid())
-            {
-                By titleEle = MobileBy.XPath($"//*[contains(text(),'{p0.Trim()}')]");
-                ElementUtils.WaitForElementVisible(_driver, titleEle);
-            }
-            else if (Globals.IsIOS())
-            {
-                By titleEle = MobileBy.XPath($"//*[contains(@label,'{p0.Trim()}')]");
-                ElementUtils.WaitForElementVisible(_driver, titleEle);
-            }
             _view = p0;
+            By titleEle = MobileBy.XPath($"//*[contains(@{Globals.TextLocator()},'{p0.Trim()}')]");
+            ElementUtils.WaitForElementVisible(_driver, titleEle);
+        }
+
+        [When(@"the user clicks on the ""(.*)""")]
+        public void WhenTheUserClicksOnTheElement(string elementName)
+        {
+            By element = MobileBy.AccessibilityId(elementName);
+            ElementUtils.DoClick(_driver, element);
         }
 
         [Then(@"the user is on the ""(.*)"" screen")]
         public void ThenTheUserIsOnTheScreen(string p0)
         {
-            if (Globals.IsAndroid())
-            {
-                By titleEle = MobileBy.XPath($"//*[contains(text(),'{p0.Trim()}')]");
-                ElementUtils.WaitForElementVisible(_driver, titleEle);
-            }
-            else if (Globals.IsIOS())
-            {
-                By titleEle = MobileBy.XPath($"//*[contains(@label,'{p0.Trim()}')]");
-                ElementUtils.WaitForElementVisible(_driver, titleEle);
-            }
             _view = p0;
+            By titleEle = MobileBy.XPath($"//*[contains(@{Globals.TextLocator()},'{p0.Trim()}')]");
+            string responseMsg = ElementUtils.IsElementDisplayed(_driver, titleEle);
+            responseMsg.Should().Contain(Globals.SUCCESS_TEXT);
         }
 
         [When(@"the user submits the following data")]
@@ -81,27 +74,21 @@ namespace SpecFlowAppiumTests.Steps
         public void ThenTheyAreAbleToSeeTheExpectedElement(string p0)
         {
             pom = new(_driver);
-            Assert.True(ElementUtils.IsElementDisplayed(_driver, p0));
+            Assert.Contains(Globals.SUCCESS_TEXT, ElementUtils.IsElementDisplayed(_driver, p0));
         }
 
         [Then(@"the following error message should be present")]
         public void ThenFollowingErrorMessageShouldBePresent(Table table)
         { 
             var dictionary = Utilities.TableToDictionary(table);
-            int passCount = 0;
-            List<string> notDisplayedEles = new List<string>();
+            using (new AssertionScope())
+            {
                 foreach (var row in dictionary)
                 {
-                    if (ElementUtils.IsErrorMessageCorrect(_driver, row.Key, row.Value))
-                    {
-                        passCount++;
-                    }
-                    else
-                    {
-                        notDisplayedEles.Add(row.Key);
-                    }
+                    string responseMsg = ElementUtils.IsErrorMessageCorrect(_driver, row.Key, row.Value);
+                    responseMsg.Should().Contain(Globals.SUCCESS_TEXT);
                 }
-                Assert.True(passCount == dictionary.Count);
+            }
         }
 
         [Then(@"they are able to see the expected elements")]
@@ -109,21 +96,14 @@ namespace SpecFlowAppiumTests.Steps
         {
 
             var dictionary = Utilities.TableToDictionary(table);
-            int passCount = 0;
-            List<string> notDisplayedEles = new List<string>();
-            foreach (var row in dictionary)
+            using (new AssertionScope())
             {
-                if (ElementUtils.IsElementDisplayed(_driver, row.Value))
+                foreach (var row in dictionary)
                 {
-                    passCount++;
-                }
-                else
-                {
-                    notDisplayedEles.Add(row.Value);
+                    string responseMsg = ElementUtils.IsElementDisplayed(_driver, row.Value);
+                    responseMsg.Should().Contain(Globals.SUCCESS_TEXT);
                 }
             }
-
-            Assert.True(passCount == dictionary.Count);
         }
     }
 }

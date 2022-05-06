@@ -11,7 +11,7 @@ namespace SpecFlowAppiumTests.Helpers
 {
     public static class ElementUtils
     {
-        public static void Scroll(AppiumDriver _driver, double startHeightRatio, double endHeightRatio, double widthRatio)
+        public static void TouchScroll(AppiumDriver _driver, double startHeightRatio, double endHeightRatio, double widthRatio)
         {
             double windowStartHeight = _driver.Manage().Window.Size.Height * startHeightRatio;
             double windowEndHeight = _driver.Manage().Window.Size.Height * endHeightRatio;
@@ -36,9 +36,41 @@ namespace SpecFlowAppiumTests.Helpers
 
         public static void ScrollToElement(AppiumDriver _driver, By by, double startHeightRatio, double endHeightRatio, double widthRatio)
         {
-            while(_driver.FindElements(by).Count == 0)
+            int retry = 0;
+            while (_driver.FindElements(by).Count == 0 && retry < 4)
             {
-                Scroll(_driver, startHeightRatio, endHeightRatio, widthRatio);
+                ScrollDown(_driver);
+                retry++;
+            }
+            retry = 0;
+            while (_driver.FindElements(by).Count == 0 && retry < 4)
+            {
+                ScrollUp(_driver);
+                retry++;
+            }
+        }
+
+        public static void ScrollDown(AppiumDriver _driver)
+        {
+            if (Globals.IsAndroid())
+            {
+                TouchScroll(_driver, Globals.GetWindowHeight(), 0.2, 0.5);
+            }
+            else if (Globals.IsIOS())
+            {
+                IOSScroll(_driver, "down");
+            }
+        }
+
+        public static void ScrollUp(AppiumDriver _driver)
+        {
+            if (Globals.IsAndroid())
+            {
+                TouchScroll(_driver, 0.2, Globals.GetWindowHeight(), 0.5);
+            }
+            else if (Globals.IsIOS())
+            {
+                IOSScroll(_driver, "up");
             }
         }
 
@@ -107,32 +139,61 @@ namespace SpecFlowAppiumTests.Helpers
             }
         }
 
-        public static bool IsElementDisplayed(AppiumDriver _driver, string elementName)
+        public static string IsElementDisplayed(AppiumDriver _driver, string accessibilityID)
         {
-            By locator = MobileBy.XPath($"//*[@{Globals.GetLocator()}='{elementName}']");
+            By locator = MobileBy.XPath($"//*[@{Globals.GetLocator()}='{accessibilityID}']");
             WaitForElementVisible(_driver, locator);
-            var count = _driver.FindElements(locator).Count;
-            return count > 0;
+            var count = _driver.FindElements(locator).Count; 
+            string message;
+            if (count == 0)
+            {
+                message = "Element: " + accessibilityID + " is not visible:  ";
+            }
+            else
+            {
+                message = Globals.SUCCESS_TEXT;
+            }
+           return message;
         }
 
-        public static bool IsErrorMessageCorrect(AppiumDriver _driver, string elementName, string text)
+        public static string IsElementDisplayed(AppiumDriver _driver, By by)
+        {
+            WaitForElementVisible(_driver, by);
+            var count = _driver.FindElements(by).Count;
+            string message;
+            if (count == 0)
+            {
+                message = "Element: " + by.ToString() + " is not visible:  ";
+            }
+            else
+            {
+                message = Globals.SUCCESS_TEXT;
+            }
+            return message;
+        }
+
+        public static string IsErrorMessageCorrect(AppiumDriver _driver, string accessibilityID, string text)
         {
             AppiumElement ele = null;
             if (Globals.IsAndroid())
             {
-                ele = _driver.FindElement(By.XPath($"//android.view.View[@{Globals.AndroidLocator()}='{elementName}']/../following-sibling::android.view.View[1]"));
+                ele = _driver.FindElement(By.XPath($"//android.view.View[@{Globals.AndroidLocator()}='{accessibilityID}']/../following-sibling::android.view.View[1]"));
             }
             else if (Globals.IsIOS())
             {
-                ele = _driver.FindElement(By.XPath($"//*[@{Globals.IOSLocator()}='{elementName}']/following-sibling::XCUIElementTypeStaticText[1]"));
+                ele = _driver.FindElement(By.XPath($"//*[@{Globals.IOSLocator()}='{accessibilityID}']/following-sibling::XCUIElementTypeStaticText[1]"));
             }
             string errText = ele.GetAttribute(Globals.TextLocator());
             bool isSuccess = text == errText;
+            string message;
             if (!isSuccess)
             {
-                Console.WriteLine("=== FAILED: Actual text: " + errText + " does not match the expected text:  " + text);
+                message = "Actual text: '" + errText + "' does not match the expected text: " + text;
+            } else
+            {
+                message = Globals.SUCCESS_TEXT;
             }
-            return isSuccess;
+            return message;
         }
 
     }
