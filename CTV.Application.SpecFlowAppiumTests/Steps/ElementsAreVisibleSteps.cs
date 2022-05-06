@@ -5,8 +5,7 @@ using Xunit;
 using SpecFlowAppiumTests.Helpers;
 using SpecFlowAppiumTests.Pages;
 using OpenQA.Selenium;
-using FluentAssertions;
-using FluentAssertions.Execution;
+using System.Collections.Generic;
 
 namespace SpecFlowAppiumTests.Steps
 {
@@ -58,8 +57,7 @@ namespace SpecFlowAppiumTests.Steps
         {
             _view = p0;
             By titleEle = MobileBy.XPath($"//*[contains(@{Globals.TextLocator()},'{p0.Trim()}')]");
-            string responseMsg = ElementUtils.IsElementDisplayed(_driver, titleEle);
-            responseMsg.Should().Contain(Globals.SUCCESS_TEXT);
+            Assert.True(ElementUtils.IsElementDisplayed(_driver, titleEle));
         }
 
         [When(@"the user submits the following data")]
@@ -74,36 +72,46 @@ namespace SpecFlowAppiumTests.Steps
         public void ThenTheyAreAbleToSeeTheExpectedElement(string p0)
         {
             pom = new(_driver);
-            Assert.Contains(Globals.SUCCESS_TEXT, ElementUtils.IsElementDisplayed(_driver, p0));
-        }
-
-        [Then(@"the following error message should be present")]
-        public void ThenFollowingErrorMessageShouldBePresent(Table table)
-        { 
-            var dictionary = Utilities.TableToDictionary(table);
-            using (new AssertionScope())
-            {
-                foreach (var row in dictionary)
-                {
-                    string responseMsg = ElementUtils.IsErrorMessageCorrect(_driver, row.Key, row.Value);
-                    responseMsg.Should().Contain(Globals.SUCCESS_TEXT);
-                }
-            }
+            Assert.True(ElementUtils.IsElementDisplayed(_driver, p0));
         }
 
         [Then(@"they are able to see the expected elements")]
         public void ThenTheyAreAbleToSeeTheExpectedElements(Table table)
         {
-
+            pom = new(_driver);
             var dictionary = Utilities.TableToDictionary(table);
-            using (new AssertionScope())
+            int passCount = 0;
+            List<string> notDisplayedEles = new List<string>();
+            foreach (var row in dictionary)
             {
-                foreach (var row in dictionary)
+                if (ElementUtils.IsElementDisplayed(_driver, row.Value))
                 {
-                    string responseMsg = ElementUtils.IsElementDisplayed(_driver, row.Value);
-                    responseMsg.Should().Contain(Globals.SUCCESS_TEXT);
+                    passCount++;
+                } else
+                {
+                    notDisplayedEles.Add(row.Value);
                 }
             }
+            Assert.Equal(dictionary.Count, passCount);
+        }
+
+        [Then(@"the following error message should be present")]
+        public void ThenFollowingErrorMessageShouldBePresent(Table table)
+        {
+            var dictionary = Utilities.TableToDictionary(table);
+            int passCount = 0;
+            List<string> notDisplayedEles = new List<string>();
+            foreach (var row in dictionary)
+            {
+                if (ElementUtils.IsErrorMessageCorrect(_driver, row.Key, row.Value))
+                {
+                    passCount++;
+                } else
+                {
+                    notDisplayedEles.Add(row.Key);
+                }
+            }
+            Assert.Equal(dictionary.Count, passCount);
         }
     }
 }

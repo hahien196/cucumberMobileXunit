@@ -34,27 +34,27 @@ namespace SpecFlowAppiumTests.Helpers
             js.ExecuteScript("mobile: scroll", scrollObject);
         }
 
-        public static void ScrollToElement(AppiumDriver _driver, By by, double startHeightRatio, double endHeightRatio, double widthRatio)
+        public static void ScrollToElement(AppiumDriver _driver, By by, double topHeightRatio, double bottomHeightRatio, double widthRatio)
         {
             int retry = 0;
             while (_driver.FindElements(by).Count == 0 && retry < 4)
             {
-                ScrollDown(_driver);
+                ScrollDown(_driver, topHeightRatio, bottomHeightRatio, widthRatio);
                 retry++;
             }
             retry = 0;
             while (_driver.FindElements(by).Count == 0 && retry < 4)
             {
-                ScrollUp(_driver);
+                ScrollUp(_driver, topHeightRatio, bottomHeightRatio, widthRatio);
                 retry++;
             }
         }
 
-        public static void ScrollDown(AppiumDriver _driver)
+        public static void ScrollDown(AppiumDriver _driver, double topHeightRatio, double bottomHeightRatio, double widthRatio)
         {
             if (Globals.IsAndroid())
             {
-                TouchScroll(_driver, Globals.GetWindowHeight(), 0.2, 0.5);
+                TouchScroll(_driver, bottomHeightRatio, topHeightRatio, widthRatio);
             }
             else if (Globals.IsIOS())
             {
@@ -62,11 +62,11 @@ namespace SpecFlowAppiumTests.Helpers
             }
         }
 
-        public static void ScrollUp(AppiumDriver _driver)
+        public static void ScrollUp(AppiumDriver _driver, double topHeightRatio, double bottomHeightRatio, double widthRatio)
         {
             if (Globals.IsAndroid())
             {
-                TouchScroll(_driver, 0.2, Globals.GetWindowHeight(), 0.5);
+                TouchScroll(_driver, topHeightRatio, bottomHeightRatio, widthRatio);
             }
             else if (Globals.IsIOS())
             {
@@ -139,40 +139,23 @@ namespace SpecFlowAppiumTests.Helpers
             }
         }
 
-        public static string IsElementDisplayed(AppiumDriver _driver, string accessibilityID)
+        public static bool IsElementDisplayed(AppiumDriver _driver, string accessibilityID)
         {
             By locator = MobileBy.XPath($"//*[@{Globals.GetLocator()}='{accessibilityID}']");
+            ScrollToElement(_driver, locator, 0.2, Globals.GetWindowHeight(), 0.5);
             WaitForElementVisible(_driver, locator);
-            var count = _driver.FindElements(locator).Count; 
-            string message;
-            if (count == 0)
-            {
-                message = "Element: " + accessibilityID + " is not visible:  ";
-            }
-            else
-            {
-                message = Globals.SUCCESS_TEXT;
-            }
-           return message;
+            var count = _driver.FindElements(locator).Count;
+            return count > 0;
         }
 
-        public static string IsElementDisplayed(AppiumDriver _driver, By by)
+        public static bool IsElementDisplayed(AppiumDriver _driver, By by)
         {
             WaitForElementVisible(_driver, by);
             var count = _driver.FindElements(by).Count;
-            string message;
-            if (count == 0)
-            {
-                message = "Element: " + by.ToString() + " is not visible:  ";
-            }
-            else
-            {
-                message = Globals.SUCCESS_TEXT;
-            }
-            return message;
+            return count > 0;
         }
 
-        public static string IsErrorMessageCorrect(AppiumDriver _driver, string accessibilityID, string text)
+        public static bool IsErrorMessageCorrect(AppiumDriver _driver, string accessibilityID, string text)
         {
             AppiumElement ele = null;
             if (Globals.IsAndroid())
@@ -184,16 +167,12 @@ namespace SpecFlowAppiumTests.Helpers
                 ele = _driver.FindElement(By.XPath($"//*[@{Globals.IOSLocator()}='{accessibilityID}']/following-sibling::XCUIElementTypeStaticText[1]"));
             }
             string errText = ele.GetAttribute(Globals.TextLocator());
-            bool isSuccess = text == errText;
-            string message;
+            bool isSuccess = (text == errText);
             if (!isSuccess)
             {
-                message = "Actual text: '" + errText + "' does not match the expected text: " + text;
-            } else
-            {
-                message = Globals.SUCCESS_TEXT;
+                Console.WriteLine("=== FAILED: Actual text: '" + errText + "' does not match the expected text: '" + text + "'.");
             }
-            return message;
+            return isSuccess;
         }
 
     }

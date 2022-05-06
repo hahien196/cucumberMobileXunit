@@ -20,8 +20,8 @@ namespace SpecFlowAppiumTests.Pages
 
         public void ApproveConsent()
         {
-            ElementUtils.ScrollDown(_driver);
-            ElementUtils.ScrollDown(_driver);
+            ElementUtils.ScrollDown(_driver, 0.2, Globals.GetWindowHeight(), 0.5);
+            ElementUtils.ScrollDown(_driver, 0.2, Globals.GetWindowHeight(), 0.5);
             ElementUtils.DoClick(_driver, acceptInputSelector);
         }
 
@@ -31,7 +31,7 @@ namespace SpecFlowAppiumTests.Pages
         }
         public bool IsConsentDisplayed()
         {
-            return ElementUtils.IsElementDisplayed(_driver, consentTitleName).Contains(Globals.SUCCESS_TEXT);
+            return ElementUtils.IsElementDisplayed(_driver, consentTitleName);
         }
     }
 }
