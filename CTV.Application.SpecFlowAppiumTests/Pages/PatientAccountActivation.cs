@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium;
 using System;
 using SpecFlowAppiumTests.Helpers;
 using OpenQA.Selenium;
@@ -50,8 +50,11 @@ namespace SpecFlowAppiumTests.Pages
             {
                 _driver.HideKeyboard();
             }
-            ElementUtils.DoClick(_driver, dateOfBirthInputLocator);
-            SelectDate(dob);
+            if (!String.IsNullOrEmpty(dob))
+            {
+                ElementUtils.DoClick(_driver, dateOfBirthInputLocator);
+                SelectDate(dob);
+            }
             ElementUtils.ActionSendKeys(_driver, postcodeInputLocator, postCode);
             if (Globals.IsAndroid())
             {
