@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.MultiTouch;
 using OpenQA.Selenium.Interactions;
@@ -157,15 +157,17 @@ namespace SpecFlowAppiumTests.Helpers
 
         public static bool IsErrorMessageCorrect(AppiumDriver _driver, string accessibilityID, string text)
         {
-            AppiumElement ele = null;
+            By eleLocator = null;
             if (Globals.IsAndroid())
             {
-                ele = _driver.FindElement(By.XPath($"//android.view.View[@{Globals.AndroidLocator()}='{accessibilityID}']/../following-sibling::android.view.View[1]"));
+                eleLocator = By.XPath($"//android.view.View[@{Globals.AndroidLocator()}='{accessibilityID}']/../following-sibling::android.view.View[1]");
             }
             else if (Globals.IsIOS())
             {
-                ele = _driver.FindElement(By.XPath($"//*[@{Globals.IOSLocator()}='{accessibilityID}']/following-sibling::XCUIElementTypeStaticText[1]"));
+                eleLocator = By.XPath($"//*[@{Globals.IOSLocator()}='{accessibilityID}']/following-sibling::XCUIElementTypeStaticText[1]");
             }
+            WaitForElementExists(_driver, eleLocator);
+            var ele = _driver.FindElement(eleLocator);
             string errText = ele.GetAttribute(Globals.TextLocator());
             bool isSuccess = (text == errText);
             if (!isSuccess)
