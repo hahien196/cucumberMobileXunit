@@ -31,7 +31,9 @@ namespace SpecFlowAppiumTests.Hooks
             Driver appiumDriver = new Driver();
             if ((Environment.GetEnvironmentVariable("PLATFORM", EnvironmentVariableTarget.Process)) == "iOS")
             {
-                _appiumClient = appiumDriver.InitIOSDriver();
+                string device = Environment.GetEnvironmentVariable("Device_Type");
+                Thread.Sleep(1000);
+                _appiumClient = appiumDriver.InitIOSDriver(device);
             }
             else if ((Environment.GetEnvironmentVariable("PLATFORM", EnvironmentVariableTarget.Process)) == "Android")
             {
