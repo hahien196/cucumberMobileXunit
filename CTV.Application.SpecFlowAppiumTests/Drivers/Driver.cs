@@ -16,8 +16,8 @@ namespace SpecFlowAppiumTests.Drivers
 
             switch (browser)
             {
-                case "AND_MOBILE": return AndroidMobileDriver();
-                case "AND_TABLET": return AndroidTabletDriver();
+                case "ANDROID_MOBILE": return AndroidMobileDriver();
+                case "ANDROID_TABLET": return AndroidTabletDriver();
                 case string unknown: throw new NotSupportedException($"{unknown} is not a supported device");
                 default: throw new NotSupportedException("unsupported device: <null>");
             }
@@ -39,11 +39,14 @@ namespace SpecFlowAppiumTests.Drivers
 
         public AndroidDriver AndroidMobileDriver()
         {
-            var apk = @"C:\TestAPK\CTV\app-debug.apk";
-            var driverOptions = new AppiumOptions();
-            driverOptions.PlatformName = "Android";
-            driverOptions.AddAdditionalAppiumOption("appium:avd", "AndroidTest001");
-            driverOptions.AutomationName = AutomationName.AndroidUIAutomator2;
+            const string apk = @"C:\TestAPK\CTV\app-debug.apk";
+            var driverOptions = new AppiumOptions
+            {
+                PlatformName = "Android",
+                AutomationName = AutomationName.AndroidUIAutomator2,
+                App = apk
+        };
+            driverOptions.AddAdditionalAppiumOption("appium:avd", "AndroidTest001"); driverOptions.AutomationName = AutomationName.AndroidUIAutomator2;
             driverOptions.App = apk;
             driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
             driverOptions.AddAdditionalAppiumOption("appium:launchTimeout", "120000");
@@ -54,12 +57,15 @@ namespace SpecFlowAppiumTests.Drivers
 
         public AndroidDriver AndroidTabletDriver()
         {
-            var apk = @"C:\TestAPK\CTV\app-debug.apk";
-            var driverOptions = new AppiumOptions();
-            driverOptions.PlatformName = "Android";
+            const string apk = @"C:\TestAPK\CTV\app-debug.apk";
+            var driverOptions = new AppiumOptions
+            {
+                PlatformName = "Android",
+                AutomationName = AutomationName.AndroidUIAutomator2,
+                App = apk
+            };
+
             driverOptions.AddAdditionalAppiumOption("appium:avd", "AndroidTestTablet001");
-            driverOptions.AutomationName = AutomationName.AndroidUIAutomator2;
-            driverOptions.App = apk;
             driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
             driverOptions.AddAdditionalAppiumOption("appium:launchTimeout", "120000");
 
@@ -71,15 +77,17 @@ namespace SpecFlowAppiumTests.Drivers
             //local mac 
             //var ipa = @"/Users/dev/Documents/CliniTouchVie.app";
             //remote mac mini
-            var ipa = @"/Users/spiritdigital/Documents/CliniTouchVie.app";
-            var driverOptions = new AppiumOptions();
-            driverOptions.PlatformName = "iOS";
-            driverOptions.DeviceName =  "iPhone 13 Pro";
-            driverOptions.AutomationName = "XCUITest";
-            //remote mac mini only supports up to version 15.0 for now
-            driverOptions.PlatformVersion = "15.0";
-            //driverOptions.PlatformVersion = "15.2";
-            driverOptions.App =  ipa;
+            const string ipa = @"/Users/spiritdigital/Documents/CliniTouchVie.app";
+            var driverOptions = new AppiumOptions
+            {
+                PlatformName = "iOS",
+                DeviceName = "iPhone 13 Pro",
+                AutomationName = "XCUITest",
+                //remote mac mini only supports up to version 15.0 for now
+                PlatformVersion = "15.0",
+                //driverOptions.PlatformVersion = "15.2";
+                App = ipa
+            };
             driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
             driverOptions.AddAdditionalAppiumOption("appium:wdaLaunchTimeout", "120000");
             driverOptions.AddAdditionalAppiumOption("appium:useNewWDA", "false");
@@ -96,15 +104,17 @@ namespace SpecFlowAppiumTests.Drivers
             //local mac 
             //var ipa = @"/Users/dev/Documents/CliniTouchVie.app";
             //remote mac mini
-            var ipa = @"/Users/spiritdigital/Documents/CliniTouchVie.app";
-            var driverOptions = new AppiumOptions();
-            driverOptions.PlatformName = "iOS";
-            driverOptions.DeviceName = "iPad 9th Gen";
-            driverOptions.AutomationName = "XCUITest";
-            //remote mac mini only supports up to version 15.0 for now
-            driverOptions.PlatformVersion = "15.0";
-            //driverOptions.PlatformVersion = "15.2";
-            driverOptions.App = ipa;
+            const string ipa = @"/Users/spiritdigital/Documents/CliniTouchVie.app";
+            var driverOptions = new AppiumOptions
+            {
+                PlatformName = "iOS",
+                DeviceName = "iPad 9th Gen",
+                AutomationName = "XCUITest",
+                //remote mac mini only supports up to version 15.0 for now
+                PlatformVersion = "15.0",
+                //driverOptions.PlatformVersion = "15.2";
+                App = ipa
+            };
             driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
             driverOptions.AddAdditionalAppiumOption("appium:wdaLaunchTimeout", 120000);
             driverOptions.AddAdditionalAppiumOption("appium:useNewWDA", false);

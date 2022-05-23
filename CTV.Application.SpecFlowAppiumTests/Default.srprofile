@@ -32,16 +32,16 @@
 	</Report>
 
 	<Targets>
-		<Target name="And_Mobile">
+		<Target name="Android_Mobile">
 			<Filter>Android_Mobile</Filter>
 			<DeploymentTransformationSteps>
-				<EnvironmentVariable variable="Device_Type" value="And_Mobile" />
+				<EnvironmentVariable variable="Device_Type" value="Android_Mobile" />
 			</DeploymentTransformationSteps>
 		</Target>
-		<Target name="And_Tablet">
+		<Target name="Android_Tablet">
 			<Filter>Android_Tablet</Filter>
 			<DeploymentTransformationSteps>
-				<EnvironmentVariable variable="Device_Type" value="And_Tablet" />
+				<EnvironmentVariable variable="Device_Type" value="Android_Tablet" />
 			</DeploymentTransformationSteps>
 		</Target>
 		<Target name="iOS_Mobile">
