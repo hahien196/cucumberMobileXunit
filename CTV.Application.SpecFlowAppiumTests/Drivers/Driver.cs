@@ -45,7 +45,8 @@ namespace SpecFlowAppiumTests.Drivers
                 PlatformName = "Android",
                 AutomationName = AutomationName.AndroidUIAutomator2,
                 App = apk
-        };
+            };
+
             driverOptions.AddAdditionalAppiumOption("appium:avd", "AndroidTest001"); driverOptions.AutomationName = AutomationName.AndroidUIAutomator2;
             driverOptions.App = apk;
             driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
@@ -88,6 +89,7 @@ namespace SpecFlowAppiumTests.Drivers
                 //driverOptions.PlatformVersion = "15.2";
                 App = ipa
             };
+
             driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
             driverOptions.AddAdditionalAppiumOption("appium:wdaLaunchTimeout", "120000");
             driverOptions.AddAdditionalAppiumOption("appium:useNewWDA", "false");
@@ -115,6 +117,7 @@ namespace SpecFlowAppiumTests.Drivers
                 //driverOptions.PlatformVersion = "15.2";
                 App = ipa
             };
+
             driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
             driverOptions.AddAdditionalAppiumOption("appium:wdaLaunchTimeout", 120000);
             driverOptions.AddAdditionalAppiumOption("appium:useNewWDA", false);
