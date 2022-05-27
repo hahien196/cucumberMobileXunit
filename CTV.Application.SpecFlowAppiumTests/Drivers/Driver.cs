@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.Enums;
 using OpenQA.Selenium.Appium.iOS;
@@ -94,6 +94,7 @@ namespace SpecFlowAppiumTests.Drivers
             driverOptions.AddAdditionalAppiumOption("appium:wdaLaunchTimeout", "120000");
             driverOptions.AddAdditionalAppiumOption("appium:useNewWDA", "false");
             driverOptions.AddAdditionalAppiumOption("appium:language", "en");
+            driverOptions.AddAdditionalAppiumOption("appium:orientation", "PORTRAIT");
 
             //remote mac mini
             return new IOSDriver(new Uri("http://185.200.102.183:4723/"), driverOptions);
