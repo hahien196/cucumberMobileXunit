@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace SpecFlowAppiumTests.Helpers
 {
     public static class Globals
     {
-        public const int EXPLICIT_WAIT_TIMEOUT = 5;
+        public const int EXPLICIT_WAIT_TIMEOUT = 2;
 
         // patien information
         public const string DEFAULT_PATIENT_USERNAME = "user";
