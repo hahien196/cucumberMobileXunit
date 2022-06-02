@@ -52,14 +52,17 @@ namespace SpecFlowAppiumTests.Helpers
 
         public static void ScrollDown(AppiumDriver _driver, double topHeightRatio, double bottomHeightRatio, double widthRatio)
         {
-            //if (Globals.IsAndroid())
-            //{
+            Console.WriteLine("===============isAndroid==" + Globals.IsAndroid());
+            Console.WriteLine("===============IsIOS==" + Globals.IsIOS());
+            if (Globals.IsAndroid())
+            {
                 TouchScroll(_driver, bottomHeightRatio, topHeightRatio, widthRatio);
-            //}
-            ///else if (Globals.IsIOS())
-            //{
-            //    IOSScroll(_driver, "down");
-            //}
+            }
+            else if (Globals.IsIOS())
+            {
+                IOSScroll(_driver, "down");
+                Console.WriteLine("===============IOSScroll==");
+            }
         }
 
         public static void ScrollUp(AppiumDriver _driver, double topHeightRatio, double bottomHeightRatio, double widthRatio)
