@@ -52,8 +52,6 @@ namespace SpecFlowAppiumTests.Helpers
 
         public static void ScrollDown(AppiumDriver _driver, double topHeightRatio, double bottomHeightRatio, double widthRatio)
         {
-            Console.WriteLine("===============isAndroid==" + Globals.IsAndroid());
-            Console.WriteLine("===============IsIOS==" + Globals.IsIOS());
             if (Globals.IsAndroid())
             {
                 TouchScroll(_driver, bottomHeightRatio, topHeightRatio, widthRatio);
@@ -61,7 +59,6 @@ namespace SpecFlowAppiumTests.Helpers
             else if (Globals.IsIOS())
             {
                 IOSScroll(_driver, "down");
-                Console.WriteLine("===============IOSScroll==");
             }
         }
 
