@@ -1,4 +1,4 @@
-﻿using SpecFlowAppiumTests.Drivers;
+using SpecFlowAppiumTests.Drivers;
 using OpenQA.Selenium.Appium;
 using System;
 using System.Threading;
@@ -60,7 +60,8 @@ namespace SpecFlowAppiumTests.Hooks
             {
                 Utilities.TakeScreenShot(driver, _scenarioContext.ScenarioInfo.Title);
             }
-            driver.ResetApp();
+            //driver.ResetApp();
+            driver.CloseApp();
         }
 
         [AfterFeature]
