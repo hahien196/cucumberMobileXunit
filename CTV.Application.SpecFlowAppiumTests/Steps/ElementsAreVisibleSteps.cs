@@ -45,10 +45,17 @@ namespace SpecFlowAppiumTests.Steps
             ElementUtils.WaitForElementVisible(_driver, titleEle);
         }
 
-        [When(@"the user clicks on the ""(.*)""")]
-        public void WhenTheUserClicksOnTheElement(string elementName)
+        [When(@"the user clicks on the element by ID ""(.*)""")]
+        public void WhenTheUserClicksOnTheElementByID(string id)
         {
-            By element = MobileBy.AccessibilityId(elementName);
+            By element = MobileBy.AccessibilityId(id);
+            ElementUtils.DoClick(_driver, element);
+        }
+
+        [When(@"the user clicks on the element by text ""(.*)""")]
+        public void WhenTheUserClicksOnTheElementByText(string text)
+        {
+            By element = MobileBy.XPath($"//*[contains(@{Globals.TextLocator()}, '{text}')]");
             ElementUtils.DoClick(_driver, element);
         }
 
