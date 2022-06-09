@@ -129,7 +129,7 @@ namespace SpecFlowAppiumTests.Helpers
 
         public static void ClickElementByText(AppiumDriver _driver, string text)
         {
-            By by = MobileBy.XPath("//*[@" + Globals.TextLocator() + "=" + text + "]/..");
+            By by = MobileBy.XPath("//*[contains(@" + Globals.TextLocator() + "," + text + ")]/..");
             ElementUtils.ScrollToElement(_driver, by, 0.2, Globals.GetWindowHeight(), 0.5);
             WaitForElementClickable(_driver, by);
             _driver.FindElement(by).Click();
