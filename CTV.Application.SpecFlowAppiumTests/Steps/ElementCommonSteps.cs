@@ -6,18 +6,19 @@ using SpecFlowAppiumTests.Helpers;
 using SpecFlowAppiumTests.Pages;
 using OpenQA.Selenium;
 using System.Collections.Generic;
+using System;
 
 namespace SpecFlowAppiumTests.Steps
 {
     [Binding]
-    public class ElementsAreVisibleSteps
+    public class ElementCommonSteps
     {
         private readonly AppiumDriver _driver;
         PageObjectManager pom;
         NavigationManager nav;
         private string _view;
 
-        public ElementsAreVisibleSteps(FeatureContext featureContext)
+        public ElementCommonSteps(FeatureContext featureContext)
         {
             _driver = ((AppiumDriver)featureContext["DRIVER"]);
         }
@@ -46,10 +47,19 @@ namespace SpecFlowAppiumTests.Steps
         }
 
         [When(@"the user clicks on the ""(.*)""")]
-        public void WhenTheUserClicksOnTheElement(string elementName)
+        public void WhenTheUserClicksOnTheElement(string input)
         {
-            By element = MobileBy.AccessibilityId(elementName);
-            ElementUtils.DoClick(_driver, element);
+            try
+            {
+                By element = MobileBy.AccessibilityId(input);
+                ElementUtils.DoClick(_driver, element);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("====> Try to access element by Text instead of Accessibility ID");
+                By element = MobileBy.XPath($"//*[contains(@{Globals.TextLocator()}, '{input}')]");
+                ElementUtils.DoClick(_driver, element);
+            }
         }
 
         [Then(@"the user is on the ""(.*)"" screen")]

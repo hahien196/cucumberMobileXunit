@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Appium;
 using TechTalk.SpecFlow;
 using Xunit;
+using SpecFlowAppiumTests.Helpers;
 
 namespace SpecFlowAppiumTests.Steps
 {
@@ -28,6 +29,12 @@ namespace SpecFlowAppiumTests.Steps
         {
             VPRQuestionSet vprqs = new(_driver);
             Assert.True(vprqs.CompletedQuestions(p0, p1, p2));
+        }
+
+        [When(@"the user selects (.*) completed question set")]
+        public void WhenTheUserSelectCompletedQuestionSet(string p0)
+        {
+            ElementUtils.ClickElementByText(_driver, p0);
         }
 
         [Then(@"the final results page should show (.*), (.*), (.*)")]

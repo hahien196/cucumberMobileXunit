@@ -85,7 +85,7 @@ namespace SpecFlowAppiumTests.Helpers
             }
             catch (Exception)
             {
-                Console.WriteLine("=== ERROR: Element does not exist: " + by.ToString());
+                Console.WriteLine("=== ERROR: Element does not exist within timeout: " + by.ToString());
             }
             return ele;
         }
@@ -101,7 +101,7 @@ namespace SpecFlowAppiumTests.Helpers
             }
             catch (Exception)
             {
-                Console.WriteLine("=== ERROR: Element is not visible: " + by.ToString());
+                Console.WriteLine("=== ERROR: Element is not visible within timeout: " + by.ToString());
             }
             return ele;
         }
@@ -116,13 +116,21 @@ namespace SpecFlowAppiumTests.Helpers
                 wait.Until(ExpectedConditions.ElementToBeClickable(by));
             }
             catch (Exception) {
-                Console.WriteLine("=== ERROR: Element is not clickable: " + by.ToString());
+                Console.WriteLine("=== ERROR: Element is not clickable within timeout: " + by.ToString());
             }
             return ele;
         }
 
         public static void DoClick(AppiumDriver _driver, By by)
         {
+            WaitForElementClickable(_driver, by);
+            _driver.FindElement(by).Click();
+        }
+
+        public static void ClickElementByText(AppiumDriver _driver, string text)
+        {
+            By by = MobileBy.XPath("//*[contains(@" + Globals.TextLocator() + "," + text + ")]/..");
+            ElementUtils.ScrollToElement(_driver, by, 0.2, Globals.GetWindowHeight(), 0.5);
             WaitForElementClickable(_driver, by);
             _driver.FindElement(by).Click();
         }
