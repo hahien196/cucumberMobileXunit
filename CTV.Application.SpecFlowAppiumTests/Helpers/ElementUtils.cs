@@ -150,7 +150,7 @@ namespace SpecFlowAppiumTests.Helpers
         public static bool IsElementDisplayed(AppiumDriver _driver, string accessibilityID)
         {
             By locator = MobileBy.XPath($"//*[@{Globals.GetLocator()}='{accessibilityID}']");
-            ScrollToElement(_driver, locator, 0.2, Globals.GetWindowHeight(), 0.5);
+            ScrollToElement(_driver, locator, 0.35, Globals.GetWindowHeight(), 0.5);
             WaitForElementVisible(_driver, locator);
             var count = _driver.FindElements(locator).Count;
             return count > 0;
