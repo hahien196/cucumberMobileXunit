@@ -7,7 +7,8 @@ namespace SpecFlowAppiumTests.Helpers
     {
         private AppiumDriver _pomdriver;
         private ConsentNav _consent;
-        private HomeNav _home;
+        private PatientHomeNav _patientHome;
+        private CarerHomeNav _carerHome;
         private CarerLoginNav _carerLoginNav;
         private PatientAccountActivationNav _patientActivationNav;
         private PINResetNav _PINResetNav;
@@ -29,9 +30,13 @@ namespace SpecFlowAppiumTests.Helpers
                     {
                         return _consent ??= new ConsentNav(_pomdriver);
                     }
-                case "Home":
+                case "Patient Home":
                     {
-                        return _home ??= new HomeNav(_pomdriver);
+                        return _patientHome ??= new PatientHomeNav(_pomdriver);
+                    }
+                case "Carer Home":
+                    {
+                        return _carerHome ??= new CarerHomeNav(_pomdriver);
                     }
                 case "Carer Login":
                     {

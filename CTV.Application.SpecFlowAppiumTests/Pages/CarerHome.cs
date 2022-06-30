@@ -5,10 +5,10 @@ using TechTalk.SpecFlow;
 
 namespace SpecFlowAppiumTests.Pages
 {
-    public class Home
+    public class CarerHome
     {
         private static AppiumDriver _driver;
-        public Home(AppiumDriver appiumDriver)
+        public CarerHome(AppiumDriver appiumDriver)
         {
             _driver = appiumDriver;
         }
@@ -19,29 +19,8 @@ namespace SpecFlowAppiumTests.Pages
         By homeNavigationItem = MobileBy.AccessibilityId("homeNavigationItem");
         By educationNavigationItem = MobileBy.AccessibilityId("educationNavigationItem");
         By contactNavigationItem = MobileBy.AccessibilityId("contactNavigationItem");
-
-        public void SelectVPRQuestionSet()
-        {
-            By VPRQuestionSetLocator = null;
-            if (Globals.IsAndroid())
-            {
-                VPRQuestionSetLocator = and_VPRQuestionSetLocator;
-            }
-            else if (Globals.IsIOS())
-            {
-                VPRQuestionSetLocator = ios_VPRQuestionSetLocator;
-            }
-            ElementUtils.DoClick(_driver, VPRQuestionSetLocator);
-        }
-        public void NavigateToAccount()
-        {
-            ElementUtils.DoClick(_driver, accountNavigationItem);
-        }
-
-        public void NavigateToEducation()
-        {
-            ElementUtils.DoClick(_driver, educationNavigationItem);
-        }
+        
+        
 
         public void NavigateToContact()
         {

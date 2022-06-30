@@ -62,7 +62,7 @@ namespace SpecFlowAppiumTests.Steps
             }
         }
 
-        [When(@"the user scroll to the element ""(.*)""")]
+        [When(@"the user scroll to the ""(.*)""")]
         public void WhenTheUserScrollToElement(string accessibilityID)
         {
             By locator = MobileBy.XPath($"//*[@{Globals.GetLocator()}='{accessibilityID}']");
