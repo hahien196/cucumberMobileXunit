@@ -14,9 +14,9 @@ namespace SpecFlowAppiumTests.Navigation
 
         public void NavigateTo()
         {
-            PatientLogin patientLogin = new PatientLogin(_navigationDriver);
+            PatientLogin patientLogin = new(_navigationDriver);
             patientLogin.NavigateToCarerLogin();
-            CarerLogin carerLogin = new CarerLogin(_navigationDriver);
+            CarerLogin carerLogin = new(_navigationDriver);
             carerLogin.InputData(Globals.DEFAULT_PATIENT_USERNAME, Globals.DEFAULT_PATIENT_PIN);
             carerLogin.ClickLogin();
         }

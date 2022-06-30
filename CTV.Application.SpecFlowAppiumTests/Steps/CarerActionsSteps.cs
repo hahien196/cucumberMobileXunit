@@ -34,12 +34,5 @@ namespace SpecFlowAppiumTests.Steps
             By element = MobileBy.AccessibilityId(acessibilityID);
             ElementUtils.DoClick(_driver, element);
         }
-
-        [Then(@"the final results page should show (.*), (.*), (.*)")]
-        public void ThenTheFinalResultsPageShouldShow(string p0, string p1, string p2)
-        {
-            VPRQuestionSet vprq2 = new(_driver);
-            Assert.True(vprq2.AnswersMatchExpected(p0, p1, p2));
-        }
     }
 }

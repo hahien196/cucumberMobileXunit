@@ -14,9 +14,9 @@ namespace SpecFlowAppiumTests.Navigation
 
         public void NavigateTo()
         {
-            PatientHomeNav homeNav = new PatientHomeNav(_navigationDriver);
+            PatientHomeNav homeNav = new(_navigationDriver);
             homeNav.NavigateTo();
-            PatientHome home = new PatientHome(_navigationDriver);
+            PatientHome home = new(_navigationDriver);
             home.NavigateToEducation();
         }
 
