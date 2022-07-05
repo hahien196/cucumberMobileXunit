@@ -23,8 +23,8 @@ namespace SpecFlowAppiumTests.Steps
             cons.RejectConsent();
         }
 
-        [When(@"the user accepts consent")]
-        public void WhenTheUserAcceptsConsent()
+        [Given(@"the user has accepted consent")]
+        public void GivenTheUserHasAcceptedConsent()
         {
             Consent cons = new(_driver);
             cons.ApproveConsent();

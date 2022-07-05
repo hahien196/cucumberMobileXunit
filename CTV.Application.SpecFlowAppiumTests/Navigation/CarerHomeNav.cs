@@ -1,13 +1,13 @@
 ﻿using OpenQA.Selenium.Appium;
-using SpecFlowAppiumTests.Helpers;
 using SpecFlowAppiumTests.Pages;
+using SpecFlowAppiumTests.Helpers;
 
 namespace SpecFlowAppiumTests.Navigation
 {
-    public class CarerLoginNav : INavigationManager
+    public class CarerHomeNav : INavigationManager
     {
         private AppiumDriver _navigationDriver;
-        public CarerLoginNav(AppiumDriver driver)
+        public CarerHomeNav(AppiumDriver driver)
         {
             _navigationDriver = driver;
         }
@@ -16,6 +16,9 @@ namespace SpecFlowAppiumTests.Navigation
         {
             PatientLogin patientLogin = new(_navigationDriver);
             patientLogin.NavigateToCarerLogin();
+            CarerLogin carerLogin = new(_navigationDriver);
+            carerLogin.InputData(Globals.DEFAULT_PATIENT_USERNAME, Globals.DEFAULT_PATIENT_PIN);
+            carerLogin.ClickLogin();
         }
     }
 }

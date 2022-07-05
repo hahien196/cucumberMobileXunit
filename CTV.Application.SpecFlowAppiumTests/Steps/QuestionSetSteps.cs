@@ -20,7 +20,7 @@ namespace SpecFlowAppiumTests.Steps
         [When(@"they select the ""(.*)"" Question Set")]
         public void WhenTheySelectTheQuestionSet(string p0)
         {
-            Home home = new(_driver);
+            PatientHome home = new(_driver);
             home.SelectVPRQuestionSet();
         }
 

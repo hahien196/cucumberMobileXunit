@@ -5,10 +5,10 @@ using TechTalk.SpecFlow;
 
 namespace SpecFlowAppiumTests.Pages
 {
-    public class Home
+    public class PatientHome
     {
         private static AppiumDriver _driver;
-        public Home(AppiumDriver appiumDriver)
+        public PatientHome(AppiumDriver appiumDriver)
         {
             _driver = appiumDriver;
         }

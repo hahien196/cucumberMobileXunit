@@ -1,13 +1,13 @@
 ﻿using OpenQA.Selenium.Appium;
-using SpecFlowAppiumTests.Pages;
 using SpecFlowAppiumTests.Helpers;
+using SpecFlowAppiumTests.Pages;
 
 namespace SpecFlowAppiumTests.Navigation
 {
-    public class EducationNav : INavigationManager
+    public class ContactNav : INavigationManager
     {
         private AppiumDriver _navigationDriver;
-        public EducationNav(AppiumDriver driver)
+        public ContactNav(AppiumDriver driver)
         {
             _navigationDriver = driver;
         }
@@ -16,9 +16,8 @@ namespace SpecFlowAppiumTests.Navigation
         {
             PatientHomeNav homeNav = new(_navigationDriver);
             homeNav.NavigateTo();
-            PatientHome home = new(_navigationDriver);
-            home.NavigateToEducation();
+            PatientHome home = new PatientHome(_navigationDriver);
+            home.NavigateToContact();
         }
-
     }
 }
