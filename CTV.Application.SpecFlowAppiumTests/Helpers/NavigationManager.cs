@@ -16,6 +16,7 @@ namespace SpecFlowAppiumTests.Helpers
         private AccountNav _accountNav;
         private SelectPatientNav _selectPatientNav;
         private EducationNav _educationNav;
+        private ContactNav _contactNav;
 
         public NavigationManager(AppiumDriver driver)
         {
@@ -65,6 +66,10 @@ namespace SpecFlowAppiumTests.Helpers
                 case "Education":
                     {
                         return _educationNav ??= new EducationNav(_pomdriver);
+                    }
+                case "Contact":
+                    {
+                        return _contactNav ??= new ContactNav(_pomdriver);
                     }
                 default:
                     {
