@@ -13,7 +13,7 @@ fetch-apk:
   script:
     - powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
     - cd $GIT_CLONE_PATH
-    - 'curl.exe --location --header "PRIVATE-TOKEN: glpat-g1yfRMQTDTShu1DPUyz2" -X GET https://gitlab.com/api/v4//projects/27135546/jobs/artifacts/master/download?job=assembleRelease -o artifacts.zip'
+    - 'curl.exe --location --header "PRIVATE-TOKEN: $PRIVATE_TOKEN" -X GET https://gitlab.com/api/v4//projects/27135546/jobs/artifacts/master/download?job=assembleRelease -o artifacts.zip'
     - Expand-Archive -Path artifacts.zip -DestinationPath $GIT_CLONE_PATH\testAPK\ -Force
     - mv "$GIT_CLONE_PATH\testAPK\CliniTouchVie\app\build\outputs\apk\release\app-release-unsigned.apk" "C:\TestAPK\CTV\" -Force
     - Rename-Item -Path "C:\TestAPK\CTV\app-release-unsigned.apk" -NewName "app-debug.apk"
