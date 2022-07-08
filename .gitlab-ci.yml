@@ -11,7 +11,10 @@ fetch-apk:
   tags: 
     - appium
   script:
-    - GET /projects/27135546/jobs/artifacts/master/download?job=assembleRelease
+    - powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
+    - cd $GIT_CLONE_PATH
+    - 'curl --location --output artifacts.zip --header "PRIVATE-TOKEN: glpat-g1yfRMQTDTShu1DPUyz2"  "https://gitlab.com/api/v4//projects/27135546/jobs/artifacts/master/download?job=assembleRelease"'
+    - Expand-Archive -Path artifacts.zip -DestinationPath $GIT_CLONE_PATH\testAPK\ -Force
 
 
 android-test:
