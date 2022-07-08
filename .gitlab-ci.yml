@@ -1,6 +1,6 @@
 variables:
     GIT_CLONE_PATH: "$CI_BUILDS_DIR\\$CI_PROJECT_NAME"
-    FF_ENABLE_JOB_CLEANUP: 1
+    #FF_ENABLE_JOB_CLEANUP: 1
 
 stages:
  - android-test
