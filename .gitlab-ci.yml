@@ -3,10 +3,18 @@ variables:
     #FF_ENABLE_JOB_CLEANUP: 1
 
 stages:
- - android-test
+ - deploy 
+ - #android-test
+
+fetch-apk:
+  stage: deploy
+  tags: 
+    - appium
+  script:
+    - GET /projects/27135546/jobs/artifacts/master/download?job=assembleRelease
 
 
-android-test:
+#android-test:
   stage: android-test
   tags:
     - appium
