@@ -13,7 +13,7 @@ fetch-apk:
   script:
     - powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
     - cd $GIT_CLONE_PATH
-    - 'curl --location --output artifacts.zip  "https://gitlab.com/api/v4//projects/27135546/jobs/artifacts/master/download?job=assembleRelease"'
+    - 'curl.exe -X GET "https://gitlab.com/api/v4//projects/27135546/jobs/artifacts/master/download?job=assembleRelease" -o artifacts.zip'
     - Expand-Archive -Path artifacts.zip -DestinationPath $GIT_CLONE_PATH\testAPK\ -Force
 
 
