@@ -34,17 +34,17 @@ android-test:
     - 'curl.exe -H "Content-Type: application/json" -H "Authorization: Bearer ${token}" -X GET https://xray.cloud.getxray.app/api/v2/export/cucumber?filter=10124 -o features.zip'
     - Expand-Archive -Path features.zip -DestinationPath $GIT_CLONE_PATH\CTV.Application.SpecFlowAppiumTests\Features -Force
     - >
+      $testresult = 0
       if ($lastexitcode -eq 0)
       {dotnet test CTV.Application.SpecFlowAppiumTests\SpecFlowAppiumTests.csproj --results-directory "$GIT_CLONE_PATH"}
       
       if ($lastexitcode -ne 0) 
        {
-         $testresult = $lastexitcode
+         $testresult = 1
          echo "Test Run tests failed or skipped"
        }
     - mv data.json "C:\Temp\Android\" -Force
     - echo "Uploading results to JIRA"
     - 'curl.exe -H "Content-Type: application/json" -H "Authorization: Bearer ${token}" --data-binary "@C:\Temp\Android\data.json" -X POST https://xray.cloud.getxray.app/api/v2/import/execution/cucumber'
     - echo "Android task complete"
-    - $lastexitcode = $testresult
-  allow_failure: true
+    - if ($testresult -ne 0) {Exit 1}
