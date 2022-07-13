@@ -9,8 +9,9 @@ stages:
 fetch-apk:
   stage: deploy
   tags: 
-    - appium
+    - ios
   script:
+    - pwsh
     - powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
     - cd $GIT_CLONE_PATH
     - 'curl.exe --location --header "PRIVATE-TOKEN: $PRIVATE_TOKEN" -X GET https://gitlab.com/api/v4//projects/27135546/jobs/artifacts/master/download?job=assembleRelease -o artifacts.zip'
@@ -23,8 +24,9 @@ fetch-apk:
 android-test:
   stage: android-test
   tags:
-    - appium
+    - ios
   script:
+    - pwsh
     - cd $GIT_CLONE_PATH
     - powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
     - $env:PLATFORM = "Android"
