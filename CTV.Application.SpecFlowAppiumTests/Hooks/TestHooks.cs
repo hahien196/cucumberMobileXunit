@@ -25,7 +25,7 @@ namespace SpecFlowAppiumTests.Hooks
         public static void Initialise()
         {
             // local use only
-            //Environment.SetEnvironmentVariable("PLATFORM", "iOS");
+            Environment.SetEnvironmentVariable("PLATFORM", "Android");
 
             AppiumServer appiumServer = new AppiumServer();
             Driver appiumDriver = new Driver();
