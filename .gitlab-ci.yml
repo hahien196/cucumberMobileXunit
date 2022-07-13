@@ -35,6 +35,7 @@ android-test:
     - Expand-Archive -Path features.zip -DestinationPath $GIT_CLONE_PATH\CTV.Application.SpecFlowAppiumTests\Features -Force
     - >
       $testresult = 0
+      
       if ($lastexitcode -eq 0)
       {dotnet test CTV.Application.SpecFlowAppiumTests\SpecFlowAppiumTests.csproj --results-directory "$GIT_CLONE_PATH"}
       
