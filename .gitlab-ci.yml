@@ -18,6 +18,7 @@ fetch-apk:
     - mv "$GIT_CLONE_PATH\testAPK\CliniTouchVie\app\build\outputs\apk\release\app-release-unsigned.apk" "C:\TestAPK\CTV\" -Force
     - if (Test-Path "C:\TestAPK\CTV\app-debug.apk") {Remove-Item -Force "C:\TestAPK\CTV\app-debug.apk"}
     - Rename-Item -Path "C:\TestAPK\CTV\app-release-unsigned.apk" -NewName "app-debug.apk" -Force
+    - Set-SCPItem -AcceptKey -ComputerName 185.200.102.183 -Credential $maccredentials -Path 'C:\TestAPK\CTV\app-debug.apk' -Destination '/Users/spiritdigital/Documents/CTVAPP/' -Verbose
 
 
 android-test:
