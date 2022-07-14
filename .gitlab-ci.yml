@@ -1,5 +1,5 @@
 variables:
-    GIT_CLONE_PATH: "$CI_BUILDS_DIR/$CI_PROJECT_NAME"
+    GIT_CLONE_PATH: "$CI_BUILDS_DIR\\$CI_PROJECT_NAME"
     #FF_ENABLE_JOB_CLEANUP: 1
 
 stages:
@@ -9,45 +9,43 @@ stages:
 fetch-apk:
   stage: deploy
   tags: 
-    - ios
+    - specflow
   script:
-    - pwsh
-    #- powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
+    - powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
     - cd $GIT_CLONE_PATH
-    - 'curl --location --header "PRIVATE-TOKEN: $PRIVATE_TOKEN" -X GET https://gitlab.com/api/v4//projects/27135546/jobs/artifacts/master/download?job=assembleRelease -o artifacts.zip'
-    - Expand-Archive -Path artifacts.zip -DestinationPath $GIT_CLONE_PATH/testAPK/ -Force
-    - mv "$GIT_CLONE_PATH/testAPK/CliniTouchVie/app/build/outputs/apk/release/app-release-unsigned.apk" "/Users/spiritdigital/Documents/CTVAPP/" -Force
-    - if (Test-Path "/Users/spiritdigital/Documents/CTVAPP/app-debug.apk") {Remove-Item -Force "/Users/spiritdigital/Documents/CTVAPP/app-debug.apk"}
-    - Rename-Item -Path "/Users/spiritdigital/Documents/CTVAPP/app-release-unsigned.apk" -NewName "app-debug.apk" -Force
+    - 'curl.exe --location --header "PRIVATE-TOKEN: $PRIVATE_TOKEN" -X GET https://gitlab.com/api/v4//projects/27135546/jobs/artifacts/master/download?job=assembleRelease -o artifacts.zip'
+    - Expand-Archive -Path artifacts.zip -DestinationPath $GIT_CLONE_PATH\testAPK\ -Force
+    - mv "$GIT_CLONE_PATH\testAPK\CliniTouchVie\app\build\outputs\apk\release\app-release-unsigned.apk" "C:\TestAPK\CTV\" -Force
+    - if (Test-Path "C:\TestAPK\CTV\app-debug.apk") {Remove-Item -Force "C:\TestAPK\CTV\app-debug.apk"}
+    - Rename-Item -Path "C:\TestAPK\CTV\app-release-unsigned.apk" -NewName "app-debug.apk" -Force
 
 
 android-test:
   stage: android-test
   tags:
-    - ios
+    - specflow
   script:
-    - pwsh
     - cd $GIT_CLONE_PATH
-    #- powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
+    - powershell -Command Set-Executionpolicy -ExecutionPolicy Unrestricted -Scope Process
     - $env:PLATFORM = "Android"
     - echo "Authenticate with Xray"
-    - '$token= curl -H "Content-Type: application/json" -X POST --data "{ \`"client_id\`": \`"ADE543CB4F3642259C5E5AA30FD472E7\`",\`"client_secret\`": \`"$XRAY_CLIENT_SECRET\`" }" https://xray.cloud.getxray.app/api/v2/authenticate'
+    - '$token= curl.exe -H "Content-Type: application/json" -X POST --data "{ \`"client_id\`": \`"ADE543CB4F3642259C5E5AA30FD472E7\`",\`"client_secret\`": \`"$XRAY_CLIENT_SECRET\`" }" https://xray.cloud.getxray.app/api/v2/authenticate'
     - echo "Fetching feature files from JIRA"
-    - 'curl -H "Content-Type: application/json" -H "Authorization: Bearer ${token}" -X GET https://xray.cloud.getxray.app/api/v2/export/cucumber?filter=10124 -o features.zip'
-    - Expand-Archive -Path features.zip -DestinationPath $GIT_CLONE_PATH/CTV.Application.SpecFlowAppiumTests/Features -Force
+    - 'curl.exe -H "Content-Type: application/json" -H "Authorization: Bearer ${token}" -X GET https://xray.cloud.getxray.app/api/v2/export/cucumber?filter=10124 -o features.zip'
+    - Expand-Archive -Path features.zip -DestinationPath $GIT_CLONE_PATH\CTV.Application.SpecFlowAppiumTests\Features -Force
     - >
       $testresult = 0
       
       if ($lastexitcode -eq 0)
-      {dotnet test CTV.Application.SpecFlowAppiumTests/SpecFlowAppiumTests.csproj --results-directory "$GIT_CLONE_PATH"}
+      {dotnet test CTV.Application.SpecFlowAppiumTests\SpecFlowAppiumTests.csproj --results-directory "$GIT_CLONE_PATH"}
       
       if ($lastexitcode -ne 0) 
        {
          $testresult = 1
          echo "Test Run tests failed or skipped"
        }
-    - mv data.json "/Users/spiritdigital/Documents/CTVAPP/TestResults/" -Force
+    - mv data.json "C:\Temp\Android\" -Force
     - echo "Uploading results to JIRA"
-    - 'curl.exe -H "Content-Type: application/json" -H "Authorization: Bearer ${token}" --data-binary "@/Users/spiritdigital/Documents/CTVAPP/TestResults/data.json" -X POST https://xray.cloud.getxray.app/api/v2/import/execution/cucumber'
+    - 'curl.exe -H "Content-Type: application/json" -H "Authorization: Bearer ${token}" --data-binary "@C:\Temp\Android\data.json" -X POST https://xray.cloud.getxray.app/api/v2/import/execution/cucumber'
     - echo "Android task complete"
     - if ($testresult -ne 0) {Exit 1}
