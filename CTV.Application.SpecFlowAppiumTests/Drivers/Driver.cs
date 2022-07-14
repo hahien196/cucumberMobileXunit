@@ -52,7 +52,7 @@ namespace SpecFlowAppiumTests.Drivers
             driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
             driverOptions.AddAdditionalAppiumOption("appium:launchTimeout", "120000");
 
-            return new AndroidDriver(new Uri("http://localhost:4723/"), driverOptions);
+            return new AndroidDriver(new Uri("http://185.200.102.183:4723/"), driverOptions);
         }
 
 
@@ -70,7 +70,7 @@ namespace SpecFlowAppiumTests.Drivers
             driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
             driverOptions.AddAdditionalAppiumOption("appium:launchTimeout", "120000");
 
-            return new AndroidDriver(new Uri("http://localhost:4723/"), driverOptions);
+            return new AndroidDriver(new Uri("http://185.200.102.183:4723/"), driverOptions);
         }
 
         public IOSDriver IosMobileDriver()
