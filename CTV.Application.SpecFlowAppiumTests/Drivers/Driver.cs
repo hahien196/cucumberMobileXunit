@@ -39,7 +39,7 @@ namespace SpecFlowAppiumTests.Drivers
 
         public AndroidDriver AndroidMobileDriver()
         {
-            const string apk = @"/Users/spiritdigital/Documents/CTVAPP/app-debug.apk";
+            const string apk = @"C:\TestAPK\CTV\app-debug.apk";
             var driverOptions = new AppiumOptions
             {
                 PlatformName = "Android",
@@ -52,13 +52,13 @@ namespace SpecFlowAppiumTests.Drivers
             driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
             driverOptions.AddAdditionalAppiumOption("appium:launchTimeout", "120000");
 
-            return new AndroidDriver(new Uri("http://185.200.102.183:4723/"), driverOptions);
+            return new AndroidDriver(new Uri("http://localhost:4723/"), driverOptions);
         }
 
 
         public AndroidDriver AndroidTabletDriver()
         {
-            const string apk = @"/Users/spiritdigital/Documents/CTVAPP/app-debug.apk";
+            const string apk = @"C:\TestAPK\CTV\app-debug.apk";
             var driverOptions = new AppiumOptions
             {
                 PlatformName = "Android",
@@ -70,7 +70,7 @@ namespace SpecFlowAppiumTests.Drivers
             driverOptions.AddAdditionalAppiumOption(MobileCapabilityType.NewCommandTimeout, 120000);
             driverOptions.AddAdditionalAppiumOption("appium:launchTimeout", "120000");
 
-            return new AndroidDriver(new Uri("http://185.200.102.183:4723/"), driverOptions);
+            return new AndroidDriver(new Uri("http://localhost:4723/"), driverOptions);
         }
 
         public IOSDriver IosMobileDriver()
