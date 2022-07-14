@@ -4,6 +4,7 @@ using System;
 using System.Threading;
 using TechTalk.SpecFlow;
 using SpecFlowAppiumTests.Helpers;
+using TechTalk.SpecFlow.Infrastructure;
 
 namespace SpecFlowAppiumTests.Hooks
 {
@@ -14,11 +15,13 @@ namespace SpecFlowAppiumTests.Hooks
         private static ScenarioContext _scenarioContext;
 
         private static AppiumDriver _appiumClient;
-        
-        public TestHooks(FeatureContext featureContext, ScenarioContext scenarioContext)
+        private static ISpecFlowOutputHelper _specFlowOutputHelper;
+
+        public TestHooks(FeatureContext featureContext, ScenarioContext scenarioContext, ISpecFlowOutputHelper specFlowOutputHelper)
         {
             _featureContext = featureContext; 
             _scenarioContext = scenarioContext;
+            _specFlowOutputHelper = specFlowOutputHelper;
         }
 
         [BeforeFeature]
@@ -52,16 +55,20 @@ namespace SpecFlowAppiumTests.Hooks
             }          
         }
 
-        [AfterScenario]
+        [AfterStep]
+        public static void TakeScreenshotAfterStep()
+        {
+            if (_scenarioContext.TestError != null)
+            {
+                var imagePath = Utilities.TakeScreenShot(_appiumClient, _scenarioContext.ScenarioInfo.Title);
+                _specFlowOutputHelper.AddAttachment(imagePath);
+            }
+        }
+            [AfterScenario]
         public static void CleanScenario(FeatureContext context)
         {
             var driver = ((AppiumDriver)context["DRIVER"]);
-            if (_scenarioContext.TestError != null)
-            {
-                Utilities.TakeScreenShot(driver, _scenarioContext.ScenarioInfo.Title);
-            }
-            //driver.ResetApp();
-            driver.CloseApp();
+            driver.ResetApp();
         }
 
         [AfterFeature]

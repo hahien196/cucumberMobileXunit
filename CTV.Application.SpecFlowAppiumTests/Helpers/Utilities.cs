@@ -19,7 +19,7 @@ namespace SpecFlowAppiumTests.Helpers
             return dictionary;
         }
 
-        public static void TakeScreenShot(AppiumDriver _driver, string testID)
+        public static string TakeScreenShot(AppiumDriver _driver, string testID)
         {
             Screenshot screenshot = _driver.GetScreenshot();
             string folder = "screenshot";
@@ -30,7 +30,9 @@ namespace SpecFlowAppiumTests.Helpers
             string subPath = folder + "\\" + DateTime.Now.ToString("MMMMdd");
             Directory.CreateDirectory(subPath);
             // subPath: //SpiritDigital.CliniTouchVie.Application.Testing/CTV.Application.SpecFlowAppiumTests/TestResults/screenshot/
-            screenshot.SaveAsFile(subPath + "\\" + testID, ScreenshotImageFormat.Png);
+            string filePath = Directory.GetCurrentDirectory() + "\\" + subPath + "\\" + testID.Replace(" ", "_");
+            screenshot.SaveAsFile(filePath, ScreenshotImageFormat.Png);
+            return filePath;
         }
 
         public static Tuple<string, string, string> SplitDate(string date, string splitString)
