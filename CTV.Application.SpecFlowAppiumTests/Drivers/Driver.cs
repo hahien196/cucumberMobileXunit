@@ -39,7 +39,7 @@ namespace SpecFlowAppiumTests.Drivers
 
         public AndroidDriver AndroidMobileDriver()
         {
-            const string apk = @"C:\TestAPK\CTV\app-debug.apk";
+            const string apk = @"/Users/spiritdigital/Documents/CTVAPP/app-debug.apk";
             var driverOptions = new AppiumOptions
             {
                 PlatformName = "Android",
@@ -58,7 +58,7 @@ namespace SpecFlowAppiumTests.Drivers
 
         public AndroidDriver AndroidTabletDriver()
         {
-            const string apk = @"C:\TestAPK\CTV\app-debug.apk";
+            const string apk = @"/Users/spiritdigital/Documents/CTVAPP/app-debug.apk";
             var driverOptions = new AppiumOptions
             {
                 PlatformName = "Android",
